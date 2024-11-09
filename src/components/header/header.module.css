@@ -1,0 +1,11 @@
+.active{
+    color: black;
+    font-weight: bold;
+}
+.desactive{
+    color: gray;
+}
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
