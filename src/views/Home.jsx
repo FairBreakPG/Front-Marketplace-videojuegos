@@ -1,14 +1,14 @@
 import Header from "../components/Header";
-import PizzasList from "../components/PizzasList";
-import Card from "../components/Card";
+import ProductosList from "../components/ProductosList";
+import CardProductos from "../components/CardProductos";
 
 const Home = () => {
   return (
     <>
       <Header />
-      <PizzasList>
-        <Card />
-      </PizzasList>
+      <ProductosList>
+        <CardProductos />
+      </ProductosList>
     </>
   );
 };

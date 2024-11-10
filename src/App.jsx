@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import Detalle from "./views/Detalle.jsx";
+import DetalleProducto from "./views/Detalleproducto.jsx";
 import Home from "./views/Home.jsx";
 import Carrito from "./views/Carrito.jsx";
 import Navbar from "./components/Navbar.jsx";  
@@ -8,8 +8,8 @@ const App = () => {
     <div>
       <Navbar /> {}
       <Routes>
-        <Route path="pizzas/">
-          <Route path=":id" element={<Detalle />} />
+        <Route path="productos/">
+          <Route path=":id" element={<DetalleProducto />} />
         </Route>
         <Route path="/carrito" element={<Carrito />} />
         <Route path="/" element={<Home />} />

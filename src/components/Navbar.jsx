@@ -1,12 +1,16 @@
 import { Link } from "react-router-dom";
 import { useContext } from "react";
-import { PizzasContext } from "../context/PizzaProvider";
+import { ProductosContext } from "../context/ProductoProvider";
 import { formatoNumero } from "../formatoNumero.js";
+import Navbarsuperior from "./Navbarsup.jsx";
 
 const Navbar = () => {
-  const { total } = useContext(PizzasContext);
+  const { total } = useContext(ProductosContext);
 
   return (
+
+    <>
+    < Navbarsuperior />
     <div className="navbar text-white py-3">
       <div className="container d-block">
         <div className="d-flex justify-content-between">
@@ -22,6 +26,8 @@ const Navbar = () => {
         </div>
       </div>
     </div>
+    
+    </>
   );
 };
 
