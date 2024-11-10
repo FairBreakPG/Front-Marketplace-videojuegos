@@ -7,6 +7,7 @@ const Navbar = () => {
   const { total } = useContext(PizzasContext);
   const navegar = useNavigate(); 
   const loginClikc = () => navegar("/login");
+  const registroClick = () => navegar("/registrar-usuario");
 
   return (
     <div>
@@ -23,7 +24,7 @@ const Navbar = () => {
           </a>
         </div>
         <div className="me-3">
-          <button onClick={loginClikc} className="text-white me-3 btn btn-link">Registrarse</button>
+          <button onClick={registroClick} className="text-white me-3 btn btn-link">Registrarse</button>
           <button onClick={loginClikc} className="text-white btn btn-link">Iniciar sesión</button>
         </div>
       </div>
