@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import { PizzasContext } from "../context/PizzaProvider";
-import { formatoNumero } from "../formatoNumero.js";
+import { PizzasContext } from "../../context/PizzaProvider.jsx";
+import { formatoNumero } from "../../formatoNumero.js";
 
 const Carrito = () => {
   const { cart, addToCart, removeFromCart } = useContext(PizzasContext);

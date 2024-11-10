@@ -1,9 +1,9 @@
 import { Route, Routes } from "react-router-dom";
 import Detalle from "./views/Detalle.jsx";
 import Home from "./views/Home.jsx";
-import Carrito from "./views/Carrito.jsx";
-import Navbar from "./components/Navbar.jsx";  
-import CreateProductPage from "./views/CrearProductos.jsx";
+import Navbar from "./components/NavbarSuperior/Navbar.jsx";
+import Carrito from "./components/Carrito/Carrito.jsx";
+import CreateProductPage from "./components/CrearProductos/CrearProductos.jsx";
 const App = () => {
   return (
     <div>

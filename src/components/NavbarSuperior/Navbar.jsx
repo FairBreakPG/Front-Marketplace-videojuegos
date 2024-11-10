@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useContext } from "react";
-import { PizzasContext } from "../context/PizzaProvider";
-import { formatoNumero } from "../formatoNumero.js";
+import { formatoNumero } from "../../formatoNumero.js";
+import { PizzasContext } from "../../context/PizzaProvider.jsx";
 
 const Navbar = () => {
   const { total } = useContext(PizzasContext);
@@ -22,7 +22,7 @@ const Navbar = () => {
           </a>
         </div>
         <div className="me-3">
-          <Link to="/register" className="text-white me-3">Registrarse</Link>
+          <Link to="" className="text-white me-3">Registrarse</Link>
           <Link to="/login" className="text-white">Iniciar sesión</Link>
         </div>
       </div>
