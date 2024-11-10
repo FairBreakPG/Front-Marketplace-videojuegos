@@ -2,43 +2,36 @@ import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const CreateProductPage = () => {
-  // Estado para los campos del formulario y la imagen
   const [productName, setProductName] = useState('');
   const [price, setPrice] = useState('');
   const [description, setDescription] = useState('');
   const [image, setImage] = useState(null);
-  const [imagePreview, setImagePreview] = useState(null);  // Nuevo estado para previsualización
+  const [imagePreview, setImagePreview] = useState(null);  
 
-  // Función para manejar el cambio en el campo de nombre del producto
   const handleNameChange = (e) => {
     setProductName(e.target.value);
   };
 
-  // Función para manejar el cambio en el campo de precio
   const handlePriceChange = (e) => {
     setPrice(e.target.value);
   };
 
-  // Función para manejar el cambio en el campo de descripción
   const handleDescriptionChange = (e) => {
     setDescription(e.target.value);
   };
 
-  // Función para manejar el cambio en el archivo de imagen
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       setImage(file);
-      const objectUrl = URL.createObjectURL(file);  // Crear una URL temporal para la previsualización
-      setImagePreview(objectUrl);  // Establecer la URL de la imagen seleccionada en el estado
+      const objectUrl = URL.createObjectURL(file);  
+      setImagePreview(objectUrl); 
     }
   };
 
-  // Función para manejar el envío del formulario
   const handleSubmit = (e) => {
     e.preventDefault();
     
-    // Aquí puedes realizar la lógica para guardar el producto, como una llamada a una API
     const productData = {
       productName,
       price,
@@ -48,13 +41,11 @@ const CreateProductPage = () => {
 
     console.log('Producto a guardar:', productData);
 
-    // Resetear el formulario
     setProductName('');
     setPrice('');
     setDescription('');
     setImage(null);
-    setImagePreview(null);  // Resetear la previsualización de la imagen
-
+    setImagePreview(null); 
     alert('Producto creado con éxito');
   };
 
@@ -82,8 +73,6 @@ const CreateProductPage = () => {
             </div>
           )}
         </div>
-
-        {/* Formulario para crear el producto */}
         <div className="col-md-7 p-4 bg-light">
           <form onSubmit={handleSubmit}>
             <div className="form-group mb-4">
