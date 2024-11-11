@@ -6,14 +6,14 @@ import App from "./App.jsx";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 
-import PizzasProvider from "./context/PizzaProvider";
+import ProductoProvider from "./context/ProductoProvider";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
-      <PizzasProvider>
+      <ProductoProvider>
         <App />
-      </PizzasProvider>
+      </ProductoProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

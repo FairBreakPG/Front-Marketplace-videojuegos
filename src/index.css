@@ -50,3 +50,21 @@ h1 {
 h6 {
   font-size: 20px;
 }
+
+.top-block-header{
+  border-left: 2px solid;
+  color: #fff;
+}
+
+.BotonAgregar{
+  width: 270px;
+}
+
+.card img{
+  width: 294px;
+  height: 265px;
+}
+
+.card-title{
+  height: 70px;
+}
