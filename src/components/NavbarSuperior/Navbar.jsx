@@ -1,14 +1,19 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { ProductosContext } from "../../context/ProductoProvider";
 
 const Navbar = () => {
+
   const navegar = useNavigate(); 
-  const loginClikc = () => navegar("/login");
+  const { totalArticulosCarrito } = useContext(ProductosContext);
+
+  const loginClick = () => navegar("/login");
   const registroClick = () => navegar("/registrar-usuario");
 
   return (
     <div>
       <div className="d-flex justify-content-between align-items-center py-2 bg-dark text-white">
+        {/* Redes sociales */}
         <div className="d-flex gap-3 ms-3">
           <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-white">
             <i className="fab fa-facebook-f"></i>
@@ -20,12 +25,15 @@ const Navbar = () => {
             <i className="fab fa-whatsapp"></i>
           </a>
         </div>
+        
+      
         <div className="me-3">
           <button onClick={registroClick} className="text-white me-3 btn btn-link">Registrarse</button>
-          <button onClick={loginClikc} className="text-white btn btn-link">Iniciar sesión</button>
+          <button onClick={loginClick} className="text-white btn btn-link">Iniciar sesión</button>
         </div>
       </div>
 
+     
       <div className="navbar text-white py-3">
         <div className="container d-block">
           <div className="d-flex justify-content-between align-items-center">
@@ -38,12 +46,19 @@ const Navbar = () => {
               <button onClick={() => navegar("/consolas")} className="nav-link btn btn-link text-white">Consolas</button>
               <button onClick={() => navegar("/implementos")} className="nav-link btn btn-link text-white">Implementos</button>
             </div>
+
+        
             <div className="d-flex align-items-center">
               <button onClick={() => navegar("/search")} className="btn btn-light d-flex align-items-center me-3">
                 <span>&#128269;</span>
               </button>
-              <button onClick={() => navegar("/carrito")} className="btn btn-light d-flex align-items-center">
-                <span>&#128722;</span> 
+              <button onClick={() => navegar("/carrito")} className="btn btn-light d-flex align-items-center position-relative">
+                <span>&#128722;</span>
+                {totalArticulosCarrito > 0 && (
+                  <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    {totalArticulosCarrito}
+                  </span>
+                )}
               </button>
             </div>
           </div>

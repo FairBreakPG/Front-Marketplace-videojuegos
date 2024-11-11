@@ -12,8 +12,7 @@ const Card = () => {
       {productos.map((producto) => (
         <div key={producto.id} className="col">
           <div className="card">
-            <img className="imagen-car card-img-top" src={producto.img} alt=""  to={`producto/${producto.id}`}
-            onClick={() => navigate(`/productos/${producto.id}`)}/>
+            <img className="imagen-car card-img-top" src={producto.img} alt="" onClick={() => navigate(`/productos/${producto.id}`)} />
             <div className="card-body">
               <h4 className="card-title text-capitalize">Producto {producto.name}</h4>
               <hr />
@@ -22,7 +21,6 @@ const Card = () => {
               Precio: ${formatoNumero(producto.price)}
             </h2>
             <div className="d-flex justify-content-around mb-4">
-
               <button
                 className="btn btn-success BotonAgregar"
                 onClick={() => addToCart(producto)}

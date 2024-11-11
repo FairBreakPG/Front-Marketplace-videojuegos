@@ -1,44 +1,86 @@
 [
-    {
-      "desc": "Rodea the Sky Soldier es un juego de acción y aventuras de ritmo rápido con un énfasis en el vuelo y la exploración. La jugabilidad de este juego es ciertamente interesante. Presenta niveles en 3D que tienen un objetivo a medida que cada segmento de la historia ocurre. Estos objetivos evitan que el jugador se pierda.",
-      "id": "001",
-      "img": "https://http2.mlstatic.com/D_NQ_NP_620877-MLC43637952249_092020-O.webp",
-      "name": "Rodea The Sky Soldier 3DS",
-      "price": 24990
-    },
-    {
-      "desc": "En Pokémon Sol y Pokémon Luna para sistemas de la familia Nintendo 3DS, ¡hay un nuevo mundo, nuevos Pokémon y nuevas aventuras por descubrir! Pokémon Sol y Pokémon Luna tienen lugar en un archipiélago de islas tropicales: cuatro islas llenas de naturaleza y una isla artificial.",
-      "id": "002",
-      "img": "https://8-bits.cl/cdn/shop/files/ultramoon_84fe9fc5-37cc-40e6-91a4-51dc84d55193.jpg?v=1705591405",
-      "name": "Pokemon Moon 3DS",
-      "price": 32990
-    },
-    {
-      "desc": "Únete al Winx Club en su nueva aventura Winx Club: ¡Salvando Alfea! Para hacer la fiesta perfecta, las chicas deben correr, saltar y volar a través de sus mundos de origen para reunir todos los toques finales para el aniversario de la escuela. Pero su regreso no es nada acogedor",
-      "id": "003",
-      "img": "https://www.weplay.cl/pub/media/catalog/product/cache/3f1b140c3c9f36fbf6b01dffb521c246/8/1/8154030104530_2.jpeg",
-      "name": "Winx Club Saving Alfea 3DS",
-      "price": 17990
-    },
-    {
-      "desc": "Juega como el nuevo ghoul en Monster High a través de una aventura guiada por la historia que te llevará a través de los horrores de la escuela secundaria. Interactúa con más de 40 personajes de Monster High mientras desentrañas el misterio detrás del misterioso amuleto de Cleo de Nile y haz nuevos amigos en el camino.",
-      "id": "004",
-      "img": "https://media.gamestop.com/i/gamestop/10129624/Monster-High-New-Ghoul-in-School---Nintendo-Wii?$pdp$",
-      "name": "Monster High Ghoul School 3DS",
-      "price": 14990
-    },
-    {
-      "desc": "¡Putty tiene la misión de rescatar a sus amigos putty encarcelados y tú debes asegurarte de que lo consiga! En este juego de plataformas retro, pondrás a prueba tu habilidad e imaginación mientras te estiras, te transformas, te inflas y te abres paso a puñetazos hasta la victoria.",
-      "id": "005",
-      "img": "https://images.nintendolife.com/fb276f584251a/putty-squad-cover.cover_large.jpg",
-      "name": "Putty Squad 3DS",
-      "price": 17990
-    },
-    {
-      "desc": "Steel Diver, un juego de submarinos que combina estrategia y combate. Las imágenes en 3D dan a los jugadores la sensación de estar mirando un acuario en miniatura mientras controlan la velocidad, la profundidad y el cabeceo del submarino y disparan torpedos.",
-      "id": "006",
-      "img": "https://m.media-amazon.com/images/I/51dNfahGw+L._AC_UF1000,1000_QL80_.jpg",
-      "name": "STEELDIVER 3DS",
-      "price": 4990
-    }
-  ]
+  {
+    "desc": "Rodea the Sky Soldier es un juego de acción y aventuras de ritmo rápido con un énfasis en el vuelo y la exploración. La jugabilidad de este juego es ciertamente interesante. Presenta niveles en 3D que tienen un objetivo a medida que cada segmento de la historia ocurre. Estos objetivos evitan que el jugador se pierda.",
+    "id": "001",
+    "img": "https://http2.mlstatic.com/D_NQ_NP_620877-MLC43637952249_092020-O.webp",
+    "name": "Rodea The Sky Soldier 3DS",
+    "price": 24990
+  },
+  {
+    "desc": "En Pokémon Sol y Pokémon Luna para sistemas de la familia Nintendo 3DS, ¡hay un nuevo mundo, nuevos Pokémon y nuevas aventuras por descubrir! Pokémon Sol y Pokémon Luna tienen lugar en un archipiélago de islas tropicales: cuatro islas llenas de naturaleza y una isla artificial.",
+    "id": "002",
+    "img": "https://8-bits.cl/cdn/shop/files/ultramoon_84fe9fc5-37cc-40e6-91a4-51dc84d55193.jpg?v=1705591405",
+    "name": "Pokemon Moon 3DS",
+    "price": 32990
+  },
+  {
+    "desc": "Únete al Winx Club en su nueva aventura Winx Club: ¡Salvando Alfea! Para hacer la fiesta perfecta, las chicas deben correr, saltar y volar a través de sus mundos de origen para reunir todos los toques finales para el aniversario de la escuela. Pero su regreso no es nada acogedor.",
+    "id": "003",
+    "img": "https://www.weplay.cl/pub/media/catalog/product/cache/3f1b140c3c9f36fbf6b01dffb521c246/8/1/8154030104530_2.jpeg",
+    "name": "Winx Club Saving Alfea 3DS",
+    "price": 17990
+  },
+  {
+    "desc": "Juega como el nuevo ghoul en Monster High a través de una aventura guiada por la historia que te llevará a través de los horrores de la escuela secundaria. Interactúa con más de 40 personajes de Monster High mientras desentrañas el misterio detrás del misterioso amuleto de Cleo de Nile y haz nuevos amigos en el camino.",
+    "id": "004",
+    "img": "https://media.gamestop.com/i/gamestop/10129624/Monster-High-New-Ghoul-in-School---Nintendo-Wii?$pdp$",
+    "name": "Monster High Ghoul School 3DS",
+    "price": 14990
+  },
+  {
+    "desc": "¡Putty tiene la misión de rescatar a sus amigos putty encarcelados y tú debes asegurarte de que lo consiga! En este juego de plataformas retro, pondrás a prueba tu habilidad e imaginación mientras te estiras, te transformas, te inflas y te abres paso a puñetazos hasta la victoria.",
+    "id": "005",
+    "img": "https://images.nintendolife.com/fb276f584251a/putty-squad-cover.cover_large.jpg",
+    "name": "Putty Squad 3DS",
+    "price": 17990
+  },
+  {
+    "desc": "Steel Diver, un juego de submarinos que combina estrategia y combate. Las imágenes en 3D dan a los jugadores la sensación de estar mirando un acuario en miniatura mientras controlan la velocidad, la profundidad y el cabeceo del submarino y disparan torpedos.",
+    "id": "006",
+    "img": "https://m.media-amazon.com/images/I/51dNfahGw+L._AC_UF1000,1000_QL80_.jpg",
+    "name": "STEELDIVER 3DS",
+    "price": 4990
+  },
+  {
+    "desc": "La PlayStation 5 es la consola de nueva generación de Sony. Con gráficos en 4K, carga ultra rápida, y una experiencia de juego inmersiva con el mando DualSense, esta consola cambiará la forma en que juegas.",
+    "id": "007",
+    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/PlayStation_5_Console_Updated.jpg/800px-PlayStation_5_Console_Updated.jpg",
+    "name": "PlayStation 5",
+    "price": 499990
+  },
+  {
+    "desc": "El teclado mecánico Razer Huntsman Mini es compacto, rápido y preciso. Con interruptores ópticos Razer, este teclado está diseñado para ofrecer una experiencia de escritura rápida y fluida, ideal para jugadores profesionales y entusiastas.",
+    "id": "008",
+    "img": "https://assets.razerzone.com/eea4a1cf02a7f99aaf882c8f6da65867.jpg",
+    "name": "Razer Huntsman Mini",
+    "price": 79990
+  },
+  {
+    "desc": "El auricular inalámbrico Logitech G Pro X es ideal para jugadores que necesitan sonido de alta calidad y comodidad durante largas sesiones de juego. Con tecnología Blue VO!CE y sonido surround, este auricular ofrece una experiencia inmersiva.",
+    "id": "009",
+    "img": "https://www.logitechg.com/assets/64234/pro-x-headset.png",
+    "name": "Logitech G Pro X",
+    "price": 129990
+  },
+  {
+    "desc": "El mouse gamer Razer DeathAdder V2 es un mouse de alto rendimiento diseñado para ofrecer precisión y velocidad. Con un sensor óptico de 20,000 DPI, es perfecto para juegos de ritmo rápido.",
+    "id": "010",
+    "img": "https://www.razer.com/razermedia/large/07f0102adcd141d6a8e4a58a347364f7.jpg",
+    "name": "Razer DeathAdder V2",
+    "price": 69990
+  },
+  {
+    "desc": "La Xbox Series X es la consola de nueva generación de Microsoft, diseñada para ofrecer rendimiento en 4K y carga ultrarrápida. Con un potente procesador y gráficos de última generación, es la opción ideal para jugadores que buscan la máxima calidad.",
+    "id": "011",
+    "img": "https://upload.wikimedia.org/wikipedia/commons/7/7e/Xbox_Series_X_Console.png",
+    "name": "Xbox Series X",
+    "price": 499990
+  },
+  {
+    "desc": "La Nintendo Switch es una consola híbrida que se puede usar tanto en modo portátil como en modo sobremesa. Con una gran variedad de juegos y la posibilidad de jugar con amigos en cualquier lugar, es una de las consolas más versátiles del mercado.",
+    "id": "012",
+    "img": "https://upload.wikimedia.org/wikipedia/commons/e/e4/Nintendo_Switch_Console_Set.jpg",
+    "name": "Nintendo Switch",
+    "price": 329990
+  }
+]
