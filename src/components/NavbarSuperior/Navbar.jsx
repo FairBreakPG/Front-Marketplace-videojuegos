@@ -3,12 +3,16 @@ import { useNavigate } from "react-router-dom";
 import { ProductosContext } from "../../context/ProductoProvider";
 
 const Navbar = () => {
-
   const navegar = useNavigate(); 
-  const { totalArticulosCarrito } = useContext(ProductosContext);
+  const { totalArticulosCarrito, seleccionarCategoria } = useContext(ProductosContext);
 
   const loginClick = () => navegar("/login");
   const registroClick = () => navegar("/registrar-usuario");
+
+  const handleCategoriaClick = (categoria) => {
+    seleccionarCategoria(categoria);
+    navegar("/"); 
+  };
 
   return (
     <div>
@@ -26,14 +30,12 @@ const Navbar = () => {
           </a>
         </div>
         
-      
         <div className="me-3">
           <button onClick={registroClick} className="text-white me-3 btn btn-link">Registrarse</button>
           <button onClick={loginClick} className="text-white btn btn-link">Iniciar sesión</button>
         </div>
       </div>
 
-     
       <div className="navbar text-white py-3">
         <div className="container d-block">
           <div className="d-flex justify-content-between align-items-center">
@@ -41,13 +43,12 @@ const Navbar = () => {
               <h4 className="mb-0">&#127918; Marketplace de Videojuegos</h4>
             </button>
             <div className="d-flex gap-4">
-              <button onClick={() => navegar("/juegos")} className="nav-link btn btn-link text-white">Juegos</button>
-              <button onClick={() => navegar("/accesorios")} className="nav-link btn btn-link text-white">Accesorios</button>
-              <button onClick={() => navegar("/consolas")} className="nav-link btn btn-link text-white">Consolas</button>
-              <button onClick={() => navegar("/implementos")} className="nav-link btn btn-link text-white">Implementos</button>
+              <button onClick={() => handleCategoriaClick("juegos")} className="nav-link btn btn-link text-white">Juegos</button>
+              <button onClick={() => handleCategoriaClick("accesorios")} className="nav-link btn btn-link text-white">Accesorios</button>
+              <button onClick={() => handleCategoriaClick("consolas")} className="nav-link btn btn-link text-white">Consolas</button>
+              <button onClick={() => handleCategoriaClick("implementos")} className="nav-link btn btn-link text-white">Implementos</button>
             </div>
 
-        
             <div className="d-flex align-items-center">
               <button onClick={() => navegar("/search")} className="btn btn-light d-flex align-items-center me-3">
                 <span>&#128269;</span>

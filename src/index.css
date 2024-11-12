@@ -68,3 +68,56 @@ h6 {
 .card-title{
   height: 70px;
 }
+
+.imagen-car {
+  width: 100%;
+  height: auto;
+  object-fit: cover; 
+}
+
+.card {
+  margin: 15px; 
+  border-radius: 8px;  
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+}
+
+.card-body {
+  padding: 15px;  
+}
+
+.card-title {
+  font-size: 1.25rem; 
+  font-weight: bold;
+}
+
+.card-img-top {
+  max-height: 200px;  
+  object-fit: cover;  
+}
+
+.BotonAgregar {
+  padding: 10px 20px;  
+  font-size: 1rem;  
+  border-radius: 4px; 
+  transition: background-color 0.3s ease; 
+}
+
+.BotonAgregar:hover {
+  background-color: #28a745; 
+}
+
+.card {
+  margin: 10px; 
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+.col {
+  margin-bottom: 20px;  
+}
+
+.row {
+  margin-top: 20px; 
+  margin-bottom: 20px; 
+}
