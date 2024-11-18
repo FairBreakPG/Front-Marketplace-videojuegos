@@ -1,14 +1,18 @@
 import Header from "../components/Header";
-import ProductosList from "../components/ProductosList";
-import CardProductos from "../components/CardProductos";
+import MultiItemCarousel from "../components/CarruselProductos";
+import CarruselHero from "../components/CarruselHero";
+import BannerPromocionales from "../components/BannerPromo";
+import Footer from "../components/Footer";
+
 
 const Home = () => {
   return (
     <>
       <Header />
-      <ProductosList>
-        <CardProductos />
-      </ProductosList>
+      <CarruselHero />
+       <BannerPromocionales />
+      <MultiItemCarousel />
+      <Footer />
     </>
   );
 };

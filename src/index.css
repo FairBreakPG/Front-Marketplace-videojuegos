@@ -51,7 +51,7 @@ h6 {
 
 .top-block-header{
   border-left: 2px solid;
-  color: #fff;
+  color: #000000;
 }
 
 .BotonAgregar{
@@ -65,4 +65,91 @@ h6 {
 
 .card-title{
   height: 70px;
+}
+
+/* PRODUCTOS CARRUSEL */
+
+.custom-control {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
+}
+
+.carousel-control-prev {
+  left: -60px; /* Ajusta según el espacio que necesites */
+}
+
+.carousel-control-next {
+  right: -80px; /* Ajusta según el espacio que necesites */
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-image: none;  /* Elimina la imagen predeterminada */
+}
+
+.carousel-control-prev-icon::before,
+.carousel-control-next-icon::before {
+  content: ''; /* Reemplaza el icono predeterminado */
+  display: block;
+  width: 12px;
+  height: 12px;
+  border: solid black;
+  border-width: 0 2px 2px 0;
+  transform: rotate(135deg); /* Icono personalizado */
+}
+
+.carousel-control-next-icon::before {
+  transform: rotate(-45deg); /* Icono para avanzar */
+}
+
+
+
+/* BANNER PROMOCIONALES */
+
+.Container-promo{
+  width: 100%;
+  display: flex;
+  gap: 16px;
+}
+
+.container-promo1{
+  flex-grow: 1;
+  margin: 16px 0px 16px 0px;
+}
+
+.container-promo1 div{
+  margin: 16px 0px 16px 0px;
+}
+
+.container-promo2{
+  flex-grow: 1;
+  margin: 16px 0px 16px 0px;
+}
+
+.container-promo2 div{
+  margin: 16px 0px 16px 0px;
+}
+
+
+.card-promo img{
+  border-radius: 25px;
+}
+
+/* Responsividad para pantallas pequeñas */
+@media (max-width: 768px) {
+  .Container-promo {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .container-promo1, .container-promo2 {
+    margin: 8px 0;
+  }
+
+  .card-promo img {
+    width: 100%;
+    height: auto;
+  }
 }
