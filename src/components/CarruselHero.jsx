@@ -8,7 +8,7 @@ function CarruselHero() {
         <Carousel.Item interval={1500}>
           <img
             className="d-block w-100"
-src="../public/assets/Banner1.png"
+src="../assets/Banner1.png"
             alt="Image One"
           />
           
@@ -16,7 +16,7 @@ src="../public/assets/Banner1.png"
         <Carousel.Item interval={500}>
           <img
             className="d-block w-100"
-src="../public/assets/Banner2.png"
+src="../assets/Banner2.png"
             alt="Image Two"
           />
           
