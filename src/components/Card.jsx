@@ -1,6 +1,5 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { PizzasContext } from "../context/PizzaProvider";
 import { formatoNumero } from "../formatoNumero.js";
 
 const Card = () => {

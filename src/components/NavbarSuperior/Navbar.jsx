@@ -1,10 +1,9 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { formatoNumero } from "../../formatoNumero.js";
-import { PizzasContext } from "../../context/PizzaProvider.jsx";
 
 const Navbar = () => {
-  const { total } = useContext(PizzasContext);
+
   const navegar = useNavigate(); 
   const loginClikc = () => navegar("/login");
   const registroClick = () => navegar("/registrar-usuario");
@@ -47,7 +46,7 @@ const Navbar = () => {
               </button>
               <button onClick={() => navegar("/carrito")} className="btn btn-light d-flex align-items-center">
                 <span>&#128722;</span> 
-                <span className="ms-2">${formatoNumero(total)}</span>
+                <span className="ms-2"></span>
               </button>
             </div>
           </div>
