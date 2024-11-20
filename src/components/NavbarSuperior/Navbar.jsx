@@ -1,15 +1,9 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-<<<<<<< HEAD
 import { ProductosContext } from "../../context/ProductoProvider";
+import { formatoNumero } from "../../formatoNumero.js"; // Asegúrate de tener este archivo disponible
 
 const Navbar = () => {
-=======
-import { formatoNumero } from "../../formatoNumero.js";
-
-const Navbar = () => {
-
->>>>>>> luis
   const navegar = useNavigate(); 
   const { totalArticulosCarrito, seleccionarCategoria } = useContext(ProductosContext);
 
@@ -60,7 +54,6 @@ const Navbar = () => {
               <button onClick={() => navegar("/search")} className="btn btn-light d-flex align-items-center me-3">
                 <span>&#128269;</span>
               </button>
-<<<<<<< HEAD
               <button onClick={() => navegar("/carrito")} className="btn btn-light d-flex align-items-center position-relative">
                 <span>&#128722;</span>
                 {totalArticulosCarrito > 0 && (
@@ -68,11 +61,6 @@ const Navbar = () => {
                     {totalArticulosCarrito}
                   </span>
                 )}
-=======
-              <button onClick={() => navegar("/carrito")} className="btn btn-light d-flex align-items-center">
-                <span>&#128722;</span> 
-                <span className="ms-2"></span>
->>>>>>> luis
               </button>
             </div>
           </div>
