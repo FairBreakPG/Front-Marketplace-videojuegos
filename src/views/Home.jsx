@@ -11,8 +11,6 @@ const Home = () => {
 
   return (
     <>
-  
-
       <CarruselHero />
       <BannerPromocionales />
       <MultiItemCarousel />
