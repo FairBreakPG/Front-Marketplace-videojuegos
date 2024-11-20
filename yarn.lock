@@ -358,9 +358,15 @@
     dequal "^2.0.3"
 
 "@restart/ui@^1.6.9":
+<<<<<<< HEAD
   version "1.9.0"
   resolved "https://registry.npmjs.org/@restart/ui/-/ui-1.9.0.tgz"
   integrity sha512-M/k/ILBXbEIFn0wSGuJYqscih7gwMcnVwv44kgHZ344sjLoO2vFK8AtkMGXx2sEANDwxEPoDhjhfIDDvrvCBCA==
+=======
+  version "1.8.0"
+  resolved "https://registry.npmjs.org/@restart/ui/-/ui-1.8.0.tgz"
+  integrity sha512-xJEOXUOTmT4FngTmhdjKFRrVVF0hwCLNPdatLCHkyS4dkiSK12cEu1Y0fjxktjJrdst9jJIc5J6ihMJCoWEN/g==
+>>>>>>> luis
   dependencies:
     "@babel/runtime" "^7.21.0"
     "@popperjs/core" "^2.11.6"
