@@ -155,3 +155,21 @@ h6 {
     height: auto;
   }
 }
+
+.RegistroForm{
+  width: 900px;
+  margin: auto;
+  margin-top: 50px;
+}
+
+.boton-registro{
+  width: 300px;
+  margin: auto;
+  margin-top: 15px;
+}
+
+.perfil-usuario{
+  width: 900px;
+  margin: auto;
+  margin-top: 50px;
+}

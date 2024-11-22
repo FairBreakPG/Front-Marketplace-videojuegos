@@ -1,56 +1,44 @@
 import { useContext } from "react";
-import { PizzasContext } from "../../context/PizzaProvider.jsx";
-import { formatoNumero } from "../../formatoNumero.js";
+import { ProductosContext } from "../../context/ProductoProvider";
 
 const Carrito = () => {
-  const { cart, addToCart, removeFromCart } = useContext(PizzasContext);
+  const { cart, total, removeFromCart } = useContext(ProductosContext);
 
   return (
-    <div className="container mt-5">
-      <h2>Detalles de tu Carrito</h2>
-      <div className="carrito-lista mt-4">
-        {cart.map((game, index) => (
-          <div key={index} className="carrito-item py-3 border-bottom">
-            <div className="d-flex align-items-center">
-             
-              <img
-                src={game.img}
-                alt={game.name}
-                className="img-fluid rounded me-3"
-                style={{ width: "100px", height: "100px", objectFit: "cover" }}
-              />
-              <div className="flex-grow-1">
-                <h5 className="card-title mb-1">{game.name}</h5>
-                <p className="card-text text-muted mb-1">Plataforma: {game.platform}</p>
-                <p className="card-text mb-1">Precio: ${formatoNumero(game.price)}</p>
-              </div>
-             
-              <div className="d-flex align-items-center">
-                <button
-                  className="btn btn-outline-danger"
-                  onClick={() => removeFromCart(game)}
-                >
-                  <i className="fas fa-minus"></i>
-                </button>
-                <span className="mx-3">{game.quantity}</span>
-                <button
-                  className="btn btn-outline-primary"
-                  onClick={() => addToCart(game)}
-                >
-                  <i className="fas fa-plus"></i>
-                </button>
-              </div>
-            </div>
-            {index < cart.length - 1 && <hr />} 
+    <div className="container">
+      <h2>Mi Carrito</h2>
+
+      {cart && cart.length > 0 ? (
+        <div>
+          <ul>
+            {cart.map((producto) => (
+              <li key={producto.id} className="d-flex align-items-center mb-3">
+                <img
+                  src={producto.img}
+                  alt={producto.name}
+                  style={{ width: "50px", height: "50px", objectFit: "cover", marginRight: "15px" }}
+                />
+                <div className="d-flex justify-content-between w-100">
+                  <span>{producto.name}</span>
+                  <span>Precio: ${producto.price}</span>
+                  <span>Cantidad: {producto.quantity}</span>
+                  <button
+                    className="btn btn-danger"
+                    onClick={() => removeFromCart(producto)}
+                  >
+                    Eliminar
+                  </button>
+                </div>
+              </li>
+            ))}
+          </ul>
+          <div className="text-end">
+            <h3>Total: ${total}</h3>
           </div>
-        ))}
-      </div>
-      
-    
-      <div className="total-container mt-4 text-end">
-        <h3>Total: ${formatoNumero(cart.reduce((acc, game) => acc + game.price * game.quantity, 0))}</h3>
-        <button className="btn btn-success mt-2">Ir a pagar</button>
-      </div>
+        </div>
+      ) : (
+        <p>No hay productos en el carrito.</p>
+      )}
     </div>
   );
 };

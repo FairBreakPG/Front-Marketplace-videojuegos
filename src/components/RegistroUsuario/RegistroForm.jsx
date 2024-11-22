@@ -49,57 +49,51 @@ const RegistroForm = ({ onSubmit }) => {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div>
-                <label>Nombre</label>
-                <input
-                    type="text"
-                    value={nombre}
-                    onChange={(e) => setNombre(e.target.value)}
-                />
-            </div>
-            <div>
-                <label>Apellido</label>
-                <input
-                    type="text"
-                    value={apellido}
-                    onChange={(e) => setApellido(e.target.value)}
-                />
-            </div>
-            <div>
-                <label>Email</label>
-                <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
-            </div>
-            <div>
-                <label>Contraseña</label>
-                <input
-                    type="password"
-                    value={contrasena}
-                    onChange={(e) => setContrasena(e.target.value)}
-                />
-            </div>
-            <div>
-                <label>Dirección</label>
-                <input
-                    type="text"
-                    value={direccion}
-                    onChange={(e) => setDireccion(e.target.value)}
-                />
-            </div>
-            <div>
-                <label>Teléfono</label>
-                <input
-                    type="text"
-                    value={telefono}
-                    onChange={(e) => setTelefono(e.target.value)}
-                />
-            </div>
-            <button type="submit">Registrarse</button>
-        </form>
+        <>
+        
+
+        <form className="row g-3 RegistroForm" onSubmit={handleSubmit}>
+         <h2>Registro</h2>
+  <div className="col-md-6">
+  <label for="formGroupExampleInput" className="form-label">Nombre</label>
+  <input type="text" className="form-control" id="formGroupExampleInput" value={nombre}
+                    onChange={(e) => setNombre(e.target.value)}/>
+  </div>
+
+  <div className="col-md-6">
+  <label for="exampleInputEmail1" className="form-label">Correo electrónico</label>
+  <input type="email" className="form-control" id="exampleInputEmail1" value={email}
+                    onChange={(e) => setEmail(e.target.value)}/>
+  </div>
+
+  <div className="col-md-6">
+  <label for="formGroupExampleInput" className="form-label">Apellido</label>
+  <input type="text" className="form-control" id="formGroupExampleInput"  value={apellido}
+                    onChange={(e) => setApellido(e.target.value)}/>
+  </div>
+
+  <div className="col-md-6">
+  <label for="exampleInputPassword1" className="form-label">Contraseña</label>
+    <input type="password" className="form-control" id="exampleInputPassword1" value={contrasena}
+                    onChange={(e) => setContrasena(e.target.value)}/>
+  </div>
+
+  <div className="col-md-6">
+  <label for="formGroupExampleInput" className="form-label">Dirección</label>
+  <input type="text" className="form-control" id="formGroupExampleInput"  value={direccion}
+                    onChange={(e) => setDireccion(e.target.value)}/>
+  </div>
+
+  <div className="col-md-6">
+  <label for="exampleInputPassword1" className="form-label">Confirmar contraseña</label>
+    <input type="password" class="form-control" id="exampleInputPassword1"/>
+  </div>
+ 
+  <button type="submit" className="btn btn-primary boton-registro">Crear Cuenta</button>
+
+  
+</form>
+        </>
     )
 }
 

@@ -142,6 +142,9 @@
 }
 
 .loginForm {
+    margin: auto;
+    margin-top: 100px;
+    width: 350px;
     display: flex;
     flex-direction: column;
 }

@@ -1,19 +1,26 @@
-import Header from "../components/Header";
-import MultiItemCarousel from "../components/CarruselProductos";
+// import { useContext } from "react";
+// import CardProductos from "../components/CardProductos";
+// import { ProductosContext } from "../context/ProductoProvider";
 import CarruselHero from "../components/CarruselHero";
-import BannerPromocionales from "../components/BannerPromo";
+import BannerPromo from "../components/BannerPromo";
+import CarruselProductos from "../components/CarruselProductos";
 import Footer from "../components/Footer";
-
-
 const Home = () => {
+  // const { productosFiltrados } = useContext(ProductosContext);
+
   return (
     <>
-      <Header />
-      <CarruselHero />
-       <BannerPromocionales />
-      <MultiItemCarousel />
-      <Footer />
+    < CarruselHero />
+     < BannerPromo />
+    {/* <div className="row">
+      {productosFiltrados.map((producto) => (
+        <CardProductos key={producto.id} producto={producto} />
+      ))}
+    </div> */}
+    <CarruselProductos />
+    <Footer />
     </>
+
   );
 };
 

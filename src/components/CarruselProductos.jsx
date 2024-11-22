@@ -6,7 +6,7 @@ const MultiItemCarousel = () => {
   const itemsPerSlide = 3;
 
   useEffect(() => {
-    fetch('/productos.json')
+    fetch('./productos.json')
       .then((response) => response.json())
       .then((data) => setProducts(data))
       .catch((error) => console.error('Error al cargar los productos:', error));

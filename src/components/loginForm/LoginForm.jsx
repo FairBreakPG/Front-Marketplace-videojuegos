@@ -13,6 +13,7 @@ const LoginForm = ({ onSubmit }) => {
     return (
         <form className={styles.loginForm} onSubmit={handleSubmit}>
             <div>
+                <h2>Login</h2>
                 <label>Email</label>
                 <input
                     type='email'
