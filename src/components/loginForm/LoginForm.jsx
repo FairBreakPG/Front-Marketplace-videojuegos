@@ -1,36 +1,66 @@
 import { useState } from 'react';
+import { login } from '../../services/api';
 import styles from './LoginForm.module.css';
 
 const LoginForm = ({ onSubmit }) => {
-    const [email, setEmail] = useState('');
-    const [contrasena, setContrasena] = useState('');
+  const [email, setEmail] = useState('');
+  const [contrasena, setContrasena] = useState('');
+  const [error, setError] = useState(''); 
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        onSubmit({ email, contrasena });
-    };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError(''); 
 
-    return (
-        <form className={styles.loginForm} onSubmit={handleSubmit}>
-            <div>
-                <label>Email</label>
-                <input
-                    type='email'
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
-            </div>
-            <div>
-                <label>Contraseña</label>
-                <input
-                    type='password'
-                    value={contrasena}
-                    onChange={(e) => setContrasena(e.target.value)}
-                />
-            </div>
-            <button type='submit'>Entrar</button>
-        </form>
-    );
+    try {
+      console.log('Intentando hacer login con:', { email, contrasena });
+      const userData = await login({ email, contrasena });
+
+      console.log('Respuesta del backend:', userData);
+      onSubmit(userData); 
+    } catch (error) {
+      
+      console.error('Error al hacer login:', error);
+      setError('Correo o contraseña incorrectos'); 
+    }
+  };
+
+  return (
+    <div className={styles.loginContainer}>
+      <form className={styles.loginForm} onSubmit={handleSubmit}>
+        <h2 className={styles.title}>Iniciar Sesión</h2>
+
+        <div className={styles.inputGroup}>
+          <label>Email</label>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            className={styles.input}
+          />
+        </div>
+
+        <div className={styles.inputGroup}>
+          <label>Contraseña</label>
+          <input
+            type="password"
+            value={contrasena}
+            onChange={(e) => setContrasena(e.target.value)}
+            required
+            className={styles.input}
+          />
+        </div>
+
+        {error && <p className={styles.error}>{error}</p>}
+
+        <button type="submit" className={styles.submitButton}>Entrar</button>
+
+        <div className={styles.footer}>
+          <p>No tienes cuenta? <a href="/registrar-usuario">Regístrate aquí</a></p>
+        </div>
+      </form>
+    </div>
+  );
 };
 
 export default LoginForm;
