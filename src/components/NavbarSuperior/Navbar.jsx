@@ -1,7 +1,6 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { ProductosContext } from "../../context/ProductoProvider";
-import { formatoNumero } from "../../formatoNumero.js"; // Asegúrate de tener este archivo disponible
 
 const Navbar = () => {
   const navegar = useNavigate(); 
@@ -54,13 +53,19 @@ const Navbar = () => {
               <button onClick={() => navegar("/search")} className="btn btn-light d-flex align-items-center me-3">
                 <span>&#128269;</span>
               </button>
-              <button onClick={() => navegar("/carrito")} className="btn btn-light d-flex align-items-center position-relative">
+              <button onClick={() => navegar("/carrito")} className="btn btn-light d-flex align-items-center position-relative me-3">
                 <span>&#128722;</span>
                 {totalArticulosCarrito > 0 && (
                   <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                     {totalArticulosCarrito}
                   </span>
                 )}
+              </button>
+              <button onClick={() => navegar("/usuario")} className="btn btn-light d-flex align-items-center me-3">
+                <span>&#128100;</span>
+              </button>
+              <button onClick={() => navegar("/productos")} className="btn btn-light d-flex align-items-center">
+                <span>&#128187;</span>
               </button>
             </div>
           </div>

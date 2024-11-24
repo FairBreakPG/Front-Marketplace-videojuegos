@@ -1,59 +1,64 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useState, useEffect } from 'react';
 
 export const ProductosContext = createContext();
 
 const ProductoProvider = ({ children }) => {
   const [productos, setProductos] = useState([]);
-  const [cart, setCart] = useState([]);  // El carrito inicial es un array vacío
+  const [cart, setCart] = useState([]);  
   const [productosFiltrados, setProductosFiltrados] = useState([]);
-  const [categoriaSeleccionada, setCategoriaSeleccionada] = useState(null);
 
-  // Obtener los productos al montar el componente
+
   useEffect(() => {
     getProductos();
   }, []);
 
-  useEffect(() => {
-    // Filtrar productos según la categoría seleccionada
-    if (categoriaSeleccionada) {
-      setProductosFiltrados(productos.filter(producto => producto.category === categoriaSeleccionada));
-    } else {
-      setProductosFiltrados(productos);
-    }
-  }, [productos, categoriaSeleccionada]);
 
   const getProductos = async () => {
-    // Aquí cargas los productos de algún endpoint (o archivo local, etc.)
-    const res = await fetch("/productos.json");
-    const productos = await res.json();
-    setProductos(productos);
-    setProductosFiltrados(productos);
+    try {
+      const res = await fetch('http://localhost:3000/productos');
+      if (!res.ok) {
+        throw new Error('Error al obtener productos');
+      }
+      const productos = await res.json();
+      console.log('Productos recibidos:', productos);
+      setProductos(productos);
+      setProductosFiltrados(productos); // Inicializa productos filtrados con todos los productos
+    } catch (error) {
+      console.error('Error al obtener los productos:', error);
+    }
   };
 
+
+  useEffect(() => {
+    const storedCart = JSON.parse(localStorage.getItem('carrito')) || [];
+    setCart(storedCart);
+  }, []);
+
+ 
   const addToCart = (producto) => {
     setCart((prevCart) => {
-      // Verificamos si el producto ya está en el carrito
       const exists = prevCart.find(item => item.id === producto.id);
       if (exists) {
-        // Si ya existe, incrementamos la cantidad
+     
         return prevCart.map(item =>
           item.id === producto.id ? { ...item, quantity: item.quantity + 1 } : item
         );
       } else {
-        // Si no existe, lo añadimos con cantidad 1
-        return [...prevCart, { ...producto, quantity: 1 }];
+      
+        const newCart = [...prevCart, { ...producto, quantity: 1 }];
+        console.log('Nuevo carrito:', newCart); 
+        return newCart;
       }
     });
   };
+
 
   const removeFromCart = (producto) => {
     setCart((prevCart) => {
       const exists = prevCart.find(item => item.id === producto.id);
       if (exists.quantity === 1) {
-        // Si la cantidad es 1, lo eliminamos del carrito
         return prevCart.filter(item => item.id !== producto.id);
       } else {
-        // De lo contrario, restamos la cantidad
         return prevCart.map(item =>
           item.id === producto.id ? { ...item, quantity: item.quantity - 1 } : item
         );
@@ -61,23 +66,22 @@ const ProductoProvider = ({ children }) => {
     });
   };
 
-  // Calculamos el total del carrito y la cantidad de artículos
+
   const total = cart.reduce((acc, producto) => acc + producto.price * producto.quantity, 0);
   const totalArticulosCarrito = cart.reduce((acc, producto) => acc + producto.quantity, 0);
 
-  const seleccionarCategoria = (categoria) => {
-    setCategoriaSeleccionada(categoria);
-  };
+  useEffect(() => {
+    localStorage.setItem('carrito', JSON.stringify(cart));
+  }, [cart]);
 
   return (
     <ProductosContext.Provider value={{
-      productosFiltrados, 
-      addToCart, 
-      removeFromCart, 
-      total, 
-      totalArticulosCarrito, 
-      seleccionarCategoria, 
-      cart  // Aseguramos que el carrito está disponible en el contexto
+      productosFiltrados,
+      addToCart,
+      removeFromCart,
+      total,
+      totalArticulosCarrito,
+      cart
     }}>
       {children}
     </ProductosContext.Provider>

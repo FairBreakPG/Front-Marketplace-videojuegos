@@ -1,77 +1,83 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import { crearProducto } from '../../services/api';
 const CreateProductPage = () => {
   const [productName, setProductName] = useState('');
   const [price, setPrice] = useState('');
   const [description, setDescription] = useState('');
-  const [image, setImage] = useState(null);
-  const [imagePreview, setImagePreview] = useState(null);  
+  const [imageUrl, setImageUrl] = useState('');
+  const [imagePreview, setImagePreview] = useState(null);
 
-  const handleNameChange = (e) => {
-    setProductName(e.target.value);
+  const handleNameChange = (e) => setProductName(e.target.value);
+  const handlePriceChange = (e) => setPrice(e.target.value);
+  const handleDescriptionChange = (e) => setDescription(e.target.value);
+  const handleImageUrlChange = (e) => {
+    const url = e.target.value;
+    setImageUrl(url);
+    setImagePreview(url); 
   };
 
-  const handlePriceChange = (e) => {
-    setPrice(e.target.value);
-  };
-
-  const handleDescriptionChange = (e) => {
-    setDescription(e.target.value);
-  };
-
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setImage(file);
-      const objectUrl = URL.createObjectURL(file);  
-      setImagePreview(objectUrl); 
-    }
-  };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    
+    console.log('Formulario enviado:', {
+      nombre: productName,
+      precio: price,
+      descripcion: description,
+      imagen: imageUrl,
+      descuento: 0, 
+      stock: 10, 
+      juegosId: 1, 
+    });
+
     const productData = {
-      productName,
-      price,
-      description,
-      image,
+      nombre: productName,
+      descripcion: description,
+      precio: parseFloat(price), 
+      descuento: 0, 
+      stock: 10, 
+      juegosId: 1, 
+      imagen: imageUrl, 
     };
 
-    console.log('Producto a guardar:', productData);
-
-    setProductName('');
-    setPrice('');
-    setDescription('');
-    setImage(null);
-    setImagePreview(null); 
-    alert('Producto creado con éxito');
+    try {
+      const response = await crearProducto(productData); 
+      console.log('Producto creado:', response);
+      alert('Producto creado exitosamente');
+      setProductName('');
+      setPrice('');
+      setDescription('');
+      setImageUrl('');
+      setImagePreview(null);
+    } catch (error) {
+      console.error('Error al crear el producto:', error);
+      alert('Error al crear el producto. Por favor, intenta nuevamente.');
+    }
   };
 
   return (
     <div className="container-fluid vh-100 d-flex align-items-center justify-content-center bg-light">
       <div className="row w-75">
-        {/* Cuadro de imagen a la izquierda */}
         <div className="col-md-5 d-flex flex-column align-items-center p-4 border bg-secondary text-white">
           <h2 className="mb-4 font-weight-bold">Crear Producto</h2>
           <div className="w-100 h-75 bg-light border d-flex align-items-center justify-content-center">
-            <div className="text-center">
-              <div className="bg-dark h-2 w-75 mb-2 mx-auto" style={{ height: '4px', width: '100px' }}></div>
-              <div className="bg-dark h-2 w-50 mx-auto" style={{ height: '4px', width: '80px' }}></div>
-            </div>
+            {imagePreview ? (
+              <img
+                src={imagePreview}
+                alt="Vista previa"
+                className="img-fluid"
+                style={{ maxWidth: '200px' }}
+              />
+            ) : (
+              <p className="text-center">Ingresa la URL de la imagen para previsualizarla</p>
+            )}
           </div>
-          <input 
-            type="file" 
-            className="mt-4 btn btn-secondary"
-            onChange={handleImageChange}
+          <input
+            type="text"
+            className="mt-4 form-control"
+            value={imageUrl}
+            onChange={handleImageUrlChange}
+            placeholder="URL de la imagen"
           />
-          {imagePreview && (
-            <div className="mt-3">
-              <p>Imagen seleccionada:</p>
-              <img src={imagePreview} alt="Vista previa" className="img-fluid" style={{ maxWidth: '200px' }} />
-            </div>
-          )}
         </div>
         <div className="col-md-7 p-4 bg-light">
           <form onSubmit={handleSubmit}>
@@ -105,7 +111,9 @@ const CreateProductPage = () => {
                 placeholder="Descripción del producto"
               ></textarea>
             </div>
-            <button type="submit" className="mt-4 btn btn-success">Crear producto</button>
+            <button type="submit" className="mt-4 btn btn-success">
+              Crear producto
+            </button>
           </form>
         </div>
       </div>

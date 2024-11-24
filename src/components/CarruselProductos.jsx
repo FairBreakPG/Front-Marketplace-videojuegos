@@ -1,18 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { Carousel, Row, Col, Container, Card } from 'react-bootstrap';
+import React, { useContext } from 'react';
+import { Carousel, Row, Col, Container, Card, Button } from 'react-bootstrap';
+import { ProductosContext } from '../context/ProductoProvider';
+import { ToastContainer, toast } from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css';
 
 const MultiItemCarousel = () => {
-  const [products, setProducts] = useState([]);
+  const { productosFiltrados, addToCart } = useContext(ProductosContext);
   const itemsPerSlide = 3;
 
-  useEffect(() => {
-    fetch('/productos.json')
-      .then((response) => response.json())
-      .then((data) => setProducts(data))
-      .catch((error) => console.error('Error al cargar los productos:', error));
-  }, []);
-
-  const groupedItems = products.reduce((acc, product, index) => {
+  const groupedItems = productosFiltrados.reduce((acc, product, index) => {
     const groupIndex = Math.floor(index / itemsPerSlide);
     if (!acc[groupIndex]) {
       acc[groupIndex] = [];
@@ -20,6 +16,27 @@ const MultiItemCarousel = () => {
     acc[groupIndex].push(product);
     return acc;
   }, []);
+
+  const handleAddToCart = (product) => {
+    const userId = localStorage.getItem('userId');
+  
+    if (!userId) {
+      toast.error("No se encontró el ID de usuario");
+      return; 
+    }
+  
+    addToCart(product, userId); 
+    toast.success(`${product.nombre} agregado al carrito!`, { 
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
+  };
 
   return (
     <Container>
@@ -30,12 +47,23 @@ const MultiItemCarousel = () => {
               {group.map((product) => (
                 <Col key={product.id} md={4} className="d-flex align-items-center justify-content-center">
                   <Card style={{ width: '18rem' }}>
-                    <Card.Img variant="top" src={product.img} />
+                    <Card.Img
+                      variant="top"
+                      src={product.imagen}
+                      alt={product.nombre}
+                      style={{ width: '100%', height: 'auto', objectFit: 'cover' }}
+                    />
                     <Card.Body>
-                      <Card.Title>{product.name}</Card.Title>
+                      <Card.Title>{product.nombre}</Card.Title>
                       <Card.Text>
-                        <strong>Precio: ${product.price}</strong>
+                        <strong>Precio: ${product.precio}</strong>
                       </Card.Text>
+                      <Button
+                        variant="success"
+                        onClick={() => handleAddToCart(product)} 
+                      >
+                        Agregar al carrito
+                      </Button>
                     </Card.Body>
                   </Card>
                 </Col>
@@ -43,8 +71,8 @@ const MultiItemCarousel = () => {
             </Row>
           </Carousel.Item>
         ))}
-      
       </Carousel>
+      <ToastContainer />
     </Container>
   );
 };
