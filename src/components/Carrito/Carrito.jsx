@@ -1,8 +1,8 @@
 import React, { useContext, useState, useEffect } from "react";
-import { ProductosContext } from "../../context/ProductoProvider"; // Importa el contexto
-import { getCarro, quitarItemCarro } from "../../services/api";  
+import { ProductosContext } from "../../context/ProductoProvider";
+import { getCarro, quitarItemCarro, actualizarCantidadCarro } from "../../services/api";  
 import styles from '../Carrito/carrito.css';
-import { toast } from 'react-toastify';  // Para mostrar mensajes de éxito o error
+import { toast } from 'react-toastify';
 
 const Carro = () => {
   const { cart, setCart } = useContext(ProductosContext); // Usamos el contexto
@@ -17,13 +17,14 @@ const Carro = () => {
         if (!userId) {
           throw new Error('El ID de usuario no está disponible');
         }
-  
+
         const response = await getCarro(userId);
-        // Verificar que response.items sea un array antes de establecer el estado
-        if (Array.isArray(response.items)) {
-          setCart(response.items); // Establece el carrito usando el setCart desde el contexto
+        console.log('Respuesta del API:', response);
+
+        if (response && Array.isArray(response.items)) {
+          setCart(response.items);
         } else {
-          setCart([]); // Si response.items no es un array, establecemos un array vacío
+          setCart([]);
         }
       } catch (err) {
         console.error("Error al obtener el carrito:", err);
@@ -32,9 +33,9 @@ const Carro = () => {
         setLoading(false);
       }
     };
-  
+
     fetchCart();
-  }, [setCart]); 
+  }, [setCart]);  
 
   const getAuthToken = () => {
     return localStorage.getItem('token');
@@ -42,16 +43,16 @@ const Carro = () => {
 
   const handleRemoveFromCart = async (productId) => {
     if (loading) return;
-  
+
     try {
       setLoading(true);
       const token = getAuthToken();
       const userId = localStorage.getItem('userId');
-  
+
       if (!userId) {
         throw new Error('El ID de usuario no está disponible');
       }
-  
+
       await quitarItemCarro(productId, token, userId);  
       const updatedCart = await getCarro(userId);  
       if (Array.isArray(updatedCart.items)) {
@@ -59,7 +60,7 @@ const Carro = () => {
       } else {
         setCart([]);
       }
-  
+
       toast.success("Producto eliminado del carrito");
     } catch (error) {
       console.error("Error al eliminar producto:", error);
@@ -68,20 +69,17 @@ const Carro = () => {
       setLoading(false);
     }
   };
-  
 
   const calculateTotal = () => {
     if (Array.isArray(cart)) {
       return cart.reduce((total, item) => {
         const price = parseFloat(item.price) || 0;  
-        const quantity = parseInt(item.quantity, 10) || 0;  
+        const quantity = parseInt(item.cantidad, 10) || 0;  
         return total + (price * quantity);
       }, 0);
     }
     return 0;
   };
-  
-  
 
   return (
     <div className="cart-container">
@@ -98,17 +96,25 @@ const Carro = () => {
               {Array.isArray(cart) && cart.map((product) => (
                 <li key={product.id} className="cart-item">
                   <div className="cart-item-details">
-                    <img src={product.img ? `http://localhost:3000/images/${product.img}` : 'default-image.jpg'} alt={product.name} className="cart-item-image" />
+                    <img 
+                      src={product.img} 
+                      alt={product.name} 
+                      className="cart-item-image" 
+                      onError={(e) => e.target.src = 'default-image.jpg'}  
+                    />
                     <span className="cart-item-name">{product.name}</span>
                     <span className="cart-item-price">${product.price}</span>
-                    <span className="cart-item-quantity">x {product.quantity}</span>
+
+                    <div className="cart-item-quantity">
+                      <span>{product.cantidad}</span> 
+                    </div>
                   </div>
                   <button className="remove-btn" onClick={() => handleRemoveFromCart(product.id)}>Eliminar</button>
                 </li>
               ))}
             </ul>
             <div className="cart-total">
-              <h3>Total: ${calculateTotal().toFixed(2)}</h3>
+              <h3>Total: ${calculateTotal().toFixed(0)}</h3>
               <button className="checkout-btn">Proceder al pago</button>
             </div>
           </>

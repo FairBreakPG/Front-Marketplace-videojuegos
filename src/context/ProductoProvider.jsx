@@ -42,7 +42,6 @@ const ProductoProvider = ({ children }) => {
       setCart([]);  
     }
   }, []); 
-
   const addToCart = async (producto) => {
     try {
       const userId = localStorage.getItem('userId');
@@ -50,13 +49,14 @@ const ProductoProvider = ({ children }) => {
         toast.error("No se encontró el ID de usuario");
         return;
       }
-      const response = await agregarAlCarro(producto.id, 1, userId);  
+      const response = await agregarAlCarro(producto.id, 1, userId); 
       setCart(response.items); 
       toast.success(`${producto.nombre} agregado al carrito!`);
     } catch (error) {
       toast.error("Error al agregar producto al carrito");
     }
   };
+  
 
   const handleRemoveFromCart = async (productId) => {
     try {
@@ -73,12 +73,14 @@ const ProductoProvider = ({ children }) => {
   
   const total = Array.isArray(cart) ? cart.reduce((acc, producto) => acc + (producto.precio * producto.quantity), 0) : 0;
   const totalArticulosCarrito = Array.isArray(cart) 
-  ? cart.reduce((acc, producto) => acc + producto.quantity, 0) 
+  ? cart.reduce((acc, producto) => acc + producto.cantidad, 0) 
   : 0;
 
+
   useEffect(() => {
-    localStorage.setItem('carrito', JSON.stringify(cart));
+    localStorage.setItem('carrito', JSON.stringify(cart)); 
   }, [cart]);
+  
 
   return (
     <ProductosContext.Provider value={{
