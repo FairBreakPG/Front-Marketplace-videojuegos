@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import { ProductosContext } from "../../context/ProductoProvider";
-import { getCarro, quitarItemCarro, actualizarCantidadCarro } from "../../services/api";  
+import { getCarro, quitarItemCarro } from "../../services/api";  
 import styles from '../Carrito/carrito.css';
 import { toast } from 'react-toastify';
 
