@@ -107,7 +107,7 @@ const refreshToken = async () => {
 
 export const getCarro = async (userId) => {
   try {
-    const token = localStorage.getItem('token');  
+    const token = localStorage.getItem('token');
     if (!token) {
       throw new Error('Token no encontrado. El usuario no está autenticado.');
     }
@@ -118,23 +118,13 @@ export const getCarro = async (userId) => {
       }
     });
 
-    return response.data;
+    return response.data;  
   } catch (error) {
-    if (error.response && error.response.status === 403) {
-      const newToken = await refreshToken();
-    
-      const response = await axios.get(`${ENDPOINT.carro}/${userId}`, {
-        headers: {
-          'Authorization': `Bearer ${newToken}`
-        }
-      });
-
-      return response.data;
-    }
-    
-    throw new Error(error.response?.data?.message || "Error al obtener el carrito");
+    console.error("Error al obtener el carrito:", error);
+    throw error;
   }
 };
+
 
 export const agregarAlCarro = async (productoId, cantidad) => {
   try {
@@ -159,24 +149,25 @@ export const agregarAlCarro = async (productoId, cantidad) => {
   }
 };
 
-export const quitarItemCarro = async (productoId) => {
+export const quitarItemCarro = async (productoId, token) => {
   try {
-    const token = localStorage.getItem('token');  
     if (!token) {
       throw new Error('Token no encontrado. El usuario no está autenticado.');
     }
 
     const response = await axios.delete(ENDPOINT.quitarItemcarro(productoId), {
       headers: {
-        'Authorization': `Bearer ${token}`  
+        'Authorization': `Bearer ${token}`
       }
     });
 
     return response.data;
   } catch (error) {
+    console.error(error);
     throw new Error(error.response?.data?.message || "Error al quitar producto del carrito");
   }
 };
+
 
 
 

@@ -5,10 +5,11 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const MultiItemCarousel = () => {
-  const { productosFiltrados, addToCart } = useContext(ProductosContext);
+  const { productos, addToCart } = useContext(ProductosContext);
   const itemsPerSlide = 3;
 
-  const groupedItems = productosFiltrados.reduce((acc, product, index) => {
+  
+  const groupedItems = productos.reduce((acc, product, index) => {
     const groupIndex = Math.floor(index / itemsPerSlide);
     if (!acc[groupIndex]) {
       acc[groupIndex] = [];
@@ -17,27 +18,15 @@ const MultiItemCarousel = () => {
     return acc;
   }, []);
 
-  const handleAddToCart = (product) => {
+  const handleAddToCart = async (product) => {
     const userId = localStorage.getItem('userId');
-  
     if (!userId) {
       toast.error("No se encontró el ID de usuario");
       return; 
     }
-  
-    addToCart(product, userId); 
-    toast.success(`${product.nombre} agregado al carrito!`, { 
-      position: "top-right",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "colored",
-    });
+    await addToCart(product);
   };
-
+  
   return (
     <Container>
       <Carousel interval={3000}>

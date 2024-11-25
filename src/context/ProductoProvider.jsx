@@ -1,17 +1,18 @@
-import { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
+import { toast } from 'react-toastify';  // Import toast
+import { agregarAlCarro, quitarItemCarro, getCarro } from '../services/api'; 
+import 'react-toastify/dist/ReactToastify.css';
+
 
 export const ProductosContext = createContext();
 
 const ProductoProvider = ({ children }) => {
   const [productos, setProductos] = useState([]);
-  const [cart, setCart] = useState([]);  
-  const [productosFiltrados, setProductosFiltrados] = useState([]);
-
+  const [cart, setCart] = useState([]); 
 
   useEffect(() => {
     getProductos();
   }, []);
-
 
   const getProductos = async () => {
     try {
@@ -21,54 +22,59 @@ const ProductoProvider = ({ children }) => {
       }
       const productos = await res.json();
       console.log('Productos recibidos:', productos);
-      setProductos(productos);
-      setProductosFiltrados(productos); // Inicializa productos filtrados con todos los productos
+      setProductos(productos); 
     } catch (error) {
       console.error('Error al obtener los productos:', error);
     }
   };
 
-
   useEffect(() => {
-    const storedCart = JSON.parse(localStorage.getItem('carrito')) || [];
-    setCart(storedCart);
-  }, []);
-
- 
-  const addToCart = (producto) => {
-    setCart((prevCart) => {
-      const exists = prevCart.find(item => item.id === producto.id);
-      if (exists) {
-     
-        return prevCart.map(item =>
-          item.id === producto.id ? { ...item, quantity: item.quantity + 1 } : item
-        );
-      } else {
-      
-        const newCart = [...prevCart, { ...producto, quantity: 1 }];
-        console.log('Nuevo carrito:', newCart); 
-        return newCart;
+    const storedCart = localStorage.getItem('carrito');
+    if (storedCart) {
+      try {
+        const parsedCart = JSON.parse(storedCart);
+        setCart(parsedCart || []); 
+      } catch (error) {
+        console.error("Error al parsear el carrito desde localStorage:", error);
+        setCart([]);  
       }
-    });
+    } else {
+      setCart([]);  
+    }
+  }, []); 
+
+  const addToCart = async (producto) => {
+    try {
+      const userId = localStorage.getItem('userId');
+      if (!userId) {
+        toast.error("No se encontró el ID de usuario");
+        return;
+      }
+      const response = await agregarAlCarro(producto.id, 1, userId);  
+      setCart(response.items); 
+      toast.success(`${producto.nombre} agregado al carrito!`);
+    } catch (error) {
+      toast.error("Error al agregar producto al carrito");
+    }
   };
 
-
-  const removeFromCart = (producto) => {
-    setCart((prevCart) => {
-      const exists = prevCart.find(item => item.id === producto.id);
-      if (exists.quantity === 1) {
-        return prevCart.filter(item => item.id !== producto.id);
-      } else {
-        return prevCart.map(item =>
-          item.id === producto.id ? { ...item, quantity: item.quantity - 1 } : item
-        );
-      }
-    });
+  const handleRemoveFromCart = async (productId) => {
+    try {
+      const token = getAuthToken();
+      await quitarItemCarro(productId, token);
+      const updatedCart = await getCarro();  
+      setCart(updatedCart.items);  
+      toast.success("Producto eliminado del carrito");
+    } catch (error) {
+      toast.error("Error al eliminar producto del carrito");
+    }
   };
 
-
-  const total = cart.reduce((acc, producto) => acc + producto.price * producto.quantity, 0);
-  const totalArticulosCarrito = cart.reduce((acc, producto) => acc + producto.quantity, 0);
+  
+  const total = Array.isArray(cart) ? cart.reduce((acc, producto) => acc + (producto.precio * producto.quantity), 0) : 0;
+  const totalArticulosCarrito = Array.isArray(cart) 
+  ? cart.reduce((acc, producto) => acc + producto.quantity, 0) 
+  : 0;
 
   useEffect(() => {
     localStorage.setItem('carrito', JSON.stringify(cart));
@@ -76,12 +82,7 @@ const ProductoProvider = ({ children }) => {
 
   return (
     <ProductosContext.Provider value={{
-      productosFiltrados,
-      addToCart,
-      removeFromCart,
-      total,
-      totalArticulosCarrito,
-      cart
+      productos, addToCart, handleRemoveFromCart, total, totalArticulosCarrito, cart,setCart
     }}>
       {children}
     </ProductosContext.Provider>
