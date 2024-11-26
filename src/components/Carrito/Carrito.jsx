@@ -5,7 +5,7 @@ import styles from '../Carrito/carrito.css';
 import { toast } from 'react-toastify';
 
 const Carro = () => {
-  const { cart, setCart } = useContext(ProductosContext); // Usamos el contexto
+  const { cart, setCart } = useContext(ProductosContext); 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -115,7 +115,7 @@ const Carro = () => {
             </ul>
             <div className="cart-total">
               <h3>Total: ${calculateTotal().toFixed(0)}</h3>
-              <button className="checkout-btn">Proceder al pago</button>
+              <button className="checkout-btn">Realizar pedido</button>
             </div>
           </>
         )}

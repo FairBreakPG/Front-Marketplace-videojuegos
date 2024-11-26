@@ -8,6 +8,7 @@ import LoginForm from "./components/loginForm/LoginForm.jsx";
 import RegistroForm from "./components/RegistroUsuario/RegistroForm.jsx";
 import 'react-toastify/dist/ReactToastify.css';
 
+
 const App = () => {
   const navigate = useNavigate(); 
   const location = useLocation();  
