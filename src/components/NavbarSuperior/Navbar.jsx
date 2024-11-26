@@ -4,7 +4,7 @@ import { ProductosContext } from "../../context/ProductoProvider";
 
 const Navbar = () => {
   const navegar = useNavigate(); 
-  const { totalArticulosCarrito, seleccionarCategoria } = useContext(ProductosContext);
+  const { totalArticulosCarrito } = useContext(ProductosContext);
 
   const loginClick = () => navegar("/login");
   const registroClick = () => navegar("/registrar-usuario");
