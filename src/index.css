@@ -1,15 +1,9 @@
 
-
 li {
   list-style: none;
 }
 
-.notFound {
-  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
-  url("../../assets/perrito.jpg");
-background-size: cover;
-height: 100vh;
-}
+
 
 .volver-inicio{
   text-decoration: none;
@@ -36,12 +30,7 @@ height: 100vh;
   color: rgb(207, 207, 207);
 }
 
-.header {
-  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
-    url("../../assets/Header.jpg");
-  background-size: cover;
-  height: 40vh;
-}
+
 
 h1 {
   font-size: 50px;
