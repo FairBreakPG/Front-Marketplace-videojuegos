@@ -1,9 +1,9 @@
 import React, { useContext, useState, useEffect } from "react";
 import { ProductosContext } from "../../context/ProductoProvider";
 import { getCarro, eliminarProductoDelCarrito, guardarPedido } from "../../services/api";  
-import styles from '../Carrito/carrito.css';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import './carrito.css';
 
 const Carro = () => {
   const { cart, setCart } = useContext(ProductosContext); 
