@@ -1,0 +1,58 @@
+[
+  {
+    "desc": "Rodea the Sky Soldier es un juego de acción y aventuras de ritmo rápido...",
+    "id": "001",
+    "img": "https://http2.mlstatic.com/D_NQ_NP_620877-MLC43637952249_092020-O.webp",
+    "name": "Rodea The Sky Soldier 3DS",
+    "price": 24990,
+    "category": "juegos"
+  },
+  {
+    "desc": "En Pokémon Sol y Pokémon Luna para sistemas de la familia Nintendo 3DS...",
+    "id": "002",
+    "img": "https://8-bits.cl/cdn/shop/files/ultramoon_84fe9fc5-37cc-40e6-91a4-51dc84d55193.jpg?v=1705591405",
+    "name": "Pokemon Moon 3DS",
+    "price": 32990,
+    "category": "juegos"
+  },
+  {
+    "desc": "La PlayStation 5 es la consola de nueva generación de Sony...",
+    "id": "007",
+    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/PlayStation_5_Console_Updated.jpg/800px-PlayStation_5_Console_Updated.jpg",
+    "name": "PlayStation 5",
+    "price": 499990,
+    "category": "consolas"
+  },
+  {
+    "desc": "El teclado mecánico Razer Huntsman Mini es compacto, rápido y preciso...",
+    "id": "008",
+    "img": "https://assets.razerzone.com/eea4a1cf02a7f99aaf882c8f6da65867.jpg",
+    "name": "Razer Huntsman Mini",
+    "price": 79990,
+    "category": "implementos"
+  },
+  {
+    "desc": "La Xbox Series X es la consola de nueva generación de Microsoft...",
+    "id": "011",
+    "img": "https://upload.wikimedia.org/wikipedia/commons/7/7e/Xbox_Series_X_Console.png",
+    "name": "Xbox Series X",
+    "price": 499990,
+    "category": "consolas"
+  },
+  {
+    "desc": "El mouse gamer Razer DeathAdder V2 es un mouse de alto rendimiento...",
+    "id": "010",
+    "img": "https://www.razer.com/razermedia/large/07f0102adcd141d6a8e4a58a347364f7.jpg",
+    "name": "Razer DeathAdder V2",
+    "price": 69990,
+    "category": "accesorios"
+  },
+  {
+    "desc": "La Nintendo Switch es una consola híbrida...",
+    "id": "012",
+    "img": "https://upload.wikimedia.org/wikipedia/commons/e/e4/Nintendo_Switch_Console_Set.jpg",
+    "name": "Nintendo Switch",
+    "price": 329990,
+    "category": "consolas"
+  }
+]
