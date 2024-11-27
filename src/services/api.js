@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { ENDPOINT } from '../config/apiconfig'; 
 
-
+/*
 export const login = async ({ email, contrasena }) => {
   try {
     const response = await axios.post('http://localhost:3000/login', { email, contraseña: contrasena });
@@ -13,6 +13,7 @@ export const login = async ({ email, contrasena }) => {
     throw new Error('Error al hacer login');
   }
 };
+*/
 
 
 export const getUsuarios = async () => {
@@ -103,7 +104,7 @@ const refreshToken = async () => {
   localStorage.setItem('token', response.data.token);  
   return response.data.token;
 };
-
+/*
 
 export const getCarro = async (userId) => {
   const token = localStorage.getItem('token');
@@ -131,6 +132,37 @@ export const getCarro = async (userId) => {
     throw error;
   }
 };
+*/
+export const login = async ({ email, contrasena }) => {
+  try {
+    const response = await axios.post(ENDPOINT.login, { email, contraseña: contrasena });
+    localStorage.setItem('token', response.data.token);
+    localStorage.setItem('userId', response.data.userId);
+    return response.data;
+  } catch (error) {
+    throw new Error('Error al hacer login');
+  }
+};
+
+export const getCarro = async (userId) => {
+  const token = localStorage.getItem('token');
+  if (!token) {
+    throw new Error('No se encontró el token de autenticación');
+  }
+
+  try {
+    const response = await axios.get(`${ENDPOINT.carro}/${userId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error al obtener el carrito:', error);
+    throw error;
+  }
+};
+
 
 
 
