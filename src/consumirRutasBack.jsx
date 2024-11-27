@@ -1,3 +1,4 @@
+/*
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { URLBASE } from './config/apiconfig';
@@ -38,3 +39,4 @@ const ObtenerRutas = () => {
 };
 
 export default ObtenerRutas;
+*/
