@@ -2,6 +2,8 @@ import React, { createContext, useState, useEffect } from 'react';
 import { toast } from 'react-toastify';  // Import toast
 import { agregarAlCarro, getCarro } from '../services/api'; 
 import 'react-toastify/dist/ReactToastify.css';
+import { URLBASE } from '../config/apiconfig'; 
+
 
 
 export const ProductosContext = createContext();
@@ -17,7 +19,8 @@ const ProductoProvider = ({ children }) => {
 
   const getProductos = async () => {
     try {
-      const res = await fetch('http://localhost:3000/productos');
+      //const res = await fetch('http://localhost:3000/productos');  --activar forma local
+      const res = await fetch(`${URLBASE}/productos`)
       if (!res.ok) {
         throw new Error('Error al obtener productos');
       }
