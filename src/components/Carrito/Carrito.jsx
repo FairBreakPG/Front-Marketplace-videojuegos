@@ -1,14 +1,16 @@
 import React, { useContext, useState, useEffect } from "react";
 import { ProductosContext } from "../../context/ProductoProvider";
-import { getCarro, quitarItemCarro } from "../../services/api";  
+import { getCarro, eliminarProductoDelCarrito, guardarPedido } from "../../services/api";  
 import styles from '../Carrito/carrito.css';
 import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Carro = () => {
   const { cart, setCart } = useContext(ProductosContext); 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  
   useEffect(() => {
     const fetchCart = async () => {
       setLoading(true);
@@ -41,30 +43,23 @@ const Carro = () => {
     return localStorage.getItem('token');
   };
 
-  const handleRemoveFromCart = async (productId) => {
-    if (loading) return;
-
+  const removeProduct = async (productId) => {
     try {
       setLoading(true);
-      const token = getAuthToken();
-      const userId = localStorage.getItem('userId');
+     
+      const response = await eliminarProductoDelCarrito(productId);
 
-      if (!userId) {
-        throw new Error('El ID de usuario no está disponible');
-      }
-
-      await quitarItemCarro(productId, token, userId);  
-      const updatedCart = await getCarro(userId);  
-      if (Array.isArray(updatedCart.items)) {
-        setCart(updatedCart.items);  
+    
+      if (response && response.message === 'Producto eliminado del carrito') {
+       
+        setCart(cart.filter(item => item.id !== productId));
+        toast.success('Producto eliminado correctamente');
       } else {
-        setCart([]);
+        toast.error('Error al eliminar el producto');
       }
-
-      toast.success("Producto eliminado del carrito");
     } catch (error) {
-      console.error("Error al eliminar producto:", error);
-      toast.error("Error al eliminar producto del carrito");
+      console.error('Error al eliminar el producto:', error);
+      toast.error('Hubo un problema al eliminar el producto del carrito');
     } finally {
       setLoading(false);
     }
@@ -80,6 +75,34 @@ const Carro = () => {
     }
     return 0;
   };
+
+  const handleCheckout = async () => {
+    const usuario_id = localStorage.getItem('userId');
+    const total = calculateTotal();
+    const metodo_pago = 'Tarjeta'; 
+  
+    if (usuario_id && total > 0) {
+      
+      const detalles_pedido = cart.map(item => ({
+        producto_id: item.id,
+        cantidad: item.cantidad,
+        precio: item.price,
+      }));
+  
+     
+      const response = await guardarPedido(usuario_id, total, metodo_pago, detalles_pedido);
+  
+      if (response) {
+        toast.success('Pedido realizado con éxito');
+      } else {
+        toast.error('Hubo un problema al realizar el pedido');
+      }
+    } else {
+      toast.error('Debe iniciar sesión y tener productos en el carrito');
+    }
+  };
+  
+  
 
   return (
     <div className="cart-container">
@@ -109,13 +132,13 @@ const Carro = () => {
                       <span>{product.cantidad}</span> 
                     </div>
                   </div>
-                  <button className="remove-btn" onClick={() => handleRemoveFromCart(product.id)}>Eliminar</button>
+                  <button className="remove-btn" onClick={() => removeProduct(product.id)}>Eliminar</button>
                 </li>
               ))}
             </ul>
             <div className="cart-total">
               <h3>Total: ${calculateTotal().toFixed(0)}</h3>
-              <button className="checkout-btn">Realizar pedido</button>
+              <button className="checkout-btn" onClick={handleCheckout}>Realizar pedido</button>
             </div>
           </>
         )}

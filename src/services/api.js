@@ -106,24 +106,32 @@ const refreshToken = async () => {
 
 
 export const getCarro = async (userId) => {
-  try {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      throw new Error('Token no encontrado. El usuario no está autenticado.');
-    }
+  const token = localStorage.getItem('token');
+  if (!token) {
+    throw new Error('No se encontró el token de autenticación');
+  }
 
-    const response = await axios.get(`${ENDPOINT.carro}/${userId}`, { 
+  try {
+    const response = await fetch(`http://localhost:3000/carro/${userId}`, {
+      method: 'GET',
       headers: {
-        'Authorization': `Bearer ${token}`  
-      }
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
     });
 
-    return response.data;  
+    if (!response.ok) {
+      throw new Error('Error al obtener el carrito');
+    }
+
+    const data = await response.json();
+    return data;  
   } catch (error) {
     console.error("Error al obtener el carrito:", error);
     throw error;
   }
 };
+
 
 
 export const agregarAlCarro = async (productoId, cantidad) => {
@@ -149,26 +157,65 @@ export const agregarAlCarro = async (productoId, cantidad) => {
   }
 };
 
-export const quitarItemCarro = async (productoId, token) => {
-  try {
-    if (!token) {
-      throw new Error('Token no encontrado. El usuario no está autenticado.');
-    }
+export const eliminarProductoDelCarrito = async (carrito_id) => {
+  const url = `http://localhost:3000/carrito/${carrito_id}`;  
+  const token = localStorage.getItem('token'); 
 
-    const response = await axios.delete(ENDPOINT.quitarItemcarro(productoId), {
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
-    });
-
-    return response.data;
-  } catch (error) {
-    console.error(error);
-    throw new Error(error.response?.data?.message || "Error al quitar producto del carrito");
+  if (!token) {
+    throw new Error('No se encontró el token');
   }
+
+  const response = await fetch(url, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`, 
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error('Error al eliminar el producto del carrito');
+  }
+
+  const data = await response.json();
+  return data;  
 };
 
+export const guardarPedido = async (usuario_id, total, metodo_pago, carrito) => {
+  const token = localStorage.getItem('token'); 
 
+ 
+  const detalles_pedido = carrito.map(producto => ({
+    producto_id: producto.id,
+    cantidad: producto.cantidad,
+    precio: producto.price
+  }));
+
+  try {
+    const response = await fetch('http://localhost:3000/pedidos', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        usuario_id,
+        total,
+        metodo_pago,
+        detalles_pedido, 
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Error al guardar el pedido');
+    }
+
+    const data = await response.json();
+    return data; 
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 
 

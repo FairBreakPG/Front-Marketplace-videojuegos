@@ -4,8 +4,6 @@ export const ENDPOINT = {
   login: `${URLBASE}/login`,
   usuarios: `${URLBASE}/usuarios`,
   perfilusuario: (id) => `${URLBASE}/usuarios/${id}`,
-  ordenes: `${URLBASE}/pedidos`,
-  ordenesHistorial: `${URLBASE}/pedidos`,
   productos: `${URLBASE}/productos`, 
   crearProducto: `${URLBASE}/productos`, 
   carro: `${URLBASE}/carro`,

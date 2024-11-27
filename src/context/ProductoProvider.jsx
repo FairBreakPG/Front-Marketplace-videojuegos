@@ -1,6 +1,6 @@
 import React, { createContext, useState, useEffect } from 'react';
 import { toast } from 'react-toastify';  // Import toast
-import { agregarAlCarro, quitarItemCarro, getCarro } from '../services/api'; 
+import { agregarAlCarro, getCarro } from '../services/api'; 
 import 'react-toastify/dist/ReactToastify.css';
 
 
@@ -9,6 +9,7 @@ export const ProductosContext = createContext();
 const ProductoProvider = ({ children }) => {
   const [productos, setProductos] = useState([]);
   const [cart, setCart] = useState([]); 
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     getProductos();
@@ -58,17 +59,8 @@ const ProductoProvider = ({ children }) => {
   };
   
 
-  const handleRemoveFromCart = async (productId) => {
-    try {
-      const token = getAuthToken();
-      await quitarItemCarro(productId, token);
-      const updatedCart = await getCarro();  
-      setCart(updatedCart.items);  
-      toast.success("Producto eliminado del carrito");
-    } catch (error) {
-      toast.error("Error al eliminar producto del carrito");
-    }
-  };
+  
+  
 
   
   const total = Array.isArray(cart) ? cart.reduce((acc, producto) => acc + (producto.precio * producto.quantity), 0) : 0;
@@ -84,7 +76,7 @@ const ProductoProvider = ({ children }) => {
 
   return (
     <ProductosContext.Provider value={{
-      productos, addToCart, handleRemoveFromCart, total, totalArticulosCarrito, cart,setCart
+      productos, addToCart, total, totalArticulosCarrito, cart,setCart
     }}>
       {children}
     </ProductosContext.Provider>
