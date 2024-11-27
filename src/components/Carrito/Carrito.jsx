@@ -3,7 +3,8 @@ import { ProductosContext } from "../../context/ProductoProvider";
 import { getCarro, eliminarProductoDelCarrito, guardarPedido } from "../../services/api";  
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import './carrito.css';
+import './styleCarro.css';
+
 
 const Carro = () => {
   const { cart, setCart } = useContext(ProductosContext); 
