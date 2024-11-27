@@ -60,6 +60,10 @@ h6 {
   width: 270px;
 }
 
+.imagen-car{
+  cursor: pointer;
+}
+
 .card img{
   width: 294px;
   height: 265px;
@@ -172,4 +176,14 @@ h6 {
   width: 900px;
   margin: auto;
   margin-top: 50px;
+}
+
+.dropdown-toggle::after {
+  display: none; /* Oculta el ícono de la flecha */
+}
+
+.custom-dropdown-width {
+  text-align: center;
+  min-width: 500px; /* Ajusta según el tamaño deseado */
+  max-width: 1200px; /* Opcional: establece un ancho máximo */
 }

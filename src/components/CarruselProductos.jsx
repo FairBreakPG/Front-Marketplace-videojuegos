@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Carousel, Row, Col, Container, Card } from 'react-bootstrap';
+import { useNavigate } from "react-router-dom";
 
 const MultiItemCarousel = () => {
   const [products, setProducts] = useState([]);
   const itemsPerSlide = 3;
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch('./productos.json')
@@ -30,7 +32,8 @@ const MultiItemCarousel = () => {
               {group.map((product) => (
                 <Col key={product.id} md={4} className="d-flex align-items-center justify-content-center">
                   <Card style={{ width: '18rem' }}>
-                    <Card.Img variant="top" src={product.img} />
+                    <Card.Img style={{ cursor: 'pointer' }} variant="top" src={product.img} to={`producto/${product.id}`}
+        onClick={() => navigate(`/productos/${product.id}`)}/>
                     <Card.Body>
                       <Card.Title>{product.name}</Card.Title>
                       <Card.Text>

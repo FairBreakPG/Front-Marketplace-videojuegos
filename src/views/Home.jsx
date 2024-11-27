@@ -16,7 +16,7 @@ const Home = () => {
       {productosFiltrados.map((producto) => (
         <CardProductos key={producto.id} producto={producto} />
       ))}
-    </div> */}
+    </div>  */}
     <CarruselProductos />
     <Footer />
     </>

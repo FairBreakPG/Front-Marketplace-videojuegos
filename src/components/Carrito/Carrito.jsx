@@ -1,9 +1,5 @@
 import { useContext } from "react";
-<<<<<<< HEAD
 import { ProductosContext } from "../../context/ProductoProvider";
-=======
-import { formatoNumero } from "../../formatoNumero.js";
->>>>>>> dbaf0b22e12c47ad115b929ac8733ddc4993333b
 
 const Carrito = () => {
   const { cart, total, removeFromCart } = useContext(ProductosContext);

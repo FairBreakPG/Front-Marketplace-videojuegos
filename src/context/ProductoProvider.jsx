@@ -5,10 +5,17 @@ export const ProductosContext = createContext();
 const ProductoProvider = ({ children }) => {
   const [productos, setProductos] = useState([]);
   const [cart, setCart] = useState([]);
+  const [productosFiltrados, setProductosFiltrados] = useState([]);
+
+  
 
   useEffect(() => {
     getProductos();
   }, []);
+
+  useEffect(() => {
+    setProductosFiltrados(productos); 
+  }, [productos]);
 
   const getProductos = async () => {
     const res = await fetch("/productos.json");
@@ -45,8 +52,8 @@ const ProductoProvider = ({ children }) => {
   const total = cart.reduce((acc, producto) => acc + producto.price * producto.quantity, 0);
 
   return (
-    <ProductosContext.Provider value={{ productos, cart, addToCart, removeFromCart, total }}>
-      {children}
+    <ProductosContext.Provider value={{ productos, productosFiltrados, cart, addToCart, removeFromCart, total }}>
+      {children} 
     </ProductosContext.Provider>
   );
 };

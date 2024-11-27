@@ -1,15 +1,9 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-<<<<<<< HEAD
 import { ProductosContext } from "../../context/ProductoProvider";
 
-const Navbar = () => {
-=======
-import { formatoNumero } from "../../formatoNumero.js";
 
 const Navbar = () => {
-
->>>>>>> dbaf0b22e12c47ad115b929ac8733ddc4993333b
   const navegar = useNavigate(); 
   const { totalArticulosCarrito, seleccionarCategoria } = useContext(ProductosContext);
 
@@ -49,18 +43,171 @@ const Navbar = () => {
             <button onClick={() => navegar("/")} className="logo-nombre mx-1 mb-0 btn btn-link text-white">
               <h4 className="mb-0">&#127918; Marketplace de Videojuegos</h4>
             </button>
-            <div className="d-flex gap-4">
-              <button onClick={() => handleCategoriaClick("juegos")} className="nav-link btn btn-link text-white">Juegos</button>
-              <button onClick={() => handleCategoriaClick("accesorios")} className="nav-link btn btn-link text-white">Accesorios</button>
-              <button onClick={() => handleCategoriaClick("consolas")} className="nav-link btn btn-link text-white">Consolas</button>
-              <button onClick={() => handleCategoriaClick("implementos")} className="nav-link btn btn-link text-white">Implementos</button>
-            </div>
+            
+            <nav class="navbar navbar-expand-lg ">
+                <div class="container-fluid">
+                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                      <li class="nav-item dropdown">
+                      <button onClick={() => handleCategoriaClick("juegos")} className="nav-link btn btn-link text-white dropdown-toggle" role="button" data-bs-toggle="dropdown">Juegos</button>
+                      <div class="row dropdown-menu custom-dropdown-width">
+                          <div className="d-flex">
+                            
+                        <div className="col mb-3">
+                            <h5>PlayStation</h5>
+                            <ul className="nav flex-column">
+                              <li className="nav-item mb-2"><a href="#" onClick={() => navegar("/vista-producto")} className="nav-link p-0 text-body-secondary">PlayStation 3</a></li>
+                              <li className="nav-item mb-2"><a href="#" onClick={() => navegar("/vista-producto")} className="nav-link p-0 text-body-secondary">PlayStation 4</a></li>
+                              <li className="nav-item mb-2"><a href="#" onClick={() => navegar("/vista-producto")} className="nav-link p-0 text-body-secondary">PlayStation 5</a></li>
+                            </ul>
+                          </div>
+
+                          <div className="col mb-3">
+                            <h5>Nintendo</h5>
+                            <ul className="nav flex-column">
+                              <li className="nav-item mb-2"><a href="#" onClick={() => navegar("/vista-producto")} className="nav-link p-0 text-body-secondary">3DS</a></li>
+                              <li className="nav-item mb-2"><a href="#" onClick={() => navegar("/vista-producto")} className="nav-link p-0 text-body-secondary">WII</a></li>
+                              <li className="nav-item mb-2"><a href="#" onClick={() => navegar("/vista-producto")} className="nav-link p-0 text-body-secondary">WII U</a></li>
+                            </ul>
+                          </div>
+
+                          <div className="col mb-3">
+                            <h5>Microsoft</h5>
+                            <ul className="nav flex-column">
+                              <li className="nav-item mb-2"><a href="#" onClick={() => navegar("/vista-producto")} className="nav-link p-0 text-body-secondary">XBOX 360</a></li>
+                              <li className="nav-item mb-2"><a href="#" onClick={() => navegar("/vista-producto")} className="nav-link p-0 text-body-secondary">XBOX ONE</a></li>
+                              <li className="nav-item mb-2"><a href="#" onClick={() => navegar("/vista-producto")} className="nav-link p-0 text-body-secondary">XBOX SERIES</a></li>
+                            </ul>
+                          </div>
+
+                          </div>
+                        </div>
+                      </li>
+                      <li class="nav-item dropdown">
+                      <button onClick={() => handleCategoriaClick("accesorios")} className="nav-link btn btn-link text-white dropdown-toggle" role="button" data-bs-toggle="dropdown">Accesorios</button>
+                      <div class="row dropdown-menu custom-dropdown-width">
+                          <div className="d-flex">
+                            
+                        <div className="col mb-3">
+                            <h5>PlayStation</h5>
+                            <ul className="nav flex-column">
+                              <li className="nav-item mb-2"><a href="#" onClick={() => navegar("/vista-producto")} className="nav-link p-0 text-body-secondary">PSP</a></li>
+                              <li className="nav-item mb-2"><a href="#" onClick={() => navegar("/vista-producto")} className="nav-link p-0 text-body-secondary">VITA</a></li>
+                            <li className="nav-item mb-2"><a href="#" onClick={() => navegar("/vista-producto")} className="nav-link p-0 text-body-secondary">PlayStation 3</a></li>
+                              <li className="nav-item mb-2"><a href="#" onClick={() => navegar("/vista-producto")} className="nav-link p-0 text-body-secondary">PlayStation 4</a></li>
+                              <li className="nav-item mb-2"><a href="#" onClick={() => navegar("/vista-producto")} className="nav-link p-0 text-body-secondary">PlayStation 5</a></li>
+                            </ul>
+                          </div>
+
+                          <div className="col mb-3">
+                            <h5>Nintendo</h5>
+                            <ul className="nav flex-column">
+                            <li className="nav-item mb-2"><a href="#" onClick={() => navegar("/vista-producto")} className="nav-link p-0 text-body-secondary">DS</a></li>
+                            <li className="nav-item mb-2"><a href="#" onClick={() => navegar("/vista-producto")} className="nav-link p-0 text-body-secondary">3DS</a></li>
+                              <li className="nav-item mb-2"><a href="#" onClick={() => navegar("/vista-producto")} className="nav-link p-0 text-body-secondary">WII</a></li>
+                              <li className="nav-item mb-2"><a href="#" onClick={() => navegar("/vista-producto")} className="nav-link p-0 text-body-secondary">WII U</a></li>
+                              <li className="nav-item mb-2"><a href="#" onClick={() => navegar("/vista-producto")} className="nav-link p-0 text-body-secondary">SWITCH</a></li>
+                            </ul>
+                          </div>
+
+                          <div className="col mb-3">
+                            <h5>Microsoft</h5>
+                            <ul className="nav flex-column">
+                            <li className="nav-item mb-2"><a href="#" onClick={() => navegar("/vista-producto")} className="nav-link p-0 text-body-secondary">XBOX 360</a></li>
+                              <li className="nav-item mb-2"><a href="#" onClick={() => navegar("/vista-producto")} className="nav-link p-0 text-body-secondary">XBOX ONE</a></li>
+                              <li className="nav-item mb-2"><a href="#" onClick={() => navegar("/vista-producto")} className="nav-link p-0 text-body-secondary">XBOX SERIES</a></li>
+                            </ul>
+                          </div>
+
+                          </div>
+                        </div>
+                      </li>
+                      <li class="nav-item dropdown">
+                      <button onClick={() => handleCategoriaClick("consolas")} className="nav-link btn btn-link text-white dropdown-toggle" role="button" data-bs-toggle="dropdown">Consolas</button>
+                      <div class="row dropdown-menu custom-dropdown-width">
+                          <div className="d-flex">
+                            
+                        <div className="col mb-3">
+                            <h5>PlayStation</h5>
+                            <ul className="nav flex-column">
+                              <li className="nav-item mb-2"><a href="#" onClick={() => navegar("/vista-producto")} className="nav-link p-0 text-body-secondary">PlayStation 4</a></li>
+                              <li className="nav-item mb-2"><a href="#" onClick={() => navegar("/vista-producto")} className="nav-link p-0 text-body-secondary">PlayStation 5</a></li>
+                            </ul>
+                          </div>
+
+                          <div className="col mb-3">
+                            <h5>Nintendo</h5>
+                            <ul className="nav flex-column">
+                            <li className="nav-item mb-2"><a href="#" onClick={() => navegar("/vista-producto")} className="nav-link p-0 text-body-secondary">SWITCH</a></li>
+                            </ul>
+                          </div>
+
+                          <div className="col mb-3">
+                            <h5>Microsoft</h5>
+                            <ul className="nav flex-column">
+                              <li className="nav-item mb-2"><a href="#" onClick={() => navegar("/vista-producto")} className="nav-link p-0 text-body-secondary">XBOX SERIES</a></li>
+                            </ul>
+                          </div>
+
+                          </div>
+                        </div>
+                      </li>
+                      <li class="nav-item dropdown">
+                      <button onClick={() => handleCategoriaClick("implementos")} className="nav-link btn btn-link text-white dropdown-toggle" role="button" data-bs-toggle="dropdown">Implementos</button>
+                    
+                        <div class="row dropdown-menu custom-dropdown-width">
+                          <div className="d-flex">
+
+                        <div className="col mb-3">
+                            <h5>Accesorios</h5>
+                            <ul className="nav flex-column">
+                              <li className="nav-item mb-2"><a href="#" onClick={() => navegar("/vista-producto")} className="nav-link p-0 text-body-secondary">Camaras</a></li>
+                              <li className="nav-item mb-2"><a href="#" onClick={() => navegar("/vista-producto")} className="nav-link p-0 text-body-secondary">Carcasas</a></li>
+                              <li className="nav-item mb-2"><a href="#" onClick={() => navegar("/vista-producto")} className="nav-link p-0 text-body-secondary">Discos externos</a></li>
+                              <li className="nav-item mb-2"><a href="#" onClick={() => navegar("/vista-producto")} className="nav-link p-0 text-body-secondary">GPS</a></li>
+                              <li className="nav-item mb-2"><a href="#" onClick={() => navegar("/vista-producto")} className="nav-link p-0 text-body-secondary">Pendrives</a></li>
+                            </ul>
+                          </div>
+
+                          <div className="col mb-3">
+                            <h5>Perifericos</h5>
+                            <ul className="nav flex-column">
+                              <li className="nav-item mb-2"><a href="#" onClick={() => navegar("/vista-producto")} className="nav-link p-0 text-body-secondary">Audifonos</a></li>
+                              <li className="nav-item mb-2"><a href="#" onClick={() => navegar("/vista-producto")} className="nav-link p-0 text-body-secondary">Cables</a></li>
+                              <li className="nav-item mb-2"><a href="#" onClick={() => navegar("/vista-producto")} className="nav-link p-0 text-body-secondary">Monitores</a></li>
+                              <li className="nav-item mb-2"><a href="#" onClick={() => navegar("/vista-producto")} className="nav-link p-0 text-body-secondary">Parlantes</a></li>
+                              <li className="nav-item mb-2"><a href="#" onClick={() => navegar("/vista-producto")} className="nav-link p-0 text-body-secondary">Teclados</a></li>
+                            </ul>
+                          </div>
+
+                          <div className="col mb-3">
+                            <h5>Gamers</h5>
+                            <ul className="nav flex-column">
+                              <li className="nav-item mb-2"><a href="#" onClick={() => navegar("/vista-producto")} className="nav-link p-0 text-body-secondary">Microfonos</a></li>
+                              <li className="nav-item mb-2"><a href="#" onClick={() => navegar("/vista-producto")} className="nav-link p-0 text-body-secondary">Controles</a></li>
+                              <li className="nav-item mb-2"><a href="#" onClick={() => navegar("/vista-producto")} className="nav-link p-0 text-body-secondary">Mouses</a></li>
+                              <li className="nav-item mb-2"><a href="#" onClick={() => navegar("/vista-producto")} className="nav-link p-0 text-body-secondary">Sillas</a></li>
+                              <li className="nav-item mb-2"><a href="#" onClick={() => navegar("/vista-producto")} className="nav-link p-0 text-body-secondary">Mousepad</a></li>
+                            </ul>
+                          </div>
+
+                          </div>
+                        </div>
+                      
+                      </li>
+                    </ul>
+                    
+                  </div>
+                </div>
+              </nav>
 
             <div className="d-flex align-items-center">
               <button onClick={() => navegar("/search")} className="btn btn-light d-flex align-items-center me-3">
                 <span>&#128269;</span>
               </button>
-<<<<<<< HEAD
               <button onClick={() => navegar("/carrito")} className="btn btn-light d-flex align-items-center position-relative">
                 <span>&#128722;</span>
                 {totalArticulosCarrito > 0 && (
@@ -68,11 +215,6 @@ const Navbar = () => {
                     {totalArticulosCarrito}
                   </span>
                 )}
-=======
-              <button onClick={() => navegar("/carrito")} className="btn btn-light d-flex align-items-center">
-                <span>&#128722;</span> 
-                <span className="ms-2"></span>
->>>>>>> dbaf0b22e12c47ad115b929ac8733ddc4993333b
               </button>
             </div>
           </div>

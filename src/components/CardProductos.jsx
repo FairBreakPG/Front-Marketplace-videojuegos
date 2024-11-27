@@ -1,13 +1,18 @@
 import { useContext } from "react";
 import { ProductosContext } from "../context/ProductoProvider";
+import { useNavigate } from "react-router-dom";
 
 const CardProductos = ({ producto }) => {
   const { addToCart } = useContext(ProductosContext);
+  const navigate = useNavigate();
+  
 
   return (
-    <div className="col">
+    <div className="col my-2">
       <div className="card">
-        <img className="imagen-car card-img-top" src={producto.img} alt={producto.name} />
+        <img className="imagen-car card-img-top" src={producto.img} alt={producto.name}  
+        to={`producto/${producto.id}`}
+        onClick={() => navigate(`/productos/${producto.id}`)}/>
         <div className="card-body">
           <h4 className="card-title text-capitalize">Producto {producto.name}</h4>
           <hr />
@@ -16,6 +21,7 @@ const CardProductos = ({ producto }) => {
           Precio: ${producto.price}
         </h2>
         <div className="d-flex justify-content-around mb-4">
+        
           <button
             className="btn btn-success BotonAgregar"
             onClick={() => addToCart(producto)}  

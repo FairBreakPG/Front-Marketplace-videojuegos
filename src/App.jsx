@@ -6,6 +6,7 @@ import Carrito from "./components/Carrito/Carrito.jsx";
 import CreateProductPage from "./components/CrearProductos/CrearProductos.jsx";
 import LoginForm from "./components/loginForm/LoginForm.jsx";
 import RegistroForm from "./components/RegistroUsuario/RegistroForm.jsx";
+import ProductosVistas from "./views/Productosvista.jsx";
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
         <Route path="/crear-productos" element={<CreateProductPage />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/registrar-usuario" element={<RegistroForm />} />
+        <Route path="/vista-producto" element={<ProductosVistas />}/>
       </Routes>
     </div>
   );
