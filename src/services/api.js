@@ -189,63 +189,62 @@ export const agregarAlCarro = async (productoId, cantidad) => {
   }
 };
 
-export const eliminarProductoDelCarrito = async (carrito_id) => {
-  const url = `http://localhost:3000/carrito/${carrito_id}`;  
-  const token = localStorage.getItem('token'); 
-
+export const eliminarProductoDelCarrito = async (productId) => {
+  const token = localStorage.getItem('token');
   if (!token) {
-    throw new Error('No se encontró el token');
+    throw new Error('No se encontró el token de autenticación');
   }
 
-  const response = await fetch(url, {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`, 
-    },
-  });
+  try {
+    const response = await axios.delete(`${ENDPOINT.quitarItemcarro(productId)}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-  if (!response.ok) {
-    throw new Error('Error al eliminar el producto del carrito');
+    if (response && response.data.message === 'Producto eliminado del carrito') {
+      return response.data; // Retorna la respuesta del servidor
+    } else {
+      throw new Error('Error al eliminar el producto del carrito');
+    }
+  } catch (error) {
+    console.error('Error al eliminar el producto:', error);
+    throw error;
   }
-
-  const data = await response.json();
-  return data;  
 };
 
 export const guardarPedido = async (usuario_id, total, metodo_pago, carrito) => {
-  const token = localStorage.getItem('token'); 
+  const token = localStorage.getItem('token');
+  if (!token) {
+    throw new Error('No se encontró el token de autenticación');
+  }
 
- 
   const detalles_pedido = carrito.map(producto => ({
     producto_id: producto.id,
     cantidad: producto.cantidad,
-    precio: producto.price
+    precio: producto.price,
   }));
 
   try {
-    const response = await fetch('http://localhost:3000/pedidos', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-      },
-      body: JSON.stringify({
+    const response = await axios.post(
+      `${ENDPOINT.pedidos}`, 
+      {
         usuario_id,
         total,
         metodo_pago,
-        detalles_pedido, 
-      }),
-    });
+        detalles_pedido,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
-    if (!response.ok) {
-      throw new Error('Error al guardar el pedido');
-    }
-
-    const data = await response.json();
-    return data; 
+    return response.data;
   } catch (error) {
-    console.error(error);
+    console.error('Error al guardar el pedido:', error);
+    throw error;
   }
 };
 

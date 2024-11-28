@@ -1,7 +1,5 @@
 
-//export const URLBASE = import.meta.env.VITE_API_URL;
 export const URLBASE = import.meta.env.VITE_URL;
-
 
 export const ENDPOINT = {
   login: `${URLBASE}/login`,

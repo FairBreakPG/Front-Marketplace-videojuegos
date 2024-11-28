@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { login } from '../../services/api';
 import styles from './LoginForm.module.css';
+import { ENDPOINT } from '../../config/apiconfig'; 
 
 const LoginForm = ({ onSubmit }) => {
   const [email, setEmail] = useState('');
@@ -13,12 +14,14 @@ const LoginForm = ({ onSubmit }) => {
 
     try {
       console.log('Intentando hacer login con:', { email, contrasena });
-      const userData = await login({ email, contrasena });
-
+      const response = await axios.post(`${ENDPOINT}/login`, {
+        email,
+        contrasena
+      });
+      const userData = response.data;
       console.log('Respuesta del backend:', userData);
       onSubmit(userData); 
     } catch (error) {
-      
       console.error('Error al hacer login:', error);
       setError('Correo o contraseña incorrectos'); 
     }
