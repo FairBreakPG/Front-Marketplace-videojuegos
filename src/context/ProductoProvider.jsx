@@ -54,8 +54,10 @@ const ProductoProvider = ({ children }) => {
   };
 
   const addToCart = async (producto) => {
+    const cantidad = 1; 
+  
     try {
-      const response = await agregarAlCarro(producto.id, producto.cantidad);
+      const response = await agregarAlCarro(producto.id, cantidad); 
       if (response && Array.isArray(response.items)) {
         setCart(response.items);
         toast.success(`${producto.nombre} agregado al carrito!`);
@@ -67,6 +69,7 @@ const ProductoProvider = ({ children }) => {
       toast.error("Error al agregar producto al carrito");
     }
   };
+  
 
   const removeFromCart = async (productId) => {
     const token = localStorage.getItem('token');
