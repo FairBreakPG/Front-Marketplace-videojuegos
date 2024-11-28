@@ -44,13 +44,13 @@ const ProductoProvider = ({ children }) => {
   
     setLoading(true);
     try {
-      const cartData = await getCarro(userId);  
+      const cartData = await getCarro(userId); 
       console.log('Carrito recibido:', cartData);  
-  
+      
       if (cartData && Array.isArray(cartData.items)) {
-        setCart(cartData.items);
+        setCart(cartData.items); 
       } else {
-        setCart([]);  
+        setCart([]); e
       }
     } catch (err) {
       console.error("Error al obtener el carrito:", err);
@@ -59,7 +59,6 @@ const ProductoProvider = ({ children }) => {
       setLoading(false);
     }
   };
-  
 
   const addToCart = async (producto) => {
     const userId = localStorage.getItem('userId');
@@ -68,9 +67,9 @@ const ProductoProvider = ({ children }) => {
       return;
     }
     try {
-      const response = await agregarAlCarro(producto.id, 1, userId);
-      console.log('Respuesta al agregar al carrito:', response);  
-      if (response && Array.isArray(response.items)) {
+      const response = await agregarAlCarro(producto.id, 1, userId);  
+      console.log('Respuesta al agregar al carrito:', response);
+            if (response && Array.isArray(response.items)) {
         setCart(response.items);  
         toast.success(`${producto.nombre} agregado al carrito!`);
       } else {
@@ -81,6 +80,7 @@ const ProductoProvider = ({ children }) => {
       toast.error("Error al agregar producto al carrito");
     }
   };
+  
   
 
   
