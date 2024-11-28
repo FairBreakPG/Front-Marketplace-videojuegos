@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { URLBASE } from '../config/apiconfig'; 
 
 const PerfilUsuario = ({ userId, token }) => {
   const [perfil, setPerfil] = useState(null);
@@ -10,7 +11,7 @@ const PerfilUsuario = ({ userId, token }) => {
   useEffect(() => {
     const fetchPerfil = async () => {
       try {
-        const response = await axios.get(`/usuario/${userId}`, {
+        const response = await axios.get(URLBASE +`/usuario/${userId}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setPerfil(response.data.perfil);
@@ -25,7 +26,7 @@ const PerfilUsuario = ({ userId, token }) => {
 
   const handleUpdate = async () => {
     try {
-      await axios.put(`/usuario/${userId}`, form, {
+      await axios.put(URLBASE+`/usuario/${userId}`, form, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setPerfil(form);
