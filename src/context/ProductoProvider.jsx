@@ -44,13 +44,16 @@ const ProductoProvider = ({ children }) => {
   
     setLoading(true);
     try {
-      const cartData = await getCarro(userId); 
-      console.log('Carrito recibido:', cartData);  
-      
+      const res = await fetch(`${ENDPOINT.carro}/${userId}`);
+      if (!res.ok) {
+        throw new Error('Error al obtener el carrito');
+      }
+  
+      const cartData = await res.json();
       if (cartData && Array.isArray(cartData.items)) {
-        setCart(cartData.items); 
+        setCart(cartData.items);
       } else {
-        setCart([]); e
+        setCart([]);
       }
     } catch (err) {
       console.error("Error al obtener el carrito:", err);
@@ -67,10 +70,9 @@ const ProductoProvider = ({ children }) => {
       return;
     }
     try {
-      const response = await agregarAlCarro(producto.id, 1, userId);  
-      console.log('Respuesta al agregar al carrito:', response);
-            if (response && Array.isArray(response.items)) {
-        setCart(response.items);  
+      const response = await agregarAlCarro(producto.id, 1, userId);
+      if (response && Array.isArray(response.items)) {
+        setCart(response.items);
         toast.success(`${producto.nombre} agregado al carrito!`);
       } else {
         toast.error("Hubo un problema al agregar el producto al carrito");
@@ -80,7 +82,6 @@ const ProductoProvider = ({ children }) => {
       toast.error("Error al agregar producto al carrito");
     }
   };
-  
   
 
   
