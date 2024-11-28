@@ -1,6 +1,6 @@
 import React, { createContext, useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
-import { agregarAlCarro, getCarro } from '../services/api';
+import { agregarAlCarro, getCarro } from '../services/api'; // Asegúrate de importar getCarro
 import 'react-toastify/dist/ReactToastify.css';
 import { ENDPOINT } from '../config/apiconfig'; 
 
@@ -14,7 +14,7 @@ const ProductoProvider = ({ children }) => {
 
   useEffect(() => {
     getProductos();  
-    fetchCart();     
+    fetchCart();   
   }, []);
 
   const getProductos = async () => {
@@ -32,18 +32,15 @@ const ProductoProvider = ({ children }) => {
 
   const fetchCart = async () => {
     const userId = localStorage.getItem('userId');
-    const token = localStorage.getItem('token');
-    if (!userId || !token) return;
+    if (!userId) return;  
 
     setLoading(true);
     try {
-      const response = await axios.get(`${ENDPOINT.carro}/${userId}`, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      if (response && Array.isArray(response.data.items)) {
-        setCart(response.data.items);
+      const cartData = await getCarro(userId); 
+      if (Array.isArray(cartData.items)) {
+        setCart(cartData.items);  
       } else {
-        setCart([]);
+        setCart([]);  
       }
     } catch (err) {
       console.error("Error al obtener el carrito:", err);
@@ -60,7 +57,7 @@ const ProductoProvider = ({ children }) => {
       return;
     }
     try {
-      const response = await agregarAlCarro(producto.id, 1, userId);
+      const response = await agregarAlCarro(producto.id, 1, userId); 
       setCart(response.items);  
       toast.success(`${producto.nombre} agregado al carrito!`);
     } catch (error) {
