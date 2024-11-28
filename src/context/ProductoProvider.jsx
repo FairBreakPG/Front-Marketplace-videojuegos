@@ -15,14 +15,6 @@ const ProductoProvider = ({ children }) => {
     getProductos();  
     fetchCart(); 
   }, []);
-  
-  
-  useEffect(() => {
-    const usuario_id = localStorage.getItem('usuario_id');
-    if (usuario_id) {
-      localStorage.setItem('carrito', JSON.stringify(cart)); 
-    }
-  }, [cart]); 
 
   const getProductos = async () => {
     try {
@@ -37,11 +29,16 @@ const ProductoProvider = ({ children }) => {
     }
   };
 
-
   const fetchCart = async () => {
+    setLoading(true);
     try {
-      const res = await fetch(`${ENDPOINT.carro}`);
-      const cartData = await res.json();
+      const token = localStorage.getItem('token');
+      if (!token) {
+        toast.error('No se encontró el token de usuario');
+        return;
+      }
+
+      const cartData = await getCarro(token); // Usamos el token para obtener el carrito
       if (cartData && Array.isArray(cartData.items)) {
         setCart(cartData.items);
       } else {
@@ -50,24 +47,20 @@ const ProductoProvider = ({ children }) => {
     } catch (err) {
       console.error("Error al obtener el carrito:", err);
       setError("Hubo un problema al obtener el carrito");
+      toast.error("Error al obtener el carrito");
     } finally {
+      setLoading(false);
     }
   };
 
   const addToCart = async (producto) => {
-    const usuario_id = localStorage.getItem('usuario_id');
-    if (!usuario_id) {
-      toast.error("No se encontró el ID de usuario");
-      return;
-    }
     try {
       const response = await agregarAlCarro(producto.id, producto.cantidad);
-      console.log("Respuesta de agregar al carrito:", response); 
       if (response && Array.isArray(response.items)) {
         setCart(response.items);
         toast.success(`${producto.nombre} agregado al carrito!`);
       } else {
-      
+        toast.error('Error al agregar producto al carrito');
       }
     } catch (error) {
       console.error("Error al agregar producto al carrito:", error);
@@ -75,7 +68,6 @@ const ProductoProvider = ({ children }) => {
     }
   };
 
-  
   const removeFromCart = async (productId) => {
     const token = localStorage.getItem('token');
     if (!token) {
@@ -110,10 +102,6 @@ const ProductoProvider = ({ children }) => {
   };
 
   const totalArticulosCarrito = cart.reduce((acc, producto) => acc + producto.cantidad, 0);
-
-  useEffect(() => {
-    localStorage.setItem('carrito', JSON.stringify(cart)); 
-  }, [cart]);
 
   return (
     <ProductosContext.Provider value={{
