@@ -1,53 +1,57 @@
 import React, { createContext, useState, useEffect } from 'react';
-import { toast } from 'react-toastify';  // Import toast
-import { agregarAlCarro, getCarro } from '../services/api'; 
+import { toast } from 'react-toastify';
+import { agregarAlCarro, getCarro } from '../services/api';
 import 'react-toastify/dist/ReactToastify.css';
-import { URLBASE } from '../config/apiconfig'; 
+import { ENDPOINT } from '../config/apiconfig'; 
 
 export const ProductosContext = createContext();
 
 const ProductoProvider = ({ children }) => {
   const [productos, setProductos] = useState([]);
-  const [cart, setCart] = useState([]); 
+  const [cart, setCart] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    getProductos();
+    getProductos();  
+    fetchCart();     
   }, []);
 
   const getProductos = async () => {
     try {
-      const res = await fetch(`${URLBASE}/productos`)
+      const res = await fetch(`${ENDPOINT.productos}`);
       if (!res.ok) {
         throw new Error('Error al obtener productos');
       }
       const productos = await res.json();
-      setProductos(productos); 
+      setProductos(productos);
     } catch (error) {
       console.error('Error al obtener los productos:', error);
     }
   };
 
-  useEffect(() => {
-    const fetchCart = async () => {
-      const userId = localStorage.getItem('userId');
-      const token = localStorage.getItem('token'); 
-      if (!userId || !token) return;
+  const fetchCart = async () => {
+    const userId = localStorage.getItem('userId');
+    const token = localStorage.getItem('token');
+    if (!userId || !token) return;
 
-      setLoading(true);
-      try {
-        const response = await getCarro(userId, token); 
-        if (response && Array.isArray(response.items)) {
-          setCart(response.items); 
-        }
-      } catch (error) {
-        console.error('Error al obtener carrito desde el backend:', error);
-      } finally {
-        setLoading(false);
+    setLoading(true);
+    try {
+      const response = await axios.get(`${ENDPOINT.carro}/${userId}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      if (response && Array.isArray(response.data.items)) {
+        setCart(response.data.items);
+      } else {
+        setCart([]);
       }
-    };
-    fetchCart();
-  }, []);
+    } catch (err) {
+      console.error("Error al obtener el carrito:", err);
+      setError("Hubo un problema al obtener el carrito");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const addToCart = async (producto) => {
     const userId = localStorage.getItem('userId');
@@ -56,18 +60,47 @@ const ProductoProvider = ({ children }) => {
       return;
     }
     try {
-      const response = await agregarAlCarro(producto.id, 1, userId); 
-      setCart(response.items); 
+      const response = await agregarAlCarro(producto.id, 1, userId);
+      setCart(response.items);  
       toast.success(`${producto.nombre} agregado al carrito!`);
     } catch (error) {
       toast.error("Error al agregar producto al carrito");
     }
   };
 
-  const total = Array.isArray(cart) ? cart.reduce((acc, producto) => acc + (producto.precio * producto.quantity), 0) : 0;
-  const totalArticulosCarrito = Array.isArray(cart) 
-  ? cart.reduce((acc, producto) => acc + producto.cantidad, 0) 
-  : 0;
+  const removeFromCart = async (productId) => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      toast.error('No estás autenticado. Por favor, inicia sesión.');
+      return;
+    }
+
+    try {
+      const response = await axios.delete(`${ENDPOINT.quitarItemcarro(productId)}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+
+      if (response && response.data.message === 'Producto eliminado del carrito') {
+        setCart(cart.filter(item => item.id !== productId));  
+        toast.success('Producto eliminado correctamente');
+      } else {
+        toast.error('Error al eliminar el producto');
+      }
+    } catch (error) {
+      console.error('Error al eliminar el producto:', error);
+      toast.error('Hubo un problema al eliminar el producto del carrito');
+    }
+  };
+
+  const calculateTotal = () => {
+    return cart.reduce((total, item) => {
+      const price = parseFloat(item.price) || 0;
+      const quantity = parseInt(item.cantidad, 10) || 0;
+      return total + (price * quantity);
+    }, 0);
+  };
+
+  const totalArticulosCarrito = cart.reduce((acc, producto) => acc + producto.cantidad, 0);
 
   useEffect(() => {
     localStorage.setItem('carrito', JSON.stringify(cart)); 
@@ -75,7 +108,7 @@ const ProductoProvider = ({ children }) => {
 
   return (
     <ProductosContext.Provider value={{
-      productos, addToCart, total, totalArticulosCarrito, cart, setCart
+      productos, addToCart, removeFromCart, calculateTotal, totalArticulosCarrito, cart, loading, error
     }}>
       {children}
     </ProductosContext.Provider>
