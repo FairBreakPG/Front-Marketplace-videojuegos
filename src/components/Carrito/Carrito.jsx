@@ -1,15 +1,15 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { ProductosContext } from "../../context/ProductoProvider";
+import axios from 'axios';
+import { ProductosContext } from '../../context/ProductoProvider';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './styleCarro.css';
-import { agregarAlCarro, getCarro, eliminarProductoDelCarrito } from '../../services/api';
+import { ENDPOINT } from '../../config/apiconfig';
 
 const Carro = () => {
   const { productos } = useContext(ProductosContext);
-  const [carrito, setCarrito] = useState([]); 
+  const [carrito, setCarrito] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     obtenerCarrito();
@@ -18,67 +18,100 @@ const Carro = () => {
   const obtenerCarrito = async () => {
     setLoading(true);
     try {
-      const carritoData = await getCarro();
-      setCarrito(carritoData.items || []); 
+      const token = localStorage.getItem('token');
+      const userId = localStorage.getItem('userId'); 
+      if (!token || !userId) {
+        throw new Error('Token o userId no encontrado');
+      }
+
+      const response = await axios.get(`${ENDPOINT.carro}/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`, 
+        },
+      });
+
+      setCarrito(response.data.items || []);
     } catch (error) {
-      console.error("Error al obtener el carrito:", error);
-      setError("Hubo un problema al obtener el carrito");
-      toast.error("Error al obtener el carrito");
+      console.error('Error al obtener el carrito:', error);
+      toast.error('Error al obtener el carrito');
     } finally {
       setLoading(false);
     }
   };
 
   const agregarProductoAlCarro = async (producto) => {
-    const cantidad = 1; 
     try {
-      const respuesta = await agregarAlCarro(producto.id, cantidad);
-      setCarrito(respuesta.items || []);  // Actualizar carrito
+      const token = localStorage.getItem('token');
+      if (!token) {
+        throw new Error('Token no encontrado. El usuario no está autenticado.');
+      }
+
+      const response = await axios.post(
+        ENDPOINT.carro,
+        { productoId: producto.id, cantidad: 1 },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, 
+          },
+        }
+      );
+
+      setCarrito(response.data.items || []); 
       toast.success(`${producto.nombre} agregado al carrito`);
     } catch (error) {
-      console.error("Error al agregar el producto al carrito:", error);
+      console.error('Error al agregar producto al carrito:', error);
       toast.error('No se pudo agregar el producto al carrito');
     }
   };
 
-  const eliminarProductoDelCarritoHandler = async (productoId) => {
+  const eliminarProductoDelCarrito = async (productoId) => {
     try {
-      await eliminarProductoDelCarrito(productoId);
-      setCarrito(carrito.filter(item => item.id !== productoId)); 
+      const token = localStorage.getItem('token');
+      if (!token) {
+        throw new Error('Token no encontrado. El usuario no está autenticado.');
+      }
+
+      await axios.delete(`${ENDPOINT.carro}/${productoId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`, 
+        },
+      });
+
+      setCarrito(carrito.filter((item) => item.id !== productoId));
       toast.success('Producto eliminado del carrito');
     } catch (error) {
-      console.error("Error al eliminar el producto del carrito:", error);
+      console.error('Error al eliminar el producto del carrito:', error);
       toast.error('No se pudo eliminar el producto del carrito');
     }
   };
 
   const calcularTotalCarrito = () => {
-    return carrito.reduce((total, producto) => {
-      return total + (producto.precio * producto.cantidad);
-    }, 0);
+    return carrito.reduce((total, producto) => total + producto.precio * producto.cantidad, 0);
   };
 
   return (
     <div className="product-content">
       <h2>Productos en el Carrito</h2>
-      {carrito.length === 0 ? (
+      {loading ? (
+        <p>Cargando...</p>
+      ) : carrito.length === 0 ? (
         <p className="empty-product-message">Tu carrito está vacío.</p>
       ) : (
         <ul className="product-list">
           {carrito.map((producto) => (
             <li key={producto.id} className="product-item">
               <div className="product-item-details">
-                <img 
-                  src={producto.img || 'default-image.jpg'}  
+                <img
+                  src={producto.img || 'default-image.jpg'}
                   alt={producto.nombre}
                   className="product-item-image"
                 />
                 <span className="product-item-name">{producto.nombre}</span>
                 <span className="product-item-price">${producto.precio}</span>
                 <span className="product-item-quantity">Cantidad: {producto.cantidad}</span>
-                <button 
+                <button
                   className="remove-btn"
-                  onClick={() => eliminarProductoDelCarritoHandler(producto.id)}
+                  onClick={() => eliminarProductoDelCarrito(producto.id)}
                 >
                   Eliminar
                 </button>
