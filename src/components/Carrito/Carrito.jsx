@@ -13,28 +13,17 @@ const Carro = () => {
 
   useEffect(() => {
     const fetchCart = async () => {
+      const userId = localStorage.getItem('userId');
+      const token = localStorage.getItem('token'); 
+      if (!userId || !token) return;
+
       setLoading(true);
       try {
-        const userId = localStorage.getItem('userId');
-        const token = localStorage.getItem('token'); 
-  
-        if (!userId || !token) {
-          throw new Error('El ID de usuario o token no están disponibles');
-        }
-  
-      
         const response = await axios.get(`${ENDPOINT.carro}/${userId}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          }
+          headers: { Authorization: `Bearer ${token}` }
         });
-  
-        console.log('Respuesta del API:', response);
-  
         if (response && Array.isArray(response.data.items)) {
-          setCart(response.data.items); 
-        } else {
-          setCart([]);
+          setCart(response.data.items);
         }
       } catch (err) {
         console.error("Error al obtener el carrito:", err);
@@ -43,26 +32,23 @@ const Carro = () => {
         setLoading(false);
       }
     };
-  
+
     fetchCart();
   }, [setCart]);
 
   const removeProduct = async (productId) => {
+    setLoading(true);
+    const token = localStorage.getItem('token'); 
+    if (!token) {
+      toast.error('No estás autenticado. Por favor, inicia sesión.');
+      return;
+    }
+
     try {
-      setLoading(true);
-      const token = localStorage.getItem('token'); 
-  
-      if (!token) {
-        toast.error('No estás autenticado. Por favor, inicia sesión.');
-        return;
-      }
-  
       const response = await axios.delete(`${ENDPOINT.quitarItemcarro(productId)}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        }
+        headers: { Authorization: `Bearer ${token}` }
       });
-  
+
       if (response && response.data.message === 'Producto eliminado del carrito') {
         setCart(cart.filter(item => item.id !== productId));
         toast.success('Producto eliminado correctamente');
@@ -76,6 +62,7 @@ const Carro = () => {
       setLoading(false);
     }
   };
+
   const calculateTotal = () => {
     if (Array.isArray(cart)) {
       return cart.reduce((total, item) => {
@@ -92,7 +79,7 @@ const Carro = () => {
     const total = calculateTotal();
     const metodo_pago = 'Tarjeta';
     const token = localStorage.getItem('token'); 
-  
+
     if (usuario_id && total > 0 && token) {
       const detalles_pedido = cart.map(item => ({
         producto_id: item.id,
@@ -115,7 +102,7 @@ const Carro = () => {
             },
           }
         );
-  
+
         if (response) {
           toast.success('Pedido realizado con éxito');
         } else {
