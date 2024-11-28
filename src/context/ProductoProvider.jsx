@@ -41,10 +41,6 @@ const ProductoProvider = ({ children }) => {
   const fetchCart = async () => {
     try {
       const res = await fetch(`${ENDPOINT.carro}`);
-      if (!res.ok) {
-        throw new Error('Error al obtener el carrito');
-      }
-  
       const cartData = await res.json();
       if (cartData && Array.isArray(cartData.items)) {
         setCart(cartData.items);
@@ -55,7 +51,6 @@ const ProductoProvider = ({ children }) => {
       console.error("Error al obtener el carrito:", err);
       setError("Hubo un problema al obtener el carrito");
     } finally {
-      setLoading(false);
     }
   };
 
