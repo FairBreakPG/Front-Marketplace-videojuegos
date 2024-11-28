@@ -11,7 +11,6 @@ const Carro = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-
   useEffect(() => {
     obtenerCarrito();
   }, []);
@@ -20,7 +19,7 @@ const Carro = () => {
     setLoading(true);
     try {
       const carritoData = await getCarro();
-      setCarrito(carritoData.items || []);
+      setCarrito(carritoData.items || []); 
     } catch (error) {
       console.error("Error al obtener el carrito:", error);
       setError("Hubo un problema al obtener el carrito");
@@ -30,12 +29,11 @@ const Carro = () => {
     }
   };
 
-  
   const agregarProductoAlCarro = async (producto) => {
-    const cantidad = 1;
+    const cantidad = 1; 
     try {
       const respuesta = await agregarAlCarro(producto.id, cantidad);
-      setCarrito(respuesta.items || []);
+      setCarrito(respuesta.items || []);  // Actualizar carrito
       toast.success(`${producto.nombre} agregado al carrito`);
     } catch (error) {
       console.error("Error al agregar el producto al carrito:", error);
@@ -46,7 +44,7 @@ const Carro = () => {
   const eliminarProductoDelCarritoHandler = async (productoId) => {
     try {
       await eliminarProductoDelCarrito(productoId);
-      setCarrito(carrito.filter(item => item.id !== productoId));
+      setCarrito(carrito.filter(item => item.id !== productoId)); 
       toast.success('Producto eliminado del carrito');
     } catch (error) {
       console.error("Error al eliminar el producto del carrito:", error);
@@ -54,7 +52,6 @@ const Carro = () => {
     }
   };
 
-  
   const calcularTotalCarrito = () => {
     return carrito.reduce((total, producto) => {
       return total + (producto.precio * producto.cantidad);

@@ -1,115 +1,125 @@
-.cart-container {
-    padding: 20px;
-    font-family: Arial, sans-serif;
-    max-width: 800px;
-    margin: 0 auto;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-  }
-  
-  .cart-title {
-    text-align: center;
-    color: #333;
-    font-size: 2rem;
-    margin-bottom: 20px;
-  }
-  
-  .loading-message {
-    text-align: center;
-    color: #888;
-    font-size: 1rem;
-  }
-  
-  .error-message {
-    text-align: center;
-    color: red;
-    font-size: 1rem;
-  }
-  
-  .cart-content {
-    background-color: white;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
-  
-  .empty-cart-message {
-    text-align: center;
-    font-size: 1.2rem;
-    color: #555;
-  }
-  
-  .cart-list {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .cart-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 0;
-    border-bottom: 1px solid #eee;
-  }
-  
-  .cart-item-details {
-    display: flex;
-    align-items: center;
-  }
-  
-  .cart-item-image {
-    width: 50px;
-    height: 50px;
-    object-fit: cover;
-    border-radius: 4px;
-    margin-right: 15px;
-  }
-  
-  .cart-item-name {
-    font-size: 1rem;
-    color: #333;
-    margin-right: 15px;
-  }
-  
-  .cart-item-price,
-  .cart-item-quantity {
-    font-size: 1rem;
-    color: #666;
-  }
-  
-  .remove-btn {
-    background-color: #ff5c5c;
-    color: white;
-    padding: 5px 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 0.9rem;
-  }
-  
-  .remove-btn:hover {
-    background-color: #ff3b3b;
-  }
-  
-  .cart-total {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 20px;
-    font-size: 1.2rem;
-  }
-  
-  .checkout-btn {
-    background-color: #28a745;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1rem;
-  }
-  
-  .checkout-btn:hover {
-    background-color: #218838;
-  }
-  
+/* styleCarro.css */
+
+/* General container styling */
+.product-content {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Arial', sans-serif;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Title */
+.product-content h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+/* Empty message when cart is empty */
+.empty-product-message {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #888;
+}
+
+/* List of products in the cart */
+.product-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.product-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 15px;
+  padding: 15px;
+  transition: all 0.3s ease;
+}
+
+.product-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling for product image */
+.product-item-image {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-right: 15px;
+}
+
+/* Product name, price, and quantity */
+.product-item-details {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.product-item-name {
+  font-size: 1rem;
+  color: #333;
+  font-weight: 600;
+  flex: 1;
+}
+
+.product-item-price {
+  font-size: 1rem;
+  color: #28a745;
+  font-weight: 500;
+  margin-right: 15px;
+}
+
+.product-item-quantity {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+/* Button for removing items from the cart */
+.remove-btn {
+  background-color: #f44336;
+  color: white;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.remove-btn:hover {
+  background-color: #d32f2f;
+}
+
+/* Cart total section */
+.cart-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 30px;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.cart-total h3 {
+  color: #333;
+}
+
+/* Toast Container styles */
+.Toastify__toast-container {
+  font-family: 'Arial', sans-serif;
+  font-size: 0.9rem;
+}
+
+.Toastify__toast {
+  background-color: #333;
+  color: white;
+}

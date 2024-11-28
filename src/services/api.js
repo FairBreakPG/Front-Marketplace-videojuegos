@@ -64,14 +64,15 @@ export const login = async ({ email, contrasena }) => {
 
 export const getCarro = async () => {
   const token = localStorage.getItem('token');
-  if (!token) {
-    throw new Error('No se encontró el token de autenticación');
+  const userId = localStorage.getItem('userId');  // Obtener el userId del localStorage
+  if (!token || !userId) {
+    throw new Error('No se encontró el token de autenticación o el userId');
   }
 
   try {
-    const response = await axios.get(`${ENDPOINT.carro}`, {
+    const response = await axios.get(`${ENDPOINT.carro}/${userId}`, {  // Incluir userId en la URL
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,  // Enviar el token en los headers
       },
     });
     return response.data;  
@@ -80,6 +81,7 @@ export const getCarro = async () => {
     throw error;
   }
 };
+
 
 export const agregarAlCarro = async (productoId, cantidad) => {
   try {
