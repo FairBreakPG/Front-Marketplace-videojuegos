@@ -38,7 +38,7 @@ const ProductoProvider = ({ children }) => {
         return;
       }
 
-      const cartData = await getCarro(token); // Usamos el token para obtener el carrito
+      const cartData = await getCarro(token); 
       if (cartData && Array.isArray(cartData.items)) {
         setCart(cartData.items);
       } else {
