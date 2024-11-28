@@ -39,12 +39,8 @@ const ProductoProvider = ({ children }) => {
 
 
   const fetchCart = async () => {
-    const userId = localStorage.getItem('userId');
-    if (!userId) return;
-  
-    setLoading(true);
     try {
-      const res = await fetch(`${ENDPOINT.carro}/${userId}`);
+      const res = await fetch(`${ENDPOINT.carro}`);
       if (!res.ok) {
         throw new Error('Error al obtener el carrito');
       }
@@ -70,19 +66,19 @@ const ProductoProvider = ({ children }) => {
       return;
     }
     try {
-      const response = await agregarAlCarro(producto.id, 1, userId);
+      const response = await agregarAlCarro(producto.id, producto.cantidad);
+      console.log("Respuesta de agregar al carrito:", response); 
       if (response && Array.isArray(response.items)) {
         setCart(response.items);
         toast.success(`${producto.nombre} agregado al carrito!`);
       } else {
-        toast.error("Hubo un problema al agregar el producto al carrito");
+      
       }
     } catch (error) {
       console.error("Error al agregar producto al carrito:", error);
       toast.error("Error al agregar producto al carrito");
     }
   };
-  
 
   
   const removeFromCart = async (productId) => {
