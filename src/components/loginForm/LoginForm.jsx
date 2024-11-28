@@ -16,7 +16,7 @@ const LoginForm = ({ onSubmit }) => {
       console.log('Intentando hacer login con:', { email, contrasena });
       const response = await axios.post(`${ENDPOINT.login}`, {
         email,
-        contrasena
+        contraseña: contrasena
       });
       const userData = response.data;
       console.log('Respuesta del backend:', userData);
