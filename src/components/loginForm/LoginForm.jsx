@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { login } from '../../services/api';
 import styles from './LoginForm.module.css';
 import { ENDPOINT } from '../../config/apiconfig'; 
+import axios from 'axios';
 
 const LoginForm = ({ onSubmit }) => {
   const [email, setEmail] = useState('');

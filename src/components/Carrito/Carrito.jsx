@@ -4,7 +4,6 @@ import { getCarro, eliminarProductoDelCarrito, guardarPedido } from "../../servi
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './styleCarro.css';
- 
 
 const Carro = () => {
   const { cart, setCart } = useContext(ProductosContext); 
