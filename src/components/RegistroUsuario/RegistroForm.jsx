@@ -2,7 +2,6 @@ import { useState } from 'react';
 import axios from 'axios'; 
 import { ENDPOINT } from '../../config/apiconfig'; 
 import styles from './RegistroForm.module.css';
-import { URLBASE } from '../config/apiconfig'; 
 
 
 const RegistroForm = ({ onSubmit }) => {
