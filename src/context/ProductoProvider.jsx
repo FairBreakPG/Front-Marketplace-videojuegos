@@ -15,7 +15,14 @@ const ProductoProvider = ({ children }) => {
     getProductos();  
     fetchCart(); 
   }, []);
-
+  
+  
+  useEffect(() => {
+    const userId = localStorage.getItem('userId');
+    if (userId) {
+      localStorage.setItem('carrito', JSON.stringify(cart)); 
+    }
+  }, [cart]); 
 
   const getProductos = async () => {
     try {
@@ -34,12 +41,14 @@ const ProductoProvider = ({ children }) => {
   const fetchCart = async () => {
     const userId = localStorage.getItem('userId');
     if (!userId) return;
-
+  
     setLoading(true);
     try {
       const cartData = await getCarro(userId);  
-      if (cartData && cartData.items && Array.isArray(cartData.items)) {
-        setCart(cartData.items);  
+      console.log('Carrito recibido:', cartData);  
+  
+      if (cartData && Array.isArray(cartData.items)) {
+        setCart(cartData.items);
       } else {
         setCart([]);  
       }
@@ -50,6 +59,7 @@ const ProductoProvider = ({ children }) => {
       setLoading(false);
     }
   };
+  
 
   const addToCart = async (producto) => {
     const userId = localStorage.getItem('userId');
@@ -58,17 +68,20 @@ const ProductoProvider = ({ children }) => {
       return;
     }
     try {
-      const response = await agregarAlCarro(producto.id, 1, userId);  
+      const response = await agregarAlCarro(producto.id, 1, userId);
+      console.log('Respuesta al agregar al carrito:', response);  
       if (response && Array.isArray(response.items)) {
-        setCart(response.items); 
+        setCart(response.items);  
+        toast.success(`${producto.nombre} agregado al carrito!`);
       } else {
         toast.error("Hubo un problema al agregar el producto al carrito");
       }
-      toast.success(`${producto.nombre} agregado al carrito!`);
     } catch (error) {
+      console.error("Error al agregar producto al carrito:", error);
       toast.error("Error al agregar producto al carrito");
     }
   };
+  
 
   
   const removeFromCart = async (productId) => {
