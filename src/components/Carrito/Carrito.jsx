@@ -56,6 +56,16 @@ const Carro = () => {
       setLoading(false);
     }
   };
+  const calculateTotal = () => {
+    if (Array.isArray(cart)) {
+      return cart.reduce((total, item) => {
+        const price = parseFloat(item.price) || 0;  
+        const quantity = parseInt(item.cantidad, 10) || 0;  
+        return total + (price * quantity);
+      }, 0);
+    }
+    return 0;
+  };
 
   const handleCheckout = async () => {
     const usuario_id = localStorage.getItem('userId');
