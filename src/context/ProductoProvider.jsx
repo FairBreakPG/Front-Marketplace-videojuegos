@@ -37,8 +37,8 @@ const ProductoProvider = ({ children }) => {
         toast.error('No se encontró el token de usuario');
         return;
       }
-
-      const cartData = await getCarro(token); 
+  
+      const cartData = await getCarro();
       if (cartData && Array.isArray(cartData.items)) {
         setCart(cartData.items);
       } else {
