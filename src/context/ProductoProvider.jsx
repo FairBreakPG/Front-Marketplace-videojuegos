@@ -18,8 +18,8 @@ const ProductoProvider = ({ children }) => {
   
   
   useEffect(() => {
-    const userId = localStorage.getItem('userId');
-    if (userId) {
+    const usuario_id = localStorage.getItem('usuario_id');
+    if (usuario_id) {
       localStorage.setItem('carrito', JSON.stringify(cart)); 
     }
   }, [cart]); 
@@ -55,8 +55,8 @@ const ProductoProvider = ({ children }) => {
   };
 
   const addToCart = async (producto) => {
-    const userId = localStorage.getItem('userId');
-    if (!userId) {
+    const usuario_id = localStorage.getItem('usuario_id');
+    if (!usuario_id) {
       toast.error("No se encontró el ID de usuario");
       return;
     }
