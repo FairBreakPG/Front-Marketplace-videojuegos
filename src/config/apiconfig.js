@@ -9,6 +9,7 @@ export const ENDPOINT = {
   crearProducto: `${URLBASE}/productos`, 
   carro: `${URLBASE}/carro`,
   quitarItemcarro: (id) => `${URLBASE}/carro/${id}`,
+  pedidos: `${URLBASE}/pedidos`,
 };
 
 

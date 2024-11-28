@@ -1,9 +1,10 @@
 import React, { useContext, useState, useEffect } from "react";
 import { ProductosContext } from "../../context/ProductoProvider";
-import { getCarro, eliminarProductoDelCarrito, guardarPedido } from "../../services/api";  
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './styleCarro.css';
+import axios from 'axios';
+import { ENDPOINT } from '../../config/apiconfig'; 
 
 const Carro = () => {
   const { cart, setCart } = useContext(ProductosContext); 
@@ -19,11 +20,11 @@ const Carro = () => {
           throw new Error('El ID de usuario no está disponible');
         }
 
-        const response = await getCarro(userId); // Aquí usamos la función con axios
+        const response = await axios.get(`${ENDPOINT.carro}/${userId}`); 
         console.log('Respuesta del API:', response);
 
-        if (response && Array.isArray(response.items)) {
-          setCart(response.items);
+        if (response && Array.isArray(response.data.items)) {
+          setCart(response.data.items); 
         } else {
           setCart([]);
         }
@@ -41,9 +42,9 @@ const Carro = () => {
   const removeProduct = async (productId) => {
     try {
       setLoading(true);
-      const response = await eliminarProductoDelCarrito(productId); 
+      const response = await axios.delete(`${ENDPOINT.quitarItemcarro(productId)}`); // Aquí usamos el endpoint para quitar el item del carrito
 
-      if (response && response.message === 'Producto eliminado del carrito') {
+      if (response && response.data.message === 'Producto eliminado del carrito') {
         setCart(cart.filter(item => item.id !== productId));
         toast.success('Producto eliminado correctamente');
       } else {
@@ -80,7 +81,20 @@ const Carro = () => {
       }));
 
       try {
-        const response = await guardarPedido(usuario_id, total, metodo_pago, detalles_pedido); // Usamos axios para guardar el pedido
+        const response = await axios.post(
+          `${ENDPOINT.pedidos}`, 
+          {
+            usuario_id,
+            total,
+            metodo_pago,
+            detalles_pedido,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+          }
+        );
         if (response) {
           toast.success('Pedido realizado con éxito');
         } else {
