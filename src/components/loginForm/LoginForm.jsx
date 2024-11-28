@@ -14,7 +14,7 @@ const LoginForm = ({ onSubmit }) => {
 
     try {
       console.log('Intentando hacer login con:', { email, contrasena });
-      const response = await axios.post(`${ENDPOINT}/login`, {
+      const response = await axios.post(`${ENDPOINT.login}`, {
         email,
         contrasena
       });
