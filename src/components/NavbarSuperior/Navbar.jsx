@@ -1,7 +1,6 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { ProductosContext } from "../../context/ProductoProvider";
-import '../NavbarSuperior/styleNav.css';
 
 const Navbar = () => {
   const navegar = useNavigate(); 
