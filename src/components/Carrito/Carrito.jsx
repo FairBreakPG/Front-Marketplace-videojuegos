@@ -10,6 +10,8 @@ const Carro = () => {
   const { productos } = useContext(ProductosContext);
   const [carrito, setCarrito] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [metodoPago, setMetodoPago] = useState('');  
+  const [total, setTotal] = useState(0);  
 
   useEffect(() => {
     obtenerCarrito();
@@ -20,19 +22,14 @@ const Carro = () => {
     try {
       const token = localStorage.getItem('token');
       const userId = localStorage.getItem('userId');
-      
-      console.log('userId:', userId, 'token:', token); 
-  
       if (!token || !userId) {
         throw new Error('Token o userId no encontrado');
       }
-  
       const response = await axios.get(`${ENDPOINT.carro}/${userId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-  
       setCarrito(response.data.items || []);
     } catch (error) {
       console.error('Error al obtener el carrito:', error);
@@ -42,7 +39,6 @@ const Carro = () => {
     }
   };
 
-  
   const eliminarProductoDelCarrito = async (productoId) => {
     try {
       const token = localStorage.getItem('token');
@@ -52,7 +48,7 @@ const Carro = () => {
 
       await axios.delete(`${ENDPOINT.carro}/${productoId}`, {
         headers: {
-          Authorization: `Bearer ${token}`, 
+          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -66,12 +62,51 @@ const Carro = () => {
 
   const calcularTotalCarrito = () => {
     return carrito.reduce((total, producto) => {
-      const precio = parseFloat(producto.price) || 0; 
-      const cantidad = parseInt(producto.cantidad, 10) || 0;  
+      const precio = parseFloat(producto.price) || 0;
+      const cantidad = parseInt(producto.cantidad, 10) || 0;
       return total + (precio * cantidad);
     }, 0);
   };
-  
+
+  const handleRealizarPedido = async () => {
+    const userId = localStorage.getItem('userId');
+    if (!userId || !metodoPago || carrito.length === 0) {
+      toast.error('Por favor, complete todos los campos.');
+      return;
+    }
+
+    try {
+      const detalles_pedido = carrito.map((producto) => ({
+        producto_id: producto.id,
+        cantidad: producto.cantidad,
+        precio: producto.price,
+      }));
+
+      const response = await axios.post(
+        `${ENDPOINT}/pedidos`, 
+        {
+          usuario_id: userId,
+          total,
+          metodo_pago: metodoPago,
+          detalles_pedido,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        }
+      );
+
+      if (response.status === 201) {
+        toast.success('Pedido realizado con éxito');
+      } else {
+        toast.error('Error al realizar el pedido');
+      }
+    } catch (error) {
+      console.error('Error al realizar el pedido:', error);
+      toast.error('Hubo un error al realizar el pedido');
+    }
+  };
 
   return (
     <div className="product-content">
@@ -104,9 +139,33 @@ const Carro = () => {
           ))}
         </ul>
       )}
+
       <div className="cart-total">
         <h3>Total: ${calcularTotalCarrito().toFixed(2)}</h3>
       </div>
+
+      
+      <div className="payment-method">
+        <h4>Selecciona tu método de pago</h4>
+        <select
+          value={metodoPago}
+          onChange={(e) => setMetodoPago(e.target.value)}
+        >
+          <option value="">Seleccione</option>
+          <option value="Tarjeta de Crédito">Tarjeta de Crédito</option>
+          <option value="PayPal">PayPal</option>
+          <option value="Efectivo">Efectivo</option>
+        </select>
+      </div>
+
+      <button
+        onClick={handleRealizarPedido}
+        disabled={!metodoPago || carrito.length === 0}
+        className="btn btn-primary"
+      >
+        Realizar Pedido
+      </button>
+
       <ToastContainer />
     </div>
   );
