@@ -65,8 +65,13 @@ const Carro = () => {
   };
 
   const calcularTotalCarrito = () => {
-    return carrito.reduce((total, producto) => total + producto.precio * producto.cantidad, 0);
+    return carrito.reduce((total, producto) => {
+      const precio = parseFloat(producto.price) || 0; 
+      const cantidad = parseInt(producto.cantidad, 10) || 0;  
+      return total + (precio * cantidad);
+    }, 0);
   };
+  
 
   return (
     <div className="product-content">
@@ -85,8 +90,8 @@ const Carro = () => {
                   alt={producto.nombre}
                   className="product-item-image"
                 />
-                <span className="product-item-name">{producto.nombre}</span>
-                <span className="product-item-price">${producto.precio}</span>
+                <span className="product-item-name">{producto.name}</span>
+                <span className="product-item-price">${producto.price}</span>
                 <span className="product-item-quantity">Cantidad: {producto.cantidad}</span>
                 <button
                   className="remove-btn"
