@@ -17,6 +17,7 @@ const RegistroForm = ({ onSubmit }) => {
 
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
 
 
   const handleChange = (e) => {
