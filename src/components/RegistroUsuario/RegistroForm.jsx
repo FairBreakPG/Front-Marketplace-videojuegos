@@ -30,6 +30,7 @@ const RegistroForm = ({ onSubmit }) => {
     e.preventDefault();
     setLoading(true);
     setError('');
+    setSuccessMessage('');
     
     console.log('Datos del formulario:', formData); 
     
@@ -37,6 +38,7 @@ const RegistroForm = ({ onSubmit }) => {
       const response = await axios.post(ENDPOINT.usuarios, formData);
       console.log('Usuario registrado:', response.data);
       onSubmit(response.data);
+      setSuccessMessage('Usuario registrado correctamente');
       setFormData({
         nombre: '',
         apellido: '',
@@ -48,8 +50,6 @@ const RegistroForm = ({ onSubmit }) => {
       });
     } catch (error) {
       setLoading(false);
-      setError(error.response?.data?.message || 'Hubo un error al registrar al usuario. Intenta de nuevo.');
-      console.error('Error al registrar usuario:', error);
     }
   };
 
@@ -142,7 +142,7 @@ const RegistroForm = ({ onSubmit }) => {
       </div>
 
       {error && <p className={styles.error}>{error}</p>}
-
+      {successMessage && <p className={styles.success}>{successMessage}</p>} 
       <button type="submit" className={styles.submitButton} disabled={loading}>
         {loading ? 'Registrando...' : 'Registrar'}
       </button>
