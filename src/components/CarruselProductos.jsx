@@ -15,7 +15,8 @@ const MultiItemCarousel = () => {
       return;
     }
     try {
-      await agregarAlCarro(producto.id, 1); 
+     // await agregarAlCarro(producto.id, 1); 
+     await agregarAlCarro({ productoId: producto.id, cantidad: 1 }); 
       toast.success(`${producto.nombre} agregado al carrito`);
     } catch (error) {
       toast.error('Error al agregar producto al carrito');

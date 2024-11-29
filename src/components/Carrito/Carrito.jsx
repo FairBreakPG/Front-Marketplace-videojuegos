@@ -19,17 +19,20 @@ const Carro = () => {
     setLoading(true);
     try {
       const token = localStorage.getItem('token');
-      const userId = localStorage.getItem('userId'); 
+      const userId = localStorage.getItem('userId');
+      
+      console.log('userId:', userId, 'token:', token); 
+  
       if (!token || !userId) {
         throw new Error('Token o userId no encontrado');
       }
-
+  
       const response = await axios.get(`${ENDPOINT.carro}/${userId}`, {
         headers: {
-          Authorization: `Bearer ${token}`, 
+          Authorization: `Bearer ${token}`,
         },
       });
-
+  
       setCarrito(response.data.items || []);
     } catch (error) {
       console.error('Error al obtener el carrito:', error);
@@ -39,31 +42,7 @@ const Carro = () => {
     }
   };
 
-  const agregarProductoAlCarro = async (producto) => {
-    try {
-      const token = localStorage.getItem('token');
-      if (!token) {
-        throw new Error('Token no encontrado. El usuario no está autenticado.');
-      }
-
-      const response = await axios.post(
-        ENDPOINT.carro,
-        { productoId: producto.id, cantidad: 1 },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`, 
-          },
-        }
-      );
-
-      setCarrito(response.data.items || []); 
-      toast.success(`${producto.nombre} agregado al carrito`);
-    } catch (error) {
-      console.error('Error al agregar producto al carrito:', error);
-      toast.error('No se pudo agregar el producto al carrito');
-    }
-  };
-
+  
   const eliminarProductoDelCarrito = async (productoId) => {
     try {
       const token = localStorage.getItem('token');
