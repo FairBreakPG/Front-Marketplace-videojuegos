@@ -1,5 +1,3 @@
-/* styleCarro.css */
-
 /* General container styling */
 .product-content {
   max-width: 900px;
@@ -32,6 +30,7 @@
   margin: 0;
 }
 
+/* Item in the cart */
 .product-item {
   display: flex;
   justify-content: space-between;
@@ -44,9 +43,18 @@
   transition: all 0.3s ease;
 }
 
+/* Hover effect for product item */
 .product-item:hover {
   transform: translateY(-5px);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Product item details container */
+.product-item-details {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  justify-content: space-between;
 }
 
 /* Styling for product image */
@@ -59,17 +67,11 @@
 }
 
 /* Product name, price, and quantity */
-.product-item-details {
-  display: flex;
-  align-items: center;
-  flex: 1;
-}
-
 .product-item-name {
   font-size: 1rem;
   color: #333;
   font-weight: 600;
-  flex: 1;
+  flex: 2;
 }
 
 .product-item-price {
@@ -82,9 +84,9 @@
 .product-item-quantity {
   font-size: 0.9rem;
   color: #555;
+  margin-right: 15px;
 }
 
-/* Button for removing items from the cart */
 .remove-btn {
   background-color: #f44336;
   color: white;
@@ -99,7 +101,6 @@
   background-color: #d32f2f;
 }
 
-/* Cart total section */
 .cart-total {
   display: flex;
   justify-content: space-between;
@@ -113,7 +114,43 @@
   color: #333;
 }
 
-/* Toast Container styles */
+.payment-method {
+  margin-top: 20px;
+  font-size: 1rem;
+}
+
+.payment-method select {
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  margin-top: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.payment-method h4 {
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.btn {
+  background-color: #28a745;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 20px;
+  font-size: 1.1rem;
+}
+
+.btn:disabled {
+  background-color: #ddd;
+  cursor: not-allowed;
+}
+
 .Toastify__toast-container {
   font-family: 'Arial', sans-serif;
   font-size: 0.9rem;
