@@ -33,7 +33,7 @@ const LoginForm = ({ onSubmit }) => {
         <h2 className={styles.title}>Iniciar Sesión</h2>
 
         <div className={styles.inputGroup}>
-          <label>Email</label>
+          <label>Correo electrónico</label>
           <input
             type="email"
             value={email}

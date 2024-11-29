@@ -53,7 +53,7 @@ const MultiItemCarousel = () => {
                         variant="success"
                         onClick={() => handleAddToCart(producto)}
                       >
-                        Agregar al carrito
+                        Agregar al carro
                       </Button>
                     </Card.Body>
                   </Card>

@@ -67,6 +67,10 @@ const Carro = () => {
       return total + (precio * cantidad);
     }, 0);
   };
+  
+  const formatoTotal = (total) => {
+    return total % 1 === 0 ? total.toFixed(0) : total.toFixed(2);
+  };
 
   const handleRealizarPedido = async () => {
     const userId = localStorage.getItem('userId');
@@ -144,7 +148,7 @@ const Carro = () => {
       )}
 
       <div className="cart-total">
-        <h3>Total: ${calcularTotalCarrito().toFixed(2)}</h3>
+      <h3>Total: ${formatoTotal(calcularTotalCarrito())}</h3>
       </div>
 
       

@@ -1,0 +1,83 @@
+.bg-dark {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+  }
+  
+  .bg-dark .d-flex {
+    gap: 1rem;
+  }
+  
+  .bg-dark button.btn-link {
+    text-decoration: none;
+    color: white;
+    padding: 0;
+    font-size: 0.9rem;
+  }
+  
+  .bg-dark button.btn-link:hover {
+    text-decoration: underline;
+  }
+  
+  .navbar {
+    background-color: #212529;
+  }
+  
+  .navbar .btn-link {
+    text-decoration: none;
+    font-size: 1rem;
+    color: #dcdcdc;
+    background-color: #2f2f2f;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .navbar .btn-link:hover {
+    background-color: #444444;
+    color: #ffffff;
+  }
+  
+  .navbar .btn-light {
+    border: none;
+    background-color: white;
+    padding: 0.5rem;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease;
+  }
+  
+  .navbar .btn-light:hover {
+    background-color: #e9ecef;
+  }
+  
+  .badge {
+    font-size: 0.75rem;
+  }
+  
+  .bg-dark .fab {
+    font-size: 1.2rem;
+  }
+  
+  .bg-dark a {
+    color: white;
+    transition: color 0.3s ease;
+  }
+  
+  .bg-dark a:hover {
+    color: #17a2b8;
+  }
+  
+  h4.logo-nombre {
+    font-size: 1.5rem;
+    margin: 0;
+  }
+  
+  h4.logo-nombre:hover {
+    text-decoration: none;
+    color: #ffffff;
+  }
+  

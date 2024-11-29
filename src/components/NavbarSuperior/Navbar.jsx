@@ -40,7 +40,7 @@ const Navbar = () => {
         <div className="container d-block">
           <div className="d-flex justify-content-between align-items-center">
             <button onClick={() => navegar("/")} className="logo-nombre mx-1 mb-0 btn btn-link text-white">
-              <h4 className="mb-0">&#127918; Marketplace de Videojuegos</h4>
+              <h4 className="mb-0">&#127918; Tienda Games Fx</h4>
             </button>
             <div className="d-flex gap-4">
               <button onClick={() => handleCategoriaClick("juegos")} className="nav-link btn btn-link text-white">Juegos</button>
