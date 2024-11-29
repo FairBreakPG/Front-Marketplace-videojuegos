@@ -74,19 +74,21 @@ const Carro = () => {
       toast.error('Por favor, complete todos los campos.');
       return;
     }
-
+  
     try {
       const detalles_pedido = carrito.map((producto) => ({
         producto_id: producto.id,
         cantidad: producto.cantidad,
         precio: producto.price,
       }));
-
+  
+      const totalCarrito = calcularTotalCarrito(); 
+  
       const response = await axios.post(
-        `${ENDPOINT}/pedidos`, 
+        `${ENDPOINT.pedidos}`, 
         {
           usuario_id: userId,
-          total,
+          total: totalCarrito, 
           metodo_pago: metodoPago,
           detalles_pedido,
         },
@@ -96,7 +98,7 @@ const Carro = () => {
           },
         }
       );
-
+  
       if (response.status === 201) {
         toast.success('Pedido realizado con éxito');
       } else {
@@ -107,6 +109,7 @@ const Carro = () => {
       toast.error('Hubo un error al realizar el pedido');
     }
   };
+  
 
   return (
     <div className="product-content">
