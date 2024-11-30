@@ -10,7 +10,7 @@ export const ENDPOINT = {
   carro: `${URLBASE}/carro`,
   quitarItemcarro: (id) => `${URLBASE}/carro/${id}`,
   pedidos: `${URLBASE}/pedidos`,
-  obtenerPerfilUsuario: `${URLBASE}/perfilusuario/${id}`,
+  obtenerPerfilUsuario: (id) => `${URLBASE}/perfilusuario/${id}`, 
   listarHistorial: `${URLBASE}/listarHistorialUsuario`,
 };
 

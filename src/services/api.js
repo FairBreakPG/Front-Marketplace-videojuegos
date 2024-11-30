@@ -173,7 +173,7 @@ export const obtenerPerfilUsuario = async (id) => {
     throw new Error('No se encontró el token de autenticación');
   }
   try {
-    const response = await axios.get(`${ENDPOINT.perfilusuario}/${id}`, {
+    const response = await axios.get(ENDPOINT.obtenerPerfilUsuario(id), {  
       headers: {
         Authorization: `Bearer ${token}`, 
       },
