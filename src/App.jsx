@@ -7,6 +7,8 @@ import CreateProductPage from "./components/CrearProductos/CrearProductos.jsx";
 import LoginForm from "./components/loginForm/LoginForm.jsx";
 import RegistroForm from "./components/RegistroUsuario/RegistroForm.jsx";
 import 'react-toastify/dist/ReactToastify.css';
+import PerfilUsuario from "./components/pages/perfilUsuario/Perfil.jsx";
+import HistorialPedidos from "./components/HistorialPedidos/historial.jsx";
 
 
 const App = () => {
@@ -28,6 +30,8 @@ const App = () => {
   <Route path="/crear-productos" element={<CreateProductPage />} />
   <Route path="/login" element={<LoginForm onSubmit={handleLoginSubmit} />} />
   <Route path="/registrar-usuario" element={<RegistroForm />} />
+  <Route path="/perfil" element={<PerfilUsuario />} />
+  <Route path="/historial" element={<HistorialPedidos />} />
 </Routes>
     
     </div>

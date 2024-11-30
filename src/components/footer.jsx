@@ -17,13 +17,13 @@ function Footer() {
         <div className="col mb-3">
           <h5>Contacto</h5>
           <ul className="nav flex-column">
-            <li className="nav-item mb-2"><a href="mailto:contacto@empresa.com" className="nav-link p-0 text-body-secondary">Correo electrónico: contacto@empresa.com</a></li>
+            <li className="nav-item mb-2"><a href="mailto:gamesfx@gmail.com" className="nav-link p-0 text-body-secondary">Correo electrónico: contacto@empresa.com</a></li>
           </ul>
         </div>
 
       </footer>
       <div className="text-center py-3">
-        <p>&copy; 2024 Todos los derechos reservados.</p>
+       
       </div>
     </div>
   );

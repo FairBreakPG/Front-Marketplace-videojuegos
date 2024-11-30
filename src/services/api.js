@@ -165,5 +165,38 @@ export const guardarPedido = async (usuario_id, total, metodo_pago, carrito) => 
   }
 };
 
+export const listarUsuarios = async () => {
+  const token = localStorage.getItem('token'); 
+  if (!token) {
+    throw new Error('No se encontró el token de autenticación');
+  }
+  try {
+    const response = await axios.get(`${ENDPOINT.listarUsuarios}`, {
+      headers: {
+        Authorization: `Bearer ${token}`, 
+      },
+    });
+    return response.data; 
+  } catch (error) {
+    console.error('Error al obtener los datos del usuario:', error);
+    throw error;  
+  }
+};
 
-
+export const listarHistorialUsuario = async () => {
+  const token = localStorage.getItem('token'); 
+  if (!token) {
+    throw new Error('No se encontró el token de autenticación');
+  }
+  try {
+    const response = await axios.get(  `${ENDPOINT.listarHistorial}`,  {
+      headers: {
+        Authorization: `Bearer ${token}`,  
+      },
+    });
+    return response.data;  
+  } catch (error) {
+    console.error('Error al obtener el historial de pedidos:', error);
+    throw error; 
+  }
+};

@@ -1,3 +1,4 @@
+import { listarUsuarios } from "../services/api";
 
 export const URLBASE = import.meta.env.VITE_URL;
 
@@ -10,6 +11,8 @@ export const ENDPOINT = {
   carro: `${URLBASE}/carro`,
   quitarItemcarro: (id) => `${URLBASE}/carro/${id}`,
   pedidos: `${URLBASE}/pedidos`,
+  listarUsuarios:`${URLBASE}/listarUsuarios`,
+  listarHistorial:`${URLBASE}/listarHistorialUsuario`,
 };
 
 
