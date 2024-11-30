@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';  
 import { ENDPOINT } from '../../config/apiconfig';  
 import '../perfilUsuario/stylePerfil.css';
+
 const PerfilUsuario = () => {
   const [usuario, setUsuario] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
@@ -48,7 +49,7 @@ const PerfilUsuario = () => {
   const handleEditClick = () => {
     setIsEditing(true);  
   };
-
+/*
   const handleSaveClick = async () => {
     try {
      
@@ -64,6 +65,7 @@ const PerfilUsuario = () => {
       console.error('Error al guardar los cambios:', error);
     }
   };
+  */
 
   if (!usuario) return <div>Cargando...</div>; 
 
@@ -122,7 +124,7 @@ const PerfilUsuario = () => {
       </div>
       <div>
         {isEditing ? (
-          <button onClick={handleSaveClick}>Guardar Cambios</button>  
+          <button >Guardar Cambios</button>  
         ) : (
           <button onClick={handleEditClick}>Editar</button>  
         )}
