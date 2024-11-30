@@ -57,7 +57,7 @@ const PerfilUsuario = () => {
   const handleSaveClick = async () => {
     try {
      
-      const response = await axios.put(`${ENDPOINT.perfilusuario}/${userId}`, formData, {
+      const response = await axios.put(`${ENDPOINT.obtenerPerfilUsuario}/${userId}`, formData, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },

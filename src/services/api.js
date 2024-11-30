@@ -12,6 +12,7 @@ export const getUsuarios = async () => {
   }
 };
 
+/*
 export const getPerfilUsuario = async (id) => {
   try {
     const response = await axios.get(ENDPOINT.perfilusuario(id));
@@ -21,6 +22,7 @@ export const getPerfilUsuario = async (id) => {
     throw error;
   }
 };
+*/
 
 export const getProductos = async () => {
   try {
