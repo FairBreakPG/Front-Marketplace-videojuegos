@@ -1,8 +1,7 @@
-/*
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { ENDPOINT } from '../../../config/apiconfig';
-import '../HistorialPedidos/styleHistorial.css';
 
 
 const HistorialPedidos = () => {
@@ -63,4 +62,3 @@ const HistorialPedidos = () => {
 };
 
 export default HistorialPedidos;
-*/
