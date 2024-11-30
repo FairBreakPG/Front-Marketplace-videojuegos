@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'; 
 import axios from 'axios';  
 import { ENDPOINT } from '../../../config/apiconfig';
-import '../perfilUsuario/stylePerfil.css';
+import './stylePerfil.css';
 
 const PerfilUsuario = () => {
   const [usuario, setUsuario] = useState(null);
@@ -16,7 +16,6 @@ const PerfilUsuario = () => {
 
   const userId = localStorage.getItem('userId'); 
 
- 
   if (!userId || isNaN(userId)) {
     console.error('ID de usuario no válido');
     return <div>Error: No se encontró el ID del usuario.</div>;
@@ -56,6 +55,22 @@ const PerfilUsuario = () => {
 
   const handleEditClick = () => {
     setIsEditing(true);  
+  };
+
+  const handleSaveChanges = async () => {
+    try {
+      const response = await axios.put(ENDPOINT.actualizarPerfilUsuario(userId), formData, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+
+      console.log('Usuario actualizado:', response.data);
+      setUsuario(response.data);  
+      setIsEditing(false);  
+    } catch (error) {
+      console.error('Error al guardar los cambios:', error);
+    }
   };
 
   if (!usuario) return <div>Cargando...</div>; 
@@ -115,7 +130,7 @@ const PerfilUsuario = () => {
       </div>
       <div>
         {isEditing ? (
-          <button>Guardar Cambios</button>  
+          <button onClick={handleSaveChanges}>Guardar Cambios</button>  
         ) : (
           <button onClick={handleEditClick}>Editar</button>  
         )}

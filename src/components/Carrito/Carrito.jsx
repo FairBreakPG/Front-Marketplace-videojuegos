@@ -10,8 +10,8 @@ const Carro = () => {
   const { productos } = useContext(ProductosContext);
   const [carrito, setCarrito] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [metodoPago, setMetodoPago] = useState('');  
-  const [total, setTotal] = useState(0);  
+  const [metodoPago, setMetodoPago] = useState('');
+  const [total, setTotal] = useState(0);
 
   useEffect(() => {
     obtenerCarrito();
@@ -40,19 +40,26 @@ const Carro = () => {
   };
 
   const eliminarProductoDelCarrito = async (productoId) => {
+    const userId = localStorage.getItem('userId');
+    if (!userId) {
+      console.error('No se encontró el ID del usuario');
+      toast.error('Usuario no autenticado');
+      return;
+    }
+
     try {
       const token = localStorage.getItem('token');
       if (!token) {
         throw new Error('Token no encontrado. El usuario no está autenticado.');
       }
 
-      await axios.delete(`${ENDPOINT.carro}/${productoId}`, {
+      await axios.delete(ENDPOINT.eliminarProductoCarro(userId, productoId), {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
-      setCarrito(carrito.filter((item) => item.id !== productoId));
+      setCarrito(carrito.filter((item) => item.producto_id !== productoId));
       toast.success('Producto eliminado del carrito');
     } catch (error) {
       console.error('Error al eliminar el producto del carrito:', error);
@@ -67,7 +74,7 @@ const Carro = () => {
       return total + (precio * cantidad);
     }, 0);
   };
-  
+
   const formatoTotal = (total) => {
     return total % 1 === 0 ? total.toFixed(0) : total.toFixed(2);
   };
@@ -78,21 +85,18 @@ const Carro = () => {
       toast.error('Por favor, complete todos los campos.');
       return;
     }
-  
     try {
       const detalles_pedido = carrito.map((producto) => ({
         producto_id: producto.id,
         cantidad: producto.cantidad,
         precio: producto.price,
       }));
-  
-      const totalCarrito = calcularTotalCarrito(); 
-  
+      const totalCarrito = calcularTotalCarrito();
       const response = await axios.post(
-        `${ENDPOINT.pedidos}`, 
+        `${ENDPOINT.pedidos}`,
         {
           usuario_id: userId,
-          total: totalCarrito, 
+          total: totalCarrito,
           metodo_pago: metodoPago,
           detalles_pedido,
         },
@@ -102,7 +106,6 @@ const Carro = () => {
           },
         }
       );
-  
       if (response.status === 201) {
         toast.success('Pedido realizado con éxito');
       } else {
@@ -113,7 +116,6 @@ const Carro = () => {
       toast.error('Hubo un error al realizar el pedido');
     }
   };
-  
 
   return (
     <div className="product-content">
@@ -125,7 +127,7 @@ const Carro = () => {
       ) : (
         <ul className="product-list">
           {carrito.map((producto) => (
-            <li key={producto.id} className="product-item">
+            <li key={producto.producto_id} className="product-item">
               <div className="product-item-details">
                 <img
                   src={producto.img || 'default-image.jpg'}
@@ -137,7 +139,7 @@ const Carro = () => {
                 <span className="product-item-quantity">Cantidad: {producto.cantidad}</span>
                 <button
                   className="remove-btn"
-                  onClick={() => eliminarProductoDelCarrito(producto.id)}
+                  onClick={() => eliminarProductoDelCarrito(producto.producto_id)}
                 >
                   Eliminar
                 </button>
@@ -148,10 +150,9 @@ const Carro = () => {
       )}
 
       <div className="cart-total">
-      <h3>Total: ${formatoTotal(calcularTotalCarrito())}</h3>
+        <h3>Total: ${formatoTotal(calcularTotalCarrito())}</h3>
       </div>
 
-      
       <div className="payment-method">
         <h4>Selecciona tu método de pago</h4>
         <select

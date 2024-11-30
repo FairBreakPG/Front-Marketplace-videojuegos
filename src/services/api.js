@@ -12,18 +12,6 @@ export const getUsuarios = async () => {
   }
 };
 
-/*
-export const getPerfilUsuario = async (id) => {
-  try {
-    const response = await axios.get(ENDPOINT.perfilusuario(id));
-    return response.data;
-  } catch (error) {
-    console.error('Error al obtener perfil de usuario:', error);
-    throw error;
-  }
-};
-*/
-
 export const getProductos = async () => {
   try {
     const response = await axios.get(ENDPOINT.productos);
@@ -185,6 +173,22 @@ export const obtenerPerfilUsuario = async (id) => {
   }
 };
 
+export const actualizarUsuario = async (id, datos) => {
+  try {
+    const response = await axios.put(`/perfilusuario/${id}`, datos, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,  
+      },
+    });
+
+    console.log('Usuario actualizado:', response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Error al actualizar el usuario:', error);
+    throw error;
+  }
+};
+
 export const listarHistorialUsuario = async () => {
   const token = localStorage.getItem('token'); 
   if (!token) {
@@ -200,5 +204,21 @@ export const listarHistorialUsuario = async () => {
   } catch (error) {
     console.error('Error al obtener el historial de pedidos:', error);
     throw error; 
+  }
+};
+
+
+//nuevo eliminar carrito 
+const eliminarProductoDelCarrito = async (usuarioId, productoId) => {
+  try {
+    const response = await axios.delete(ENDPOINT.eliminarProductoCarro(usuarioId, productoId), {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    });
+
+    console.log('Producto eliminado del carrito:', response.data);
+  } catch (error) {
+    console.error('Error al eliminar el producto del carrito:', error);
   }
 };
