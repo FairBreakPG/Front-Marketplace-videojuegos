@@ -14,16 +14,18 @@ const PerfilUsuario = () => {
     telefono: '',
   });
 
+  const userId = 'id_del_usuario';
+
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-     
-        const response = await axios.get(`${ENDPOINT.listarUsuarios}`, {
+       
+        const response = await axios.get(`${ENDPOINT.perfilusuario}/${userId}`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,  
           },
         });
-        const data = response.data;  
+        const data = response.data;
         setUsuario(data);
         setFormData({
           nombre: data.nombre,
@@ -38,7 +40,8 @@ const PerfilUsuario = () => {
     };
 
     fetchUserData();
-  }, []);  
+  }, [userId]);
+
   const handleInputChange = (e) => {
     setFormData({
       ...formData,
@@ -49,11 +52,12 @@ const PerfilUsuario = () => {
   const handleEditClick = () => {
     setIsEditing(true);  
   };
-/*
+
+  
   const handleSaveClick = async () => {
     try {
      
-      const response = await axios.put(`${ENDPOINT.listarUsuarios(usuario.id)}`, formData, {
+      const response = await axios.put(`${ENDPOINT.perfilusuario}/${userId}`, formData, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
@@ -65,7 +69,6 @@ const PerfilUsuario = () => {
       console.error('Error al guardar los cambios:', error);
     }
   };
-  */
 
   if (!usuario) return <div>Cargando...</div>; 
 
@@ -124,7 +127,7 @@ const PerfilUsuario = () => {
       </div>
       <div>
         {isEditing ? (
-          <button >Guardar Cambios</button>  
+          <button onClick={handleSaveClick}>Guardar Cambios</button>  
         ) : (
           <button onClick={handleEditClick}>Editar</button>  
         )}

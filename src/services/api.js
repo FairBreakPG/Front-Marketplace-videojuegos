@@ -165,20 +165,20 @@ export const guardarPedido = async (usuario_id, total, metodo_pago, carrito) => 
   }
 };
 
-export const listarUsuarios = async () => {
+export const obtenerPerfilUsuario = async (id) => {
   const token = localStorage.getItem('token'); 
   if (!token) {
     throw new Error('No se encontró el token de autenticación');
   }
   try {
-    const response = await axios.get(`${ENDPOINT.listarUsuarios}`, {
+    const response = await axios.get(`${ENDPOINT.perfilusuario}/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`, 
       },
     });
     return response.data; 
   } catch (error) {
-    console.error('Error al obtener los datos del usuario:', error);
+    console.error('Error al obtener el perfil del usuario:', error);
     throw error;  
   }
 };
