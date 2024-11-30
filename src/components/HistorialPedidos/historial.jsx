@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { ENDPOINT } from '../../config/apiconfig';  
-import '../../HistorialPedidos/styleHistorial.css'
+import '../HistorialPedidos/styleHistorial.css';
 
 
 const HistorialPedidos = () => {
