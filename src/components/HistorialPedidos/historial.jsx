@@ -1,3 +1,4 @@
+/*
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { ENDPOINT } from '../../../config/apiconfig';
@@ -62,3 +63,4 @@ const HistorialPedidos = () => {
 };
 
 export default HistorialPedidos;
+*/
