@@ -186,7 +186,7 @@ export const listarHistorialUsuario = async () => {
 
 
 //nuevo eliminar carrito 
-const eliminarProductoDelCarrito = async (usuarioId, productoId) => {
+export const eliminarProductoDelCarrito = async (usuarioId, productoId) => {
   try {
     const response = await axios.delete(ENDPOINT.eliminarProductoCarro(usuarioId, productoId), {
       headers: {
