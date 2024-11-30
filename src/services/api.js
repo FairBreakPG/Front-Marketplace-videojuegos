@@ -166,25 +166,6 @@ export const actualizarUsuario = async (id, datos) => {
   }
 };
 
-export const listarHistorialUsuario = async () => {
-  const token = localStorage.getItem('token'); 
-  if (!token) {
-    throw new Error('No se encontró el token de autenticación');
-  }
-  try {
-    const response = await axios.get(  `${ENDPOINT.listarHistorial}`,  {
-      headers: {
-        Authorization: `Bearer ${token}`,  
-      },
-    });
-    return response.data;  
-  } catch (error) {
-    console.error('Error al obtener el historial de pedidos:', error);
-    throw error; 
-  }
-};
-
-
 //nuevo eliminar carrito 
 export const eliminarProductoDelCarrito = async (usuarioId, productoId) => {
   try {
@@ -197,5 +178,26 @@ export const eliminarProductoDelCarrito = async (usuarioId, productoId) => {
     console.log('Producto eliminado del carrito:', response.data);
   } catch (error) {
     console.error('Error al eliminar el producto del carrito:', error);
+  }
+};
+
+
+export const getPedidosUsuario = async (usuarioId) => {
+  try {
+    const response = await axios.get(ENDPOINT.obtenerPedidosUsuario(usuarioId));
+    return response.data; 
+  } catch (error) {
+    console.error('Error al obtener los pedidos del usuario:', error);
+    throw error; 
+  }
+};
+
+export const getPedidosGenerales = async () => {
+  try {
+    const response = await axios.get(ENDPOINT.obtenerPedidosGenerales);
+    return response.data;  
+  } catch (error) {
+    console.error('Error al obtener todos los pedidos:', error);
+    throw error;  
   }
 };

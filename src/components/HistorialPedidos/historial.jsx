@@ -1,17 +1,22 @@
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { ENDPOINT } from '../../../config/apiconfig';
 
-
 const HistorialPedidos = () => {
-  const [pedidos, setPedidos] = useState([]);  
+  const [pedidos, setPedidos] = useState([]);
+  const [error, setError] = useState(null);
+  
+  const usuarioId = localStorage.getItem('userId');  
 
   useEffect(() => {
     const fetchHistorialPedidos = async () => {
+      if (!usuarioId) {
+        setError('No se encontró el usuario.');
+        return;
+      }
+
       try {
-       
-        const response = await axios.get(`${ENDPOINT.listarHistorial}`, {
+        const response = await axios.get(ENDPOINT.obtenerPedidosUsuario(usuarioId), {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,  
           },
@@ -19,13 +24,15 @@ const HistorialPedidos = () => {
         setPedidos(response.data);  
       } catch (error) {
         console.error('Error al obtener el historial de pedidos:', error);
+        setError('Hubo un error al obtener los pedidos.');
       }
     };
 
     fetchHistorialPedidos();
-  }, []); 
+  }, [usuarioId]);
 
  
+  if (error) return <div>{error}</div>;
   if (pedidos.length === 0) return <div>No hay historial de pedidos</div>;
 
   return (
