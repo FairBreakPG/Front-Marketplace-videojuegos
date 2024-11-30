@@ -60,9 +60,9 @@ export const getCarro = async () => {
   }
 
   try {
-    const response = await axios.get(`${ENDPOINT.carro}/${userId}`, {  // Incluir userId en la URL
+    const response = await axios.get(`${ENDPOINT.carro}/${userId}`, {  
       headers: {
-        Authorization: `Bearer ${token}`,  // Enviar el token en los headers
+        Authorization: `Bearer ${token}`, 
       },
     });
     return response.data;  
@@ -166,18 +166,24 @@ export const actualizarUsuario = async (id, datos) => {
   }
 };
 
-//nuevo eliminar carrito 
-export const eliminarProductoDelCarrito = async (usuarioId, productoId) => {
+export const eliminarProductoDelCarrito = async (carritoId) => {
+  const token = localStorage.getItem('token');
+  
+  if (!token) {
+    throw new Error('No se encontró el token de autenticación');
+  }
+  
   try {
-    const response = await axios.delete(ENDPOINT.eliminarProductoCarro(usuarioId, productoId), {
+    const response = await axios.delete(ENDPOINT.eliminarProductoCarrito(carritoId), {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        Authorization: `Bearer ${token}`,
       },
     });
-
-    console.log('Producto eliminado del carrito:', response.data);
+    
+    return response.data;
   } catch (error) {
     console.error('Error al eliminar el producto del carrito:', error);
+    throw new Error(error.response?.data?.message || 'Error al eliminar el producto del carrito');
   }
 };
 

@@ -10,9 +10,9 @@ export const ENDPOINT = {
   pedidos: `${URLBASE}/pedidos`,
   obtenerPerfilUsuario: (id) => `${URLBASE}/perfilusuario/${id}`, 
   actualizarPerfilUsuario: (id) => `${URLBASE}/perfilusuario/${id}`,
-  eliminarProductoCarro: (usuarioId, productoId) => `${URLBASE}/carrito/${usuarioId}/${productoId}`,
   obtenerPedidosUsuario: (usuarioId) => `${URLBASE}/pedidos/usuario/${usuarioId}`,  
-  obtenerPedidosGenerales: `${URLBASE}/pedidosgenerales`,  
+  obtenerPedidosGenerales: `${URLBASE}/pedidosgenerales`,
+  eliminarProductoCarrito: (carritoId) => `${URLBASE}/eliminarProductoCarrito/${carritoId}`,
 };
 
 

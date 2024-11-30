@@ -46,19 +46,16 @@ const Carro = () => {
       toast.error('Usuario no autenticado');
       return;
     }
-
     try {
       const token = localStorage.getItem('token');
       if (!token) {
         throw new Error('Token no encontrado. El usuario no está autenticado.');
       }
-
-      await axios.delete(ENDPOINT.eliminarProductoCarro(userId, productoId), {
+      await axios.delete(ENDPOINT.eliminarProductoCarrito(productoId), {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-
       setCarrito(carrito.filter((item) => item.producto_id !== productoId));
       toast.success('Producto eliminado del carrito');
     } catch (error) {
