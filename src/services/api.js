@@ -96,29 +96,6 @@ export const agregarAlCarro = async (productoId, cantidad) => {
   }
 };
 
-export const eliminarProductoDelCarrito = async (productId) => {
-  const token = localStorage.getItem('token');
-  if (!token) {
-    throw new Error('No se encontró el token de autenticación');
-  }
-
-  try {
-    const response = await axios.delete(`${ENDPOINT.quitarItemcarro(productId)}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    if (response && response.data.message === 'Producto eliminado del carrito') {
-      return response.data; 
-    } else {
-      throw new Error('Error al eliminar el producto del carrito');
-    }
-  } catch (error) {
-    console.error('Error al eliminar el producto:', error);
-    throw error;
-  }
-};
 
 export const guardarPedido = async (usuario_id, total, metodo_pago, carrito) => {
   const token = localStorage.getItem('token');
