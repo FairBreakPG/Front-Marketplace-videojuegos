@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { ENDPOINT } from '../../../config/apiconfig';
-
+import { ENDPOINT } from '../../config/apiconfig';
 const HistorialPedidos = () => {
   const [pedidos, setPedidos] = useState([]);
   const [error, setError] = useState(null);
