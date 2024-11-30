@@ -1,4 +1,3 @@
-import { listarUsuarios } from "../services/api";
 
 export const URLBASE = import.meta.env.VITE_URL;
 
