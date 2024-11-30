@@ -14,12 +14,17 @@ const PerfilUsuario = () => {
     telefono: '',
   });
 
-  const userId = 'id_del_usuario';
+  const userId = localStorage.getItem('userId'); 
+
+ 
+  if (!userId || isNaN(userId)) {
+    console.error('ID de usuario no válido');
+    return <div>Error: No se encontró el ID del usuario.</div>;
+  }
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-       
         const response = await axios.get(ENDPOINT.obtenerPerfilUsuario(userId), {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,  
@@ -52,9 +57,6 @@ const PerfilUsuario = () => {
   const handleEditClick = () => {
     setIsEditing(true);  
   };
-
-  
-
 
   if (!usuario) return <div>Cargando...</div>; 
 
@@ -113,7 +115,7 @@ const PerfilUsuario = () => {
       </div>
       <div>
         {isEditing ? (
-          <button >Guardar Cambios</button>  
+          <button>Guardar Cambios</button>  
         ) : (
           <button onClick={handleEditClick}>Editar</button>  
         )}
