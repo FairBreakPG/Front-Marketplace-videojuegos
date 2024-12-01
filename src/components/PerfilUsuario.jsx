@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { URLBASE } from '../config/apiconfig'; 
+import { URLBASE } from '../config/apiconfig';
+import 'bootstrap/dist/css/bootstrap.min.css';  
 
 const PerfilUsuario = ({ userId, token }) => {
   const [perfil, setPerfil] = useState(null);
@@ -11,7 +12,7 @@ const PerfilUsuario = ({ userId, token }) => {
   useEffect(() => {
     const fetchPerfil = async () => {
       try {
-        const response = await axios.get(URLBASE +`/usuario/${userId}`, {
+        const response = await axios.get(URLBASE + `/usuario/${userId}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setPerfil(response.data.perfil);
@@ -26,7 +27,7 @@ const PerfilUsuario = ({ userId, token }) => {
 
   const handleUpdate = async () => {
     try {
-      await axios.put(URLBASE+`/usuario/${userId}`, form, {
+      await axios.put(URLBASE + `/usuario/${userId}`, form, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setPerfil(form);
@@ -39,39 +40,54 @@ const PerfilUsuario = ({ userId, token }) => {
   if (!perfil) return <p>Cargando...</p>;
 
   return (
-    <div>
+    <div className="container mt-4">
       <h1>Perfil de {perfil.nombre} {perfil.apellido}</h1>
-      <p>Rol: {perfil.rol}</p>
+      <p><strong>Rol:</strong> {perfil.rol}</p>
       {perfil.rol === 'admin' && <p>Acceso completo al sistema.</p>}
+
       {editMode ? (
-        <form>
-          <input
-            type="text"
-            value={form.nombre}
-            onChange={(e) => setForm({ ...form, nombre: e.target.value })}
-          />
-          <input
-            type="text"
-            value={form.apellido}
-            onChange={(e) => setForm({ ...form, apellido: e.target.value })}
-          />
-          <button type="button" onClick={handleUpdate}>Guardar</button>
-        </form>
+        <div>
+          <h3>Editar Perfil</h3>
+          <form>
+            <div className="mb-3">
+              <label htmlFor="nombre" className="form-label">Nombre</label>
+              <input
+                type="text"
+                className="form-control"
+                id="nombre"
+                value={form.nombre}
+                onChange={(e) => setForm({ ...form, nombre: e.target.value })}
+              />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="apellido" className="form-label">Apellido</label>
+              <input
+                type="text"
+                className="form-control"
+                id="apellido"
+                value={form.apellido}
+                onChange={(e) => setForm({ ...form, apellido: e.target.value })}
+              />
+            </div>
+            <button type="button" className="btn btn-primary" onClick={handleUpdate}>Guardar</button>
+          </form>
+        </div>
       ) : (
-        <>
-          <p>Email: {perfil.email}</p>
-          <p>Teléfono: {perfil.telefono}</p>
-          <p>Dirección: {perfil.direccion}</p>
-          <button onClick={() => setEditMode(true)}>Editar</button>
-        </>
+        <div>
+          <p><strong>Email:</strong> {perfil.email}</p>
+          <p><strong>Teléfono:</strong> {perfil.telefono}</p>
+          <p><strong>Dirección:</strong> {perfil.direccion}</p>
+          <button className="btn btn-warning" onClick={() => setEditMode(true)}>Editar</button>
+        </div>
       )}
+
       {perfil.rol === 'cliente' && (
         <>
-          <h2>Tus pedidos</h2>
-          <ul>
+          <h2 className="mt-4">Tus pedidos</h2>
+          <ul className="list-group">
             {pedidos.map((pedido) => (
-              <li key={pedido.pedido_id}>
-                Pedido #{pedido.pedido_id} - Total: ${pedido.total} - Estado: {pedido.estado === '1' ? 'Completado' : 'Pendiente'}
+              <li className="list-group-item" key={pedido.pedido_id}>
+                <strong>Pedido #{pedido.pedido_id}</strong> - Total: ${pedido.total} - Estado: {pedido.estado === '1' ? 'Completado' : 'Pendiente'}
               </li>
             ))}
           </ul>
