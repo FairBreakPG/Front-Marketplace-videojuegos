@@ -59,7 +59,7 @@ export const obtenercarro = async () => {
   }
 
   try {
-    const response = await axios.get(ENDPOINT.carro, { 
+    const response = await axios.get(ENDPOINT.obtenercarro, { 
       headers: {
         Authorization: `Bearer ${token}`, 
       },
