@@ -6,25 +6,22 @@ import 'react-toastify/dist/ReactToastify.css';
 import { agregarAlCarro } from '../services/api';
 
 const MultiItemCarousel = () => {
-  const { productos } = useContext(ProductosContext);
+  const { productos } = useContext(ProductosContext); 
 
   const handleAddToCart = async (producto) => {
     const userId = localStorage.getItem('userId');
-    console.log('userId al agregar un producto al carrito:', userId); 
     if (!userId) {
       toast.error("No se encontró el ID de usuario");
       return;
     }
     try {
-     await agregarAlCarro(producto.id, 1); 
-     //await agregarAlCarro({ productoId: producto.id, cantidad: 1 }); 
+      await agregarAlCarro(producto.id, 1); 
       toast.success(`${producto.nombre} agregado al carrito`);
     } catch (error) {
       toast.error('Error al agregar producto al carrito');
     }
   };
 
- 
   const chunkedProductos = [];
   for (let i = 0; i < productos.length; i += 3) {
     chunkedProductos.push(productos.slice(i, i + 3));

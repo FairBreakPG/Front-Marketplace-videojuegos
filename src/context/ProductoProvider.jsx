@@ -11,7 +11,7 @@ const ProductoProvider = ({ children }) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    getProductos();  
+    getProductos();
   }, []);
 
   const getProductos = async () => {
@@ -30,7 +30,6 @@ const ProductoProvider = ({ children }) => {
     }
   };
 
- 
   const filterByCategory = (category) => {
     if (category === 'all') {
       setFilteredProductos(productos);
@@ -42,10 +41,10 @@ const ProductoProvider = ({ children }) => {
 
   return (
     <ProductosContext.Provider value={{
-      productos: filteredProductos, 
-      loading, 
+      productos: filteredProductos,  
+      loading,
       error,
-      filterByCategory 
+      filterByCategory  
     }}>
       {children}
     </ProductosContext.Provider>
