@@ -36,7 +36,8 @@ const Navbar = () => {
         </div>
       </div>
 
-      <div className="navbar text-white py-3">
+  
+      <div className="navbar text-white py-3 bg-secondary">
         <div className="container d-block">
           <div className="d-flex justify-content-between align-items-center">
             <button onClick={() => navegar("/")} className="logo-nombre mx-1 mb-0 btn btn-link text-white">
@@ -55,16 +56,13 @@ const Navbar = () => {
               </button>
               <button onClick={() => navegar("/carrito")} className="btn btn-light d-flex align-items-center position-relative me-3">
                 <span>&#128722;</span>
-                
-                  <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                   
-                  </span>
-               
+                <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                </span>
               </button>
               <button onClick={() => navegar("/perfil")} className="btn btn-light d-flex align-items-center me-3">
                 <span>&#128100;</span>
               </button>
-              <button onClick={() => navegar("/productos")} className="btn btn-light d-flex align-items-center">
+              <button onClick={() => navegar("/productos")} className="btn btn-light d-flex align-items-center me-3"> {/* Añadí el me-3 */}
                 <span>&#128722;</span>
               </button>
               <button onClick={() => navegar("/historial")} className="btn btn-light d-flex align-items-center">
