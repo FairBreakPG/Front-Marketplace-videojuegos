@@ -10,8 +10,8 @@ const Navbar = () => {
   const registroClick = () => navegar("/registrar-usuario");
 
   const handleCategoriaClick = (categoria) => {
-    seleccionarCategoria(categoria);
-    navegar("/"); 
+    filterByCategory(categoria); 
+    navegar("/");  
   };
 
   return (
@@ -43,10 +43,10 @@ const Navbar = () => {
               <h4 className="mb-0">&#127918; Tienda Games Fx</h4>
             </button>
             <div className="d-flex gap-4">
-              <button onClick={() => handleCategoriaClick("juegos")} className="nav-link btn btn-link text-white">Juegos</button>
-              <button onClick={() => handleCategoriaClick("accesorios")} className="nav-link btn btn-link text-white">Accesorios</button>
-              <button onClick={() => handleCategoriaClick("consolas")} className="nav-link btn btn-link text-white">Consolas</button>
-              <button onClick={() => handleCategoriaClick("implementos")} className="nav-link btn btn-link text-white">Implementos</button>
+              <button onClick={() => handleCategoriaClick("Juegos")} className="nav-link btn btn-link text-white">Juegos</button>
+              <button onClick={() => handleCategoriaClick("Accesorios")} className="nav-link btn btn-link text-white">Accesorios</button>
+              <button onClick={() => handleCategoriaClick("Consolas")} className="nav-link btn btn-link text-white">Consolas</button>
+              <button onClick={() => handleCategoriaClick("Implementos")} className="nav-link btn btn-link text-white">Implementos</button>
             </div>
 
             <div className="d-flex align-items-center">
