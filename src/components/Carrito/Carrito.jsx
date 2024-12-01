@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
-import axios from 'axios';
 import { ProductosContext } from '../../context/ProductoProvider';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './styleCarro.css';
-import { ENDPOINT } from '../../config/apiconfig';
+import axios from 'axios';
+import { ENDPOINT } from '../../config/apiconfig'; 
 
 const Carro = () => {
   const { productos } = useContext(ProductosContext);
@@ -15,27 +15,29 @@ const Carro = () => {
 
   useEffect(() => {
     obtenerCarrito();
-  }, []);
+  }, []);  
 
   const obtenerCarrito = async () => {
     setLoading(true);
+    const token = localStorage.getItem('token');
+    const userId = localStorage.getItem('userId');
+    
+    if (!token || !userId) {
+      toast.error('Token o UserId no encontrados');
+      setLoading(false);
+      return;
+    }
+
     try {
-      const token = localStorage.getItem('token');
-      const userId = localStorage.getItem('userId'); 
-      if (!token || !userId) {
-        throw new Error('Token o userId no encontrado');
-      }
-      console.log('Obteniendo carrito para el usuario:', userId);
-      const url = `${ENDPOINT.obtenercarro}/${userId}`;  
+      const url = ENDPOINT.obtenercarro(userId);  
       const response = await axios.get(url, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-      })
-      console.log('Respuesta del carrito:', response.data);
-      setCarrito(response.data.items || []);  
+      });
+
+      setCarrito(response.data.items || []);
     } catch (error) {
-      console.error('Error al obtener el carrito:', error);
       toast.error('Error al obtener el carrito');
     } finally {
       setLoading(false);
@@ -43,64 +45,38 @@ const Carro = () => {
   };
 
   const eliminarProductoDelCarrito = async (productoId) => {
-    const userId = localStorage.getItem('userId');
-    console.log('userId al eliminar el carrito:', userId);
-
-    if (!userId) {
-      console.error('No se encontró el ID del usuario');
-      toast.error('Usuario no autenticado');
+    const token = localStorage.getItem('token');
+    if (!token) {
+      toast.error('Token no encontrado');
       return;
     }
 
     try {
-      const token = localStorage.getItem('token');
-      if (!token) {
-        throw new Error('Token no encontrado. El usuario no está autenticado.');
-      }
-
-      console.log('Eliminando producto con ID:', productoId);
-
-      const response = await axios.delete(ENDPOINT.eliminarProductoCarrito(productoId), {
+      const url = ENDPOINT.eliminarProductoCarrito(productoId);  
+      await axios.delete(url, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
-      console.log('Respuesta al eliminar producto:', response);
-
       setCarrito(carrito.filter((item) => item.producto_id !== productoId));
-      toast.success('Producto eliminado del carrito');
+      toast.success('Producto eliminado');
     } catch (error) {
-      console.error('Error al eliminar el producto del carrito:', error);
-      toast.error('No se pudo eliminar el producto del carrito');
+      toast.error('Error al eliminar el producto');
     }
   };
 
   const calcularTotalCarrito = () => {
-    console.log('Calculando total del carrito con estos productos:', carrito);
-
-    const total = carrito.reduce((total, producto) => {
+    return carrito.reduce((total, producto) => {
       const precio = parseFloat(producto.price) || 0;
       const cantidad = parseInt(producto.cantidad, 10) || 0;
-
-      console.log(`Producto: ${producto.name}, Precio: ${precio}, Cantidad: ${cantidad}`);
-
       return total + (precio * cantidad);
     }, 0);
-
-    console.log('Total calculado:', total);
-    return total;
-  };
-
-  const formatoTotal = (total) => {
-    return total % 1 === 0 ? total.toFixed(0) : total.toFixed(2);
   };
 
   const handleRealizarPedido = async () => {
+    const token = localStorage.getItem('token');
     const userId = localStorage.getItem('userId');
-    console.log('Realizando pedido para el usuario:', userId);
-    console.log('Método de pago:', metodoPago);
-    console.log('Carrito:', carrito);
 
     if (!userId || !metodoPago || carrito.length === 0) {
       toast.error('Por favor, complete todos los campos.');
@@ -114,14 +90,11 @@ const Carro = () => {
         precio: producto.price,
       }));
 
-      console.log('Detalles del pedido:', detalles_pedido);
-
       const totalCarrito = calcularTotalCarrito();
 
-      console.log('Total del carrito:', totalCarrito);
-
+      const url = ENDPOINT.pedidos; 
       const response = await axios.post(
-        `${ENDPOINT.pedidos}`,
+        url,
         {
           usuario_id: userId,
           total: totalCarrito,
@@ -130,7 +103,7 @@ const Carro = () => {
         },
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
+            Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -141,8 +114,7 @@ const Carro = () => {
         toast.error('Error al realizar el pedido');
       }
     } catch (error) {
-      console.error('Error al realizar el pedido:', error);
-      toast.error('Hubo un error al realizar el pedido');
+      toast.error('Error al realizar el pedido');
     }
   };
 
@@ -179,7 +151,7 @@ const Carro = () => {
       )}
 
       <div className="cart-total">
-        <h3>Total: ${formatoTotal(calcularTotalCarrito())}</h3>
+        <h3>Total: ${calcularTotalCarrito().toFixed(2)}</h3>
       </div>
 
       <div className="payment-method">
