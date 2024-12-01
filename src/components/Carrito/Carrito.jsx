@@ -43,27 +43,24 @@ const Carro = () => {
     }
   };
 
-  const eliminarProductoDelCarrito = async () => {
+  const eliminarProductoDelCarrito = async (userId, productoId) => {
     const token = localStorage.getItem('token');
-    const userId = localStorage.getItem('userId'); 
-    if (!token || !userId) {
-      toast.error('Token o ID de usuario no encontrado');
+    if (!token || !userId || !productoId) {
+      toast.error('Token, ID de usuario o ID de producto no encontrados');
       return;
     }
     try {
-      const url = ENDPOINT.eliminarProductoCarrito(); 
-      await axios.delete(url, {
+      const url = ENDPOINT.eliminarProductoCarrito(userId, productoId); 
+      const response = await axios.delete(url, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-        data: {
-          userId: userId,  
-        },
       });
-      setCarrito([]);
-      toast.success('Productos eliminados del carrito');
+      setCarrito((prevCarrito) => prevCarrito.filter((producto) => producto.producto_id !== productoId));
+      toast.success('Producto eliminado del carrito');
     } catch (error) {
-      toast.error('Error al eliminar los productos del carrito');
+      toast.error('Error al eliminar el producto del carrito');
+      console.error('Error al eliminar el producto del carrito:', error);
     }
   };
 
@@ -145,8 +142,8 @@ const Carro = () => {
               </div>
               <button
                 className="btn btn-danger"
-                onClick={() => eliminarProductoDelCarrito(producto.producto_id)}
-              >
+                onClick={() => eliminarProductoDelCarrito(userId, producto.producto_id)} 
+                >
                 Eliminar
               </button>
             </li>

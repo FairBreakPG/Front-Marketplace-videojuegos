@@ -173,23 +173,29 @@ export const actualizarUsuario = async (id, datos) => {
   }
 };
 
-export const eliminarProductoDelCarrito = async () => {
+export const eliminarProductoDelCarrito = async (productoId) => {
   const token = localStorage.getItem('token');
   const userId = localStorage.getItem('userId');
 
+  if (!token || !userId) {
+    toast.error('Token o ID de usuario no encontrados');
+    return;
+  }
+
   try {
-    const url = ENDPOINT.eliminarProductoCarrito(); 
+    const url = ENDPOINT.eliminarProductoCarrito(userId, productoId); 
 
     const response = await axios.delete(url, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-      data: { userId },
     });
 
+    toast.success('Producto eliminado del carrito');
     return response.data;  
   } catch (error) {
     console.error('Error al eliminar el producto del carrito:', error);
+    toast.error('Error al eliminar el producto del carrito');
     throw new Error('Error al eliminar el producto del carrito');  
   }
 };
