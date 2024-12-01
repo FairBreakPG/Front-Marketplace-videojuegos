@@ -55,11 +55,11 @@ const Navbar = () => {
               </button>
               <button onClick={() => navegar("/carrito")} className="btn btn-light d-flex align-items-center position-relative me-3">
                 <span>&#128722;</span>
-                {totalArticulosCarrito > 0 && (
+                
                   <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                    {totalArticulosCarrito}
+                   
                   </span>
-                )}
+               
               </button>
               <button onClick={() => navegar("/perfil")} className="btn btn-light d-flex align-items-center me-3">
                 <span>&#128100;</span>
