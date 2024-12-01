@@ -52,7 +52,7 @@ export const login = async ({ email, contrasena }) => {
   }
 };
 
-export const getCarro = async () => {
+export const obtenercarro = async () => {
   const token = localStorage.getItem('token');
   if (!token) {
     throw new Error('No se encontró el token de autenticación');
