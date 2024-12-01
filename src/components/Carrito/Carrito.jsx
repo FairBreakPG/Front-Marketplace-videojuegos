@@ -22,6 +22,8 @@ const Carro = () => {
     try {
       const token = localStorage.getItem('token');
       const userId = localStorage.getItem('userId');
+      console.log('Token en el componente carrito:', token);  
+      console.log('userId en el componente carrito:', userId);  
       if (!token || !userId) {
         throw new Error('Token o userId no encontrado');
       }
@@ -41,6 +43,7 @@ const Carro = () => {
 
   const eliminarProductoDelCarrito = async (productoId) => {
     const userId = localStorage.getItem('userId');
+    console.log('userId al  eliminar el carrito carrito:', userId);  
     if (!userId) {
       console.error('No se encontró el ID del usuario');
       toast.error('Usuario no autenticado');

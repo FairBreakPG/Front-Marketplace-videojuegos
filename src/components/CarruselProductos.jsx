@@ -10,6 +10,7 @@ const MultiItemCarousel = () => {
 
   const handleAddToCart = async (producto) => {
     const userId = localStorage.getItem('userId');
+    console.log('userId al agregar un producto al carrito:', userId); 
     if (!userId) {
       toast.error("No se encontró el ID de usuario");
       return;
