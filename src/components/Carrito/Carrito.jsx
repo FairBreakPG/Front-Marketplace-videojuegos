@@ -10,7 +10,6 @@ const Carro = () => {
   const [carrito, setCarrito] = useState([]);
   const [loading, setLoading] = useState(false);
   const [metodoPago, setMetodoPago] = useState('');
-  const [total, setTotal] = useState(0);
 
   useEffect(() => {
     obtenerCarrito();

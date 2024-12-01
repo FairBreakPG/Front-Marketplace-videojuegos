@@ -79,7 +79,7 @@ export const obtenerCarrito = async () => {
   }
 };
 
-
+/*
 export const agregarAlCarro = async (productoId, cantidad) => {
   try {
     const token = localStorage.getItem('token'); 
@@ -102,6 +102,38 @@ export const agregarAlCarro = async (productoId, cantidad) => {
     throw new Error(error.response?.data?.message || "Error al agregar producto al carrito");
   }
 };
+*/
+export const agregarAlCarro = async (productoId, cantidad) => {
+  try {
+    const token = localStorage.getItem('token'); 
+    const userId = localStorage.getItem('userId');
+
+    if (!token || !userId) {
+      throw new Error('Token o UserId no encontrado. El usuario no está autenticado.');
+    }
+
+    console.log('Enviando solicitud al backend', { productoId, cantidad, token, userId });
+
+    const response = await axios.post(ENDPOINT.carro, 
+      { 
+        productoId, 
+        cantidad, 
+        usuario_id: userId  
+      }, 
+      {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+    console.log('Respuesta del backend:', response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Error en la solicitud al backend:', error);
+    throw new Error(error.response?.data?.message || "Error al agregar producto al carrito");
+  }
+};
+
 
 
 export const guardarPedido = async (usuario_id, total, metodo_pago, carrito) => {
