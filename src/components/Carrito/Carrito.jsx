@@ -21,17 +21,19 @@ const Carro = () => {
     setLoading(true);
     try {
       const token = localStorage.getItem('token');
-      const userId = localStorage.getItem('userId');
       console.log('Token en el componente carrito:', token);  
-      console.log('userId en el componente carrito:', userId);  
-      if (!token || !userId) {
-        throw new Error('Token o userId no encontrado');
+      
+      if (!token) {
+        throw new Error('Token no encontrado');
       }
-      const response = await axios.get(`${ENDPOINT.carro}/${userId}`, {
+  
+    
+      const response = await axios.get(ENDPOINT.carro, {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,  
         },
       });
+  
       setCarrito(response.data.items || []);
     } catch (error) {
       console.error('Error al obtener el carrito:', error);

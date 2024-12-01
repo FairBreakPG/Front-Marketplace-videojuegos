@@ -54,13 +54,12 @@ export const login = async ({ email, contrasena }) => {
 
 export const getCarro = async () => {
   const token = localStorage.getItem('token');
-  const userId = localStorage.getItem('userId');  // Obtener el userId del localStorage
-  if (!token || !userId) {
-    throw new Error('No se encontró el token de autenticación o el userId');
+  if (!token) {
+    throw new Error('No se encontró el token de autenticación');
   }
 
   try {
-    const response = await axios.get(`${ENDPOINT.carro}/${userId}`, {  
+    const response = await axios.get(ENDPOINT.carro, { 
       headers: {
         Authorization: `Bearer ${token}`, 
       },
