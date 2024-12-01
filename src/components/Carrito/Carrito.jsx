@@ -45,19 +45,22 @@ const Carro = () => {
 
   const eliminarProductoDelCarrito = async (productoId) => {
     const token = localStorage.getItem('token');
+    
     if (!token) {
       toast.error('Token no encontrado');
       return;
     }
-
+  
     try {
-      const url = ENDPOINT.eliminarProductoCarrito(productoId);  
+      const url = ENDPOINT.eliminarProductoCarrito(); 
       await axios.delete(url, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
+        data: {
+          carritoId: productoId, 
+        },
       });
-
       setCarrito(carrito.filter((item) => item.producto_id !== productoId));
       toast.success('Producto eliminado');
     } catch (error) {
@@ -153,7 +156,7 @@ const Carro = () => {
       )}
 
       <div className="mt-4">
-        <h3>Total: ${calcularTotalCarrito().toFixed(2)}</h3>
+      <h3>Total: ${parseInt(calcularTotalCarrito(), 10)}</h3>
       </div>
 
       <div className="mt-3">
