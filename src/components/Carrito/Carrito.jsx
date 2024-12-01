@@ -34,9 +34,9 @@ const Carro = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log("Respuesta del carrito:", response.data);
 
       setCarrito(response.data.items || []);
+      console.log("Respuesta del carrito:", response.data);
     } catch (error) {
       toast.error('Error al obtener el carrito');
     } finally {
