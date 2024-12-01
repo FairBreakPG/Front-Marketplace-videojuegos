@@ -27,12 +27,16 @@ const Carro = () => {
         throw new Error('Token o userId no encontrado');
       }
 
-      
+      console.log('Obteniendo carrito para el usuario:', userId);
+
       const response = await axios.get(ENDPOINT.obtenercarro(userId), {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
+
+      console.log('Respuesta del carrito:', response.data);
+
       setCarrito(response.data.items || []);
     } catch (error) {
       console.error('Error al obtener el carrito:', error);
@@ -45,21 +49,29 @@ const Carro = () => {
   const eliminarProductoDelCarrito = async (productoId) => {
     const userId = localStorage.getItem('userId');
     console.log('userId al eliminar el carrito:', userId);
+
     if (!userId) {
       console.error('No se encontró el ID del usuario');
       toast.error('Usuario no autenticado');
       return;
     }
+
     try {
       const token = localStorage.getItem('token');
       if (!token) {
         throw new Error('Token no encontrado. El usuario no está autenticado.');
       }
-      await axios.delete(ENDPOINT.eliminarProductoCarrito(productoId), {
+
+      console.log('Eliminando producto con ID:', productoId);
+
+      const response = await axios.delete(ENDPOINT.eliminarProductoCarrito(productoId), {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
+
+      console.log('Respuesta al eliminar producto:', response);
+
       setCarrito(carrito.filter((item) => item.producto_id !== productoId));
       toast.success('Producto eliminado del carrito');
     } catch (error) {
@@ -69,11 +81,19 @@ const Carro = () => {
   };
 
   const calcularTotalCarrito = () => {
-    return carrito.reduce((total, producto) => {
+    console.log('Calculando total del carrito con estos productos:', carrito);
+
+    const total = carrito.reduce((total, producto) => {
       const precio = parseFloat(producto.price) || 0;
       const cantidad = parseInt(producto.cantidad, 10) || 0;
+
+      console.log(`Producto: ${producto.name}, Precio: ${precio}, Cantidad: ${cantidad}`);
+
       return total + (precio * cantidad);
     }, 0);
+
+    console.log('Total calculado:', total);
+    return total;
   };
 
   const formatoTotal = (total) => {
@@ -82,17 +102,28 @@ const Carro = () => {
 
   const handleRealizarPedido = async () => {
     const userId = localStorage.getItem('userId');
+    console.log('Realizando pedido para el usuario:', userId);
+    console.log('Método de pago:', metodoPago);
+    console.log('Carrito:', carrito);
+
     if (!userId || !metodoPago || carrito.length === 0) {
       toast.error('Por favor, complete todos los campos.');
       return;
     }
+
     try {
       const detalles_pedido = carrito.map((producto) => ({
         producto_id: producto.id,
         cantidad: producto.cantidad,
         precio: producto.price,
       }));
+
+      console.log('Detalles del pedido:', detalles_pedido);
+
       const totalCarrito = calcularTotalCarrito();
+
+      console.log('Total del carrito:', totalCarrito);
+
       const response = await axios.post(
         `${ENDPOINT.pedidos}`,
         {
@@ -107,6 +138,7 @@ const Carro = () => {
           },
         }
       );
+
       if (response.status === 201) {
         toast.success('Pedido realizado con éxito');
       } else {
