@@ -43,6 +43,7 @@ const Carro = () => {
     }
   };
 
+  /*
   const eliminarProductoDelCarrito = async (productoId) => {
     const token = localStorage.getItem('token');
     const userId = localStorage.getItem('userId'); 
@@ -67,7 +68,62 @@ const Carro = () => {
       console.error('Error al eliminar el producto del carrito:', error);
     }
   };
+*/
+const eliminarProductoDelCarrito = async (productoId) => {
+  const token = localStorage.getItem('token');
+  const userId = localStorage.getItem('userId'); 
 
+  if (!token || !userId || !productoId) {
+    toast.error('Token, ID de usuario o ID de producto no encontrados');
+    return;
+  }
+
+  try {
+    
+    if (carrito.length === 0) {
+      const productosResponse = await axios.get(ENDPOINT.productos, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (productosResponse.status === 200) {
+      
+        const producto = productosResponse.data.find(
+          (prod) => prod.producto_id === productoId
+        );
+
+        if (producto) {
+         
+          const url = ENDPOINT.eliminarProductoCarrito(userId, productoId);
+          const response = await axios.delete(url, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+
+          toast.success('Producto eliminado del carrito');
+        } else {
+          toast.error('Producto no encontrado');
+        }
+      }
+    } else {
+    
+      const url = ENDPOINT.eliminarProductoCarrito(userId, productoId);
+      const response = await axios.delete(url, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setCarrito((prevCarrito) => prevCarrito.filter((producto) => producto.producto_id !== productoId));
+      toast.success('Producto eliminado del carrito');
+    }
+  } catch (error) {
+    toast.error('Error al eliminar el producto del carrito');
+    console.error('Error al eliminar el producto del carrito:', error);
+  }
+};
   const calcularTotalCarrito = () => {
     return carrito.reduce((total, producto) => {
       const precio = parseFloat(producto.price) || 0;
