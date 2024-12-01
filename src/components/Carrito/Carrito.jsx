@@ -45,7 +45,7 @@ const Carro = () => {
 
   const eliminarProductoDelCarrito = async (userId, productoId) => {
     const token = localStorage.getItem('token');
-    const userId = localStorage.getItem('userId');
+    
 
     if (!token || !userId || !productoId) {
       toast.error('Token, ID de usuario o ID de producto no encontrados');
