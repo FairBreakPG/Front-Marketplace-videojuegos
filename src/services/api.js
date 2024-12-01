@@ -56,19 +56,21 @@ export const obtenerCarrito = async () => {
   setLoading(true);
   try {
     const token = localStorage.getItem('token');
-    const userId = localStorage.getItem('userId');  // Asegúrate de tener el userId en localStorage
+    const userId = localStorage.getItem('userId');  
 
     if (!token || !userId) {
       throw new Error('Token o userId no encontrado');
     }
-
-    const response = await axios.get(`${ENDPOINT.obtenercarro}/${userId}`, { 
+    console.log('Obteniendo carrito para el usuario:', userId);
+    const url = `${ENDPOINT.obtenercarro}/${userId}`;
+    const response = await axios.get(url, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
 
-    setCarrito(response.data.items || []);
+    console.log('Respuesta del carrito:', response.data);
+    setCarrito(response.data.items || []); 
   } catch (error) {
     console.error('Error al obtener el carrito:', error);
     toast.error('Error al obtener el carrito');

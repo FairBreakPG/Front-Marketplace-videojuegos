@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'; 
 import axios from 'axios';  
 import { ENDPOINT } from '../../../config/apiconfig';
-import './stylePerfil.css';
+import 'bootstrap/dist/css/bootstrap.min.css';  
 
 const PerfilUsuario = () => {
   const [usuario, setUsuario] = useState(null);
@@ -76,64 +76,78 @@ const PerfilUsuario = () => {
   if (!usuario) return <div>Cargando...</div>; 
 
   return (
-    <div>
-      <h2>Perfil de Usuario</h2>
-      <div>
-        <label>Nombre</label>
-        <input
-          type="text"
-          name="nombre"
-          value={formData.nombre}
-          onChange={handleInputChange}
-          disabled={!isEditing}  
-        />
-      </div>
-      <div>
-        <label>Apellido</label>
-        <input
-          type="text"
-          name="apellido"
-          value={formData.apellido}
-          onChange={handleInputChange}
-          disabled={!isEditing}
-        />
-      </div>
-      <div>
-        <label>Email</label>
-        <input
-          type="email"
-          name="email"
-          value={formData.email}
-          onChange={handleInputChange}
-          disabled={!isEditing}
-        />
-      </div>
-      <div>
-        <label>Dirección</label>
-        <input
-          type="text"
-          name="direccion"
-          value={formData.direccion}
-          onChange={handleInputChange}
-          disabled={!isEditing}
-        />
-      </div>
-      <div>
-        <label>Teléfono</label>
-        <input
-          type="text"
-          name="telefono"
-          value={formData.telefono}
-          onChange={handleInputChange}
-          disabled={!isEditing}
-        />
-      </div>
-      <div>
-        {isEditing ? (
-          <button onClick={handleSaveChanges}>Guardar Cambios</button>  
-        ) : (
-          <button onClick={handleEditClick}>Editar</button>  
-        )}
+    <div className="container mt-4">
+      <div className="card">
+        <div className="card-body">
+          <h2 className="card-title text-center">Perfil de Usuario</h2>
+          
+          <div className="mb-3">
+            <label className="form-label">Nombre</label>
+            <input
+              type="text"
+              className="form-control"
+              name="nombre"
+              value={formData.nombre}
+              onChange={handleInputChange}
+              disabled={!isEditing}
+            />
+          </div>
+          <div className="mb-3">
+            <label className="form-label">Apellido</label>
+            <input
+              type="text"
+              className="form-control"
+              name="apellido"
+              value={formData.apellido}
+              onChange={handleInputChange}
+              disabled={!isEditing}
+            />
+          </div>
+          <div className="mb-3">
+            <label className="form-label">Email</label>
+            <input
+              type="email"
+              className="form-control"
+              name="email"
+              value={formData.email}
+              onChange={handleInputChange}
+              disabled={!isEditing}
+            />
+          </div>
+          <div className="mb-3">
+            <label className="form-label">Dirección</label>
+            <input
+              type="text"
+              className="form-control"
+              name="direccion"
+              value={formData.direccion}
+              onChange={handleInputChange}
+              disabled={!isEditing}
+            />
+          </div>
+          <div className="mb-3">
+            <label className="form-label">Teléfono</label>
+            <input
+              type="text"
+              className="form-control"
+              name="telefono"
+              value={formData.telefono}
+              onChange={handleInputChange}
+              disabled={!isEditing}
+            />
+          </div>
+
+          <div className="d-flex justify-content-between">
+            {isEditing ? (
+              <>
+                <button className="btn btn-success" onClick={handleSaveChanges}>Guardar Cambios</button>
+                <button className="btn btn-secondary" onClick={() => setIsEditing(false)}>Cancelar</button>
+              </>
+            ) : (
+              <button className="btn btn-warning" onClick={handleEditClick}>Editar Perfil</button>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );
