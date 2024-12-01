@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from 'react';
 import { ProductosContext } from '../../context/ProductoProvider';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import './styleCarro.css';
 import axios from 'axios';
 import { ENDPOINT } from '../../config/apiconfig'; 
 
@@ -119,46 +118,50 @@ const Carro = () => {
   };
 
   return (
-    <div className="product-content">
-      <h2>Productos en el Carrito</h2>
+    <div className="container mt-4">
+      <h2 className="mb-4">Productos en el Carrito</h2>
       {loading ? (
-        <p>Cargando...</p>
+        <div className="text-center">Cargando...</div>
       ) : carrito.length === 0 ? (
-        <p className="empty-product-message">Tu carrito está vacío.</p>
+        <div className="alert alert-warning text-center">Tu carrito está vacío.</div>
       ) : (
-        <ul className="product-list">
+        <ul className="list-group">
           {carrito.map((producto) => (
-            <li key={producto.producto_id} className="product-item">
-              <div className="product-item-details">
+            <li key={producto.producto_id} className="list-group-item d-flex justify-content-between align-items-center">
+              <div className="d-flex align-items-center">
                 <img
                   src={producto.img || 'default-image.jpg'}
                   alt={producto.nombre}
-                  className="product-item-image"
+                  className="img-thumbnail"
+                  style={{ width: '50px', height: '50px' }}
                 />
-                <span className="product-item-name">{producto.name}</span>
-                <span className="product-item-price">${producto.price}</span>
-                <span className="product-item-quantity">Cantidad: {producto.cantidad}</span>
-                <button
-                  className="remove-btn"
-                  onClick={() => eliminarProductoDelCarrito(producto.producto_id)}
-                >
-                  Eliminar
-                </button>
+                <div className="ms-3">
+                  <span className="fw-bold">{producto.name}</span><br />
+                  <span>Precio: ${producto.price}</span><br />
+                  <span>Cantidad: {producto.cantidad}</span>
+                </div>
               </div>
+              <button
+                className="btn btn-danger"
+                onClick={() => eliminarProductoDelCarrito(producto.producto_id)}
+              >
+                Eliminar
+              </button>
             </li>
           ))}
         </ul>
       )}
 
-      <div className="cart-total">
+      <div className="mt-4">
         <h3>Total: ${calcularTotalCarrito().toFixed(2)}</h3>
       </div>
 
-      <div className="payment-method">
+      <div className="mt-3">
         <h4>Selecciona tu método de pago</h4>
         <select
           value={metodoPago}
           onChange={(e) => setMetodoPago(e.target.value)}
+          className="form-select"
         >
           <option value="">Seleccione</option>
           <option value="Tarjeta de Crédito">Tarjeta de Crédito</option>
@@ -167,13 +170,15 @@ const Carro = () => {
         </select>
       </div>
 
-      <button
-        onClick={handleRealizarPedido}
-        disabled={!metodoPago || carrito.length === 0}
-        className="btn btn-primary"
-      >
-        Realizar Pedido
-      </button>
+      <div className="mt-4">
+        <button
+          onClick={handleRealizarPedido}
+          disabled={!metodoPago || carrito.length === 0}
+          className="btn btn-primary w-100"
+        >
+          Realizar Pedido
+        </button>
+      </div>
 
       <ToastContainer />
     </div>
