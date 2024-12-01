@@ -65,10 +65,10 @@ const Navbar = () => {
                 <span>&#128100;</span>
               </button>
               <button onClick={() => navegar("/productos")} className="btn btn-light d-flex align-items-center">
-                <span>&#128187;</span>
+                <span>&#128722;</span>
               </button>
               <button onClick={() => navegar("/historial")} className="btn btn-light d-flex align-items-center">
-                <span>&#128187;</span>
+                <span>&#9200;</span>
               </button>
             </div>
           </div>
