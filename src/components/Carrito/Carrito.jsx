@@ -43,14 +43,13 @@ const Carro = () => {
     }
   };
 
-  const eliminarProductoDelCarrito = async (productoId) => {
+  const eliminarProductoDelCarrito = async () => {
     const token = localStorage.getItem('token');
-    
-    if (!token) {
-      toast.error('Token no encontrado');
+    const userId = localStorage.getItem('userId'); 
+    if (!token || !userId) {
+      toast.error('Token o ID de usuario no encontrado');
       return;
     }
-  
     try {
       const url = ENDPOINT.eliminarProductoCarrito(); 
       await axios.delete(url, {
@@ -58,13 +57,13 @@ const Carro = () => {
           Authorization: `Bearer ${token}`,
         },
         data: {
-          carritoId: productoId, 
+          userId: userId,  
         },
       });
-      setCarrito(carrito.filter((item) => item.producto_id !== productoId));
-      toast.success('Producto eliminado');
+      setCarrito([]);
+      toast.success('Productos eliminados del carrito');
     } catch (error) {
-      toast.error('Error al eliminar el producto');
+      toast.error('Error al eliminar los productos del carrito');
     }
   };
 

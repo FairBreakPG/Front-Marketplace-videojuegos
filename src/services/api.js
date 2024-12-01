@@ -173,24 +173,24 @@ export const actualizarUsuario = async (id, datos) => {
   }
 };
 
-export const eliminarProductoDelCarrito = async (carritoId) => {
+export const eliminarProductoDelCarrito = async () => {
   const token = localStorage.getItem('token');
-  
-  if (!token) {
-    throw new Error('No se encontró el token de autenticación');
-  }
-  
+  const userId = localStorage.getItem('userId');
+
   try {
-    const response = await axios.delete(ENDPOINT.eliminarProductoCarrito(carritoId), {
+    const url = ENDPOINT.eliminarProductoCarrito(); 
+
+    const response = await axios.delete(url, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
+      data: { userId },
     });
-    
-    return response.data;
+
+    return response.data;  
   } catch (error) {
     console.error('Error al eliminar el producto del carrito:', error);
-    throw new Error(error.response?.data?.message || 'Error al eliminar el producto del carrito');
+    throw new Error('Error al eliminar el producto del carrito');  
   }
 };
 
