@@ -6,7 +6,7 @@ export const ENDPOINT = {
   usuarios: `${URLBASE}/usuarios`,
   productos: `${URLBASE}/productos`, 
   crearProducto: `${URLBASE}/productos`, 
-  obtenercarro: `${URLBASE}/obtenercarroporusuario`,  
+  obtenercarro: (userId) => `${URLBASE}/obtenercarroporusuario/${userId}`,
   pedidos: `${URLBASE}/pedidos`,
   carro: `${URLBASE}/carro`,
   obtenerPerfilUsuario: (id) => `${URLBASE}/perfilusuario/${id}`, 

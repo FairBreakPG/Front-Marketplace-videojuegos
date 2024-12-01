@@ -52,22 +52,28 @@ export const login = async ({ email, contrasena }) => {
   }
 };
 
-export const obtenercarro = async () => {
-  const token = localStorage.getItem('token');
-  if (!token) {
-    throw new Error('No se encontró el token de autenticación');
-  }
-
+export const obtenerCarrito = async () => {
+  setLoading(true);
   try {
-    const response = await axios.get(ENDPOINT.obtenercarro, { 
+    const token = localStorage.getItem('token');
+    const userId = localStorage.getItem('userId');  // Asegúrate de tener el userId en localStorage
+
+    if (!token || !userId) {
+      throw new Error('Token o userId no encontrado');
+    }
+
+    const response = await axios.get(`${ENDPOINT.obtenercarro}/${userId}`, { 
       headers: {
-        Authorization: `Bearer ${token}`, 
+        Authorization: `Bearer ${token}`,
       },
     });
-    return response.data;  
+
+    setCarrito(response.data.items || []);
   } catch (error) {
     console.error('Error al obtener el carrito:', error);
-    throw error;
+    toast.error('Error al obtener el carrito');
+  } finally {
+    setLoading(false);
   }
 };
 
