@@ -10,11 +10,14 @@ export const ENDPOINT = {
   obtenercarro: () => `${URLBASE}/obtenercarro`, 
   pedidos: `${URLBASE}/pedidos`,
   carro: `${URLBASE}/carro`,
-  obtenerPerfilUsuario: (id) => `${URLBASE}/perfilusuario/${id}`, 
-  actualizarPerfilUsuario: (id) => `${URLBASE}/perfilusuario/${id}`,
-  obtenerPedidosUsuario: (usuarioId) => `${URLBASE}/pedidos/usuario/${usuarioId}`,  
+  //obtenerPerfilUsuario: (id) => `${URLBASE}/perfilusuario/${id}`, 
+  obtenerPerfilUsuario: () => `${URLBASE}/perfilusuario`,
+  //actualizarUsuario: (id) => `${URLBASE}/actualizar-perfil/${id}`,
+  actualizarUsuario: () => `${URLBASE}/actualizar-perfil`, 
+  //obtenerPedidosUsuario: (usuarioId) => `${URLBASE}/pedidos/usuario/${usuarioId}`,  
+  obtenerPedidosUsuario: () => `${URLBASE}/pedidos/usuario`,
   obtenerPedidosGenerales: `${URLBASE}/pedidosgenerales`,
-  eliminarProductoCarrito: (userId, productoId) => `${URLBASE}/eliminarProductoCarrito/${userId}/${productoId}`,
+  eliminarProductoCarrito: (productoId) => `${URLBASE}/eliminarProductoCarrito/${productoId}`,
 };
 
 

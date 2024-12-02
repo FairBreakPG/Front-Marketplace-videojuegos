@@ -245,7 +245,7 @@ export const guardarPedido = async (metodo_pago, carrito) => {
   }
 };
 
-
+/*
 export const obtenerPerfilUsuario = async (id) => {
   const token = localStorage.getItem('token'); 
   if (!token) {
@@ -263,7 +263,25 @@ export const obtenerPerfilUsuario = async (id) => {
     throw error;  
   }
 };
-
+*/
+export const obtenerPerfilUsuario = async (id) => {
+  const token = localStorage.getItem('token'); 
+  if (!token) {
+    throw new Error('No se encontró el token de autenticación');
+  }
+  try {
+    const response = await axios.get(ENDPOINT.obtenerPerfilUsuario(id), {  
+      headers: {
+        Authorization: `Bearer ${token}`, 
+      },
+    });
+    return response.data; 
+  } catch (error) {
+    console.error('Error al obtener el perfil del usuario:', error);
+    throw error;  
+  }
+}
+/*
 export const actualizarUsuario = async (id, datos) => {
   try {
     const response = await axios.put(`/perfilusuario/${id}`, datos, {
@@ -279,18 +297,38 @@ export const actualizarUsuario = async (id, datos) => {
     throw error;
   }
 };
+*/
+export const actualizarUsuario = async (datos) => {
+  const token = localStorage.getItem('token');
+  if (!token) {
+    throw new Error('Token no encontrado');
+  }
+  
+  try {
+    const response = await axios.put('/actualizar-perfil', datos, {
+      headers: {
+        Authorization: `Bearer ${token}`,  
+      },
+    });
+
+    console.log('Usuario actualizado:', response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Error al actualizar el usuario:', error);
+    throw error;
+  }
+};
 
 export const eliminarProductoDelCarrito = async (productoId) => {
   const token = localStorage.getItem('token');
-  const userId = localStorage.getItem('userId');
 
-  if (!token || !userId) {
-    toast.error('Token o ID de usuario no encontrados');
+  if (!token) {
+    toast.error('Token no encontrado');
     return;
   }
 
   try {
-    const url = ENDPOINT.eliminarProductoCarrito(userId, productoId); 
+    const url = ENDPOINT.eliminarProductoCarrito(productoId); 
 
     const response = await axios.delete(url, {
       headers: {
@@ -307,7 +345,7 @@ export const eliminarProductoDelCarrito = async (productoId) => {
   }
 };
 
-
+/*
 export const getPedidosUsuario = async (usuarioId) => {
   try {
     const response = await axios.get(ENDPOINT.obtenerPedidosUsuario(usuarioId));
@@ -317,6 +355,27 @@ export const getPedidosUsuario = async (usuarioId) => {
     throw error; 
   }
 };
+*/
+export const getPedidosUsuario = async () => {
+  const token = localStorage.getItem('token');
+
+  if (!token) {
+    throw new Error('Token no encontrado');
+  }
+
+  try {
+    const response = await axios.get(ENDPOINT.obtenerPedidosUsuario(), {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error al obtener los pedidos del usuario:', error);
+    throw error;
+  }
+};
+
 
 export const getPedidosGenerales = async () => {
   try {

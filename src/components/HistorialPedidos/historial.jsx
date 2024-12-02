@@ -6,20 +6,20 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 const HistorialPedidos = () => {
   const [pedidos, setPedidos] = useState([]);
   const [error, setError] = useState(null);
-  
-  const usuarioId = localStorage.getItem('userId');  
 
   useEffect(() => {
     const fetchHistorialPedidos = async () => {
-      if (!usuarioId) {
-        setError('No se encontró el usuario.');
+      const token = localStorage.getItem('token');
+      
+      if (!token) {
+        setError('No se encontró el token de autenticación.');
         return;
       }
 
       try {
-        const response = await axios.get(ENDPOINT.obtenerPedidosUsuario(usuarioId), {
+        const response = await axios.get(ENDPOINT.obtenerPedidosUsuario(), {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,  
+            Authorization: `Bearer ${token}`,
           },
         });
         setPedidos(response.data);  
@@ -30,7 +30,7 @@ const HistorialPedidos = () => {
     };
 
     fetchHistorialPedidos();
-  }, [usuarioId]);
+  }, []); 
 
   if (error) return <div className="alert alert-danger">{error}</div>;
   if (pedidos.length === 0) return <div className="alert alert-info">No hay historial de pedidos.</div>;

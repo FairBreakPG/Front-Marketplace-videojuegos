@@ -23,10 +23,16 @@ const PerfilUsuario = () => {
 
   useEffect(() => {
     const fetchUserData = async () => {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        console.error("Token no encontrado");
+        return;
+      }
+      
       try {
-        const response = await axios.get(ENDPOINT.obtenerPerfilUsuario(userId), {
+        const response = await axios.get(ENDPOINT.obtenerPerfilUsuario(), {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,  
+            Authorization: `Bearer ${token}`,  
           },
         });
         const data = response.data;
@@ -42,9 +48,10 @@ const PerfilUsuario = () => {
         console.error('Error al obtener los datos del usuario:', error);
       }
     };
-
+  
     fetchUserData();
-  }, [userId]);
+  }, []);
+  
 
   const handleInputChange = (e) => {
     setFormData({
@@ -59,12 +66,12 @@ const PerfilUsuario = () => {
 
   const handleSaveChanges = async () => {
     try {
-      const response = await axios.put(ENDPOINT.actualizarPerfilUsuario(userId), formData, {
+      const response = await axios.put(ENDPOINT.actualizarPerfilUsuario(), formData, {  
         headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          Authorization: `Bearer ${localStorage.getItem('token')}`,  
         },
       });
-
+  
       console.log('Usuario actualizado:', response.data);
       setUsuario(response.data);  
       setIsEditing(false);  
@@ -72,7 +79,6 @@ const PerfilUsuario = () => {
       console.error('Error al guardar los cambios:', error);
     }
   };
-
   if (!usuario) return <div>Cargando...</div>; 
 
   return (

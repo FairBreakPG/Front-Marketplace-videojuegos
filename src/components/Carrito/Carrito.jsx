@@ -46,40 +46,38 @@ const Carro = () => {
 
   const eliminarProductoDelCarrito = async (productoId) => {
     const token = localStorage.getItem('token');
-    const userId = localStorage.getItem('userId'); 
-    console.log('Token:', token); 
-    console.log('UserId:', userId); 
-    console.log('ProductoId:', productoId); 
-
-    if (!token || !userId || !productoId) {
-      toast.error('Token, ID de usuario o ID de producto no encontrados');
+    console.log('Token:', token);
+    console.log('ProductoId:', productoId);
+  
+    if (!token || !productoId) {
+      toast.error('Token o ID de producto no encontrados');
       return;
     }
-
+  
     try {
       const productoAEliminar = productos.find((producto) => producto.id === productoId);
-
+  
       if (!productoAEliminar) {
         toast.error('Producto no encontrado en el contexto');
         return;
       }
-
-      const url = ENDPOINT.eliminarProductoCarrito(userId, productoId);
+  
+      const url = ENDPOINT.eliminarProductoCarrito(productoId); 
       const response = await axios.delete(url, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-
-
+  
       setCarrito((prevCarrito) => prevCarrito.filter((producto) => producto.producto_id !== productoId));
-
+  
       toast.success('Producto eliminado del carrito');
     } catch (error) {
       toast.error('Error al eliminar el producto del carrito');
       console.error('Error al eliminar el producto del carrito:', error);
     }
   };
+  
 
   const calcularTotalCarrito = () => {
     return carrito.reduce((total, producto) => {
