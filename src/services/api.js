@@ -52,8 +52,9 @@ export const login = async ({ email, contrasena }) => {
   }
 };
 
+/*
 export const obtenerCarrito = async () => {
-  setLoading(true);
+  
   try {
     const token = localStorage.getItem('token');
     const userId = localStorage.getItem('userId');  
@@ -78,31 +79,34 @@ export const obtenerCarrito = async () => {
     setLoading(false);
   }
 };
-
-/*
-export const agregarAlCarro = async (productoId, cantidad) => {
+*/
+export const obtenerCarrito = async () => {
   try {
-    const token = localStorage.getItem('token'); 
-    if (!token) {
-      throw new Error('Token no encontrado. El usuario no está autenticado.');
-    }
-    console.log('Enviando solicitud al backend', { productoId, cantidad, token });
-    const response = await axios.post(ENDPOINT.carro, 
-      { productoId, cantidad }, 
-      {
-        headers: {
-          'Authorization': `Bearer ${token}`  
-        }
-      });
+    const token = localStorage.getItem('token');
 
-    console.log('Respuesta del backend:', response.data);
-    return response.data;
+    if (!token) {
+      throw new Error('Token no encontrado');
+    }
+    console.log('Obteniendo carrito...');
+
+    
+    const url = `${ENDPOINT.obtenercarro}`; 
+    const response = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    console.log('Respuesta del carrito:', response.data);
+    setCarrito(response.data.items || []);
   } catch (error) {
-    console.error('Error en la solicitud al backend:', error);
-    throw new Error(error.response?.data?.message || "Error al agregar producto al carrito");
+    console.error('Error al obtener el carrito:', error);
+    toast.error('Error al obtener el carrito');
+  } finally {
+    setLoading(false);
   }
 };
-*/
+
 export const agregarAlCarro = async (productoId, cantidad) => {
   try {
     const token = localStorage.getItem('token'); 
@@ -135,7 +139,7 @@ export const agregarAlCarro = async (productoId, cantidad) => {
 };
 
 
-
+/*
 export const guardarPedido = async (usuario_id, total, metodo_pago, carrito) => {
   const token = localStorage.getItem('token');
   if (!token) {
@@ -170,6 +174,48 @@ export const guardarPedido = async (usuario_id, total, metodo_pago, carrito) => 
     throw error;
   }
 };
+*/
+
+
+//pruebas solo enviando el token donde  el back asignarar el user id y no enviarlo desde el front
+//esto evitara el id user el la url
+export const guardarPedido = async (metodo_pago, carrito) => {
+  const token = localStorage.getItem('token');
+  if (!token) {
+    throw new Error('No se encontró el token de autenticación');
+  }
+
+  const usuarioId = localStorage.getItem('userId'); 
+
+  const detalles_pedido = carrito.map(producto => ({
+    producto_id: producto.id,
+    cantidad: producto.cantidad,
+    precio: producto.price,
+  }));
+
+  try {
+    const response = await axios.post(
+      `${ENDPOINT.pedidos}`,
+      {
+        //usuario_id: usuarioId, 
+        total: carrito.total,  
+        metodo_pago,
+        detalles_pedido,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error('Error al guardar el pedido:', error);
+    throw error;
+  }
+};
+
 
 export const obtenerPerfilUsuario = async (id) => {
   const token = localStorage.getItem('token'); 

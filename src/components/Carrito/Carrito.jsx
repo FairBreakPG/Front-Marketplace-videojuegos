@@ -27,7 +27,8 @@ const Carro = () => {
     }
 
     try {
-      const url = ENDPOINT.obtenercarro(userId);  
+      //const url = ENDPOINT.obtenercarro(userId);  
+      const url = ENDPOINT.obtenercarro();
       const response = await axios.get(url, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -70,7 +71,7 @@ const Carro = () => {
         },
       });
 
-      // Filtramos el carrito para eliminar el producto
+
       setCarrito((prevCarrito) => prevCarrito.filter((producto) => producto.producto_id !== productoId));
 
       toast.success('Producto eliminado del carrito');
@@ -88,14 +89,9 @@ const Carro = () => {
     }, 0);
   };
 
-  const handleRealizarPedido = async () => {
+  const realizarPedido = async () => {
     const token = localStorage.getItem('token');
     const userId = localStorage.getItem('userId');
-
-    if (!userId || !metodoPago || carrito.length === 0) {
-      toast.error('Por favor, complete todos los campos.');
-      return;
-    }
 
     try {
       const detalles_pedido = carrito.map((producto) => ({
@@ -187,7 +183,7 @@ const Carro = () => {
 
       <div className="mt-4">
         <button
-          onClick={handleRealizarPedido}
+          onClick={realizarPedido}
           disabled={!metodoPago || carrito.length === 0}
           className="btn btn-primary w-100"
         >
