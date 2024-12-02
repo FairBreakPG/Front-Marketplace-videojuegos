@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react'; 
-import axios from 'axios';  
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { ENDPOINT } from '../../../config/apiconfig';
-import 'bootstrap/dist/css/bootstrap.min.css';  
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const PerfilUsuario = () => {
   const [usuario, setUsuario] = useState(null);
@@ -14,25 +14,19 @@ const PerfilUsuario = () => {
     telefono: '',
   });
 
-  const userId = localStorage.getItem('userId'); 
+  const token = localStorage.getItem('token');
 
-  if (!userId || isNaN(userId)) {
-    console.error('ID de usuario no válido');
-    return <div>Error: No se encontró el ID del usuario.</div>;
+  if (!token) {
+    console.error("Token no encontrado");
+    return <div>Error: No se encontró el token de autenticación.</div>;
   }
 
   useEffect(() => {
     const fetchUserData = async () => {
-      const token = localStorage.getItem('token');
-      if (!token) {
-        console.error("Token no encontrado");
-        return;
-      }
-      
       try {
         const response = await axios.get(ENDPOINT.obtenerPerfilUsuario(), {
           headers: {
-            Authorization: `Bearer ${token}`,  
+            Authorization: `Bearer ${token}`,
           },
         });
         const data = response.data;
@@ -48,10 +42,9 @@ const PerfilUsuario = () => {
         console.error('Error al obtener los datos del usuario:', error);
       }
     };
-  
+
     fetchUserData();
-  }, []);
-  
+  }, [token]);
 
   const handleInputChange = (e) => {
     setFormData({
@@ -61,32 +54,33 @@ const PerfilUsuario = () => {
   };
 
   const handleEditClick = () => {
-    setIsEditing(true);  
+    setIsEditing(true);
   };
 
   const handleSaveChanges = async () => {
     try {
-      const response = await axios.put(ENDPOINT.actualizarPerfilUsuario(), formData, {  
+      const response = await axios.put(ENDPOINT.actualizarPerfilUsuario(), formData, {
         headers: {
-          Authorization: `Bearer ${token}`,  
+          Authorization: `Bearer ${token}`,
         },
       });
-  
+
       console.log('Usuario actualizado:', response.data);
-      setUsuario(response.data);  
-      setIsEditing(false);  
+      setUsuario(response.data);
+      setIsEditing(false);
     } catch (error) {
       console.error('Error al guardar los cambios:', error);
     }
   };
-  if (!usuario) return <div>Cargando...</div>; 
+
+  if (!usuario) return <div>Cargando...</div>;
 
   return (
     <div className="container mt-4">
       <div className="card">
         <div className="card-body">
           <h2 className="card-title text-center">Perfil de Usuario</h2>
-          
+
           <div className="mb-3">
             <label className="form-label">Nombre</label>
             <input
