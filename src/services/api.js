@@ -264,13 +264,13 @@ export const obtenerPerfilUsuario = async (id) => {
   }
 };
 */
-export const obtenerPerfilUsuario = async (id) => {
+export const obtenerPerfilUsuario = async () => {
   const token = localStorage.getItem('token'); 
   if (!token) {
     throw new Error('No se encontró el token de autenticación');
   }
   try {
-    const response = await axios.get(ENDPOINT.obtenerPerfilUsuario(id), {  
+    const response = await axios.get(ENDPOINT.obtenerPerfilUsuario(), {  
       headers: {
         Authorization: `Bearer ${token}`, 
       },

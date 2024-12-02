@@ -55,7 +55,7 @@ const Carro = () => {
     }
   
     try {
-      const productoAEliminar = productos.find((producto) => producto.id === productoId);
+      const productoAEliminar = carrito.find((producto) => producto.producto_id === productoId);
   
       if (!productoAEliminar) {
         toast.error('Producto no encontrado en el contexto');
@@ -152,7 +152,7 @@ const Carro = () => {
               </div>
               <button
                 className="btn btn-danger"
-                onClick={() => eliminarProductoDelCarrito(producto.producto_id)} 
+                onClick={() => eliminarProductoDelCarrito(producto.id)} 
                 >
                 Eliminar
               </button>
