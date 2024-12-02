@@ -7,7 +7,7 @@ import { agregarAlCarro } from '../services/api';
 
 const MultiItemCarousel = () => {
   const { productos } = useContext(ProductosContext); 
-
+/*
   const handleAddToCart = async (producto) => {
     const userId = localStorage.getItem('userId');
     if (!userId) {
@@ -16,6 +16,20 @@ const MultiItemCarousel = () => {
     }
     try {
       await agregarAlCarro(producto.id, 1); 
+      toast.success(`${producto.nombre} agregado al carrito`);
+    } catch (error) {
+      toast.error('Error al agregar producto al carrito');
+    }
+  };
+  */
+  const handleAddToCart = async (producto) => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      toast.error("No se encontró el token de autenticación");
+      return;
+    }
+    try {
+      await agregarAlCarro(producto.id, 1);
       toast.success(`${producto.nombre} agregado al carrito`);
     } catch (error) {
       toast.error('Error al agregar producto al carrito');

@@ -106,7 +106,7 @@ const Carro = () => {
       const response = await axios.post(
         url,
         {
-          usuario_id: userId,
+          //usuario_id: userId,
           total: totalCarrito,
           metodo_pago: metodoPago,
           detalles_pedido,
