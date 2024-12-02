@@ -334,6 +334,7 @@ export const eliminarProductoDelCarrito = async (productoId) => {
       headers: {
         Authorization: `Bearer ${token}`,
       },
+      data: { productoId }
     });
 
     toast.success('Producto eliminado del carrito');
