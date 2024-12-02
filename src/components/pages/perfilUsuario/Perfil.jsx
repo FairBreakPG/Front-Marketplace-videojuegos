@@ -68,7 +68,7 @@ const PerfilUsuario = () => {
     try {
       const response = await axios.put(ENDPOINT.actualizarPerfilUsuario(), formData, {  
         headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,  
+          Authorization: `Bearer ${token}`,  
         },
       });
   
