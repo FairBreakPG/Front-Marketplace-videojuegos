@@ -67,6 +67,7 @@ const Carro = () => {
       const response = await axios.delete(url, {
         headers: {
           Authorization: `Bearer ${token}`,
+          data: { productoId }
         },
       });
   
