@@ -59,7 +59,7 @@ const PerfilUsuario = () => {
 
   const handleSaveChanges = async () => {
     try {
-      const response = await axios.put(ENDPOINT.actualizarPerfilUsuario(), formData, {
+      const response = await axios.put(ENDPOINT.actualizarUsuario(), formData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

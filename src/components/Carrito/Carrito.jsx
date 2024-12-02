@@ -48,6 +48,8 @@ const Carro = () => {
     const token = localStorage.getItem('token');
     console.log('Token:', token);
     console.log('ProductoId:', productoId);
+
+
   
     if (!token || !productoId) {
       toast.error('Token o ID de producto no encontrados');
@@ -55,8 +57,7 @@ const Carro = () => {
     }
   
     try {
-      const productoAEliminar = carrito.find((producto) => producto.producto_id === productoId);
-  
+      const productoAEliminar = carrito.find((producto) => producto.id === productoId);
       if (!productoAEliminar) {
         toast.error('Producto no encontrado en el contexto');
         return;
@@ -69,7 +70,7 @@ const Carro = () => {
         },
       });
   
-      setCarrito((prevCarrito) => prevCarrito.filter((producto) => producto.producto_id !== productoId));
+      setCarrito((prevCarrito) => prevCarrito.filter((producto) => producto.id !== productoId));
   
       toast.success('Producto eliminado del carrito');
     } catch (error) {
