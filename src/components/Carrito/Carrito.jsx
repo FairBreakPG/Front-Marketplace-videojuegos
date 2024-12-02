@@ -67,8 +67,8 @@ const Carro = () => {
       const response = await axios.delete(url, {
         headers: {
           Authorization: `Bearer ${token}`,
-         
         },
+        data: { productoId }
       });
   
       setCarrito((prevCarrito) => prevCarrito.filter((producto) => producto.id !== productoId));
