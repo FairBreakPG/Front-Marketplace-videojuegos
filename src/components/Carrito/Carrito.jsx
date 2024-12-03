@@ -34,9 +34,8 @@ const Carro = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-
+      console.log('Respuesta del carrito:', response.data); 
       setCarrito(response.data.items || []);
-      console.log("Respuesta del carrito:", response.data);
     } catch (error) {
       toast.error('Error al obtener el carrito');
     } finally {
@@ -46,9 +45,7 @@ const Carro = () => {
 
   const eliminarProductoDelCarrito = async (productoId) => {
     const token = localStorage.getItem('token');
-    console.log('Token:', token);
-    console.log('ProductoId:', productoId);
-
+    console.log('ProductoId a eliminar:', productoId);
 
   
     if (!token || !productoId) {
@@ -58,6 +55,7 @@ const Carro = () => {
   
     try {
       const productoAEliminar = carrito.find((producto) => producto.id === productoId);
+      console.log('Producto a eliminar encontrado en el carrito:', productoAEliminar);
       if (!productoAEliminar) {
         toast.error('Producto no encontrado en el contexto');
         return;
@@ -129,6 +127,7 @@ const Carro = () => {
   };
 
   return (
+    
     <div className="container mt-4">
       <h2 className="mb-4">Productos en el Carrito</h2>
       {loading ? (

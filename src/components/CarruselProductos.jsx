@@ -28,6 +28,7 @@ const MultiItemCarousel = () => {
       toast.error("No se encontró el token de autenticación");
       return;
     }
+    console.log('ID del producto:', producto.id)
     try {
       await agregarAlCarro(producto.id, 1);
       toast.success(`${producto.nombre} agregado al carrito`);
