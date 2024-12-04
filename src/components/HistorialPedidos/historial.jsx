@@ -47,8 +47,6 @@ const HistorialPedidos = () => {
               <th>Total</th>
               <th>Estado</th>
               <th>Met. Pago</th>
-              <th>Estado Historial</th>
-              <th>Fecha Cambio</th>
             </tr>
           </thead>
           <tbody>

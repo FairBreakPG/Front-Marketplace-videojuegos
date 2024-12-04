@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
-import { Carousel, Row, Col, Container, Card, Button } from 'react-bootstrap';
+import React, { useState, useContext } from 'react';
+import { Carousel, Row, Col, Container, Card, Button, Modal } from 'react-bootstrap';
 import { ProductosContext } from '../context/ProductoProvider';
 import { ToastContainer, toast } from 'react-toastify'; 
 import 'react-toastify/dist/ReactToastify.css';
@@ -7,6 +7,9 @@ import { agregarAlCarro } from '../services/api';
 
 const MultiItemCarousel = () => {
   const { productos } = useContext(ProductosContext); 
+
+  const [showModal, setShowModal] = useState(false);
+  const [productoSeleccionado, setProductoSeleccionado] = useState(null);
 
   const agregarAlCarrito = async (producto) => {
     const token = localStorage.getItem('token');
@@ -21,6 +24,11 @@ const MultiItemCarousel = () => {
     } catch (error) {
       toast.error('Error al agregar producto al carrito');
     }
+  };
+
+  const verDescripcion = (producto) => {
+    setProductoSeleccionado(producto);
+    setShowModal(true);
   };
 
   const renderizarProductos = [];
@@ -54,6 +62,13 @@ const MultiItemCarousel = () => {
                       >
                         Agregar al carro
                       </Button>
+                      <Button
+                        variant="info"
+                        onClick={() => verDescripcion(producto)}
+                        className="ml-2"
+                      >
+                        Ver más
+                      </Button>
                     </Card.Body>
                   </Card>
                 </Col>
@@ -62,6 +77,23 @@ const MultiItemCarousel = () => {
           </Carousel.Item>
         ))}
       </Carousel>
+
+
+      <Modal show={showModal} onHide={() => setShowModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>{productoSeleccionado?.nombre}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p><strong>Categoría:</strong> {productoSeleccionado?.categoria}</p>
+          <p><strong>Descripción:</strong> {productoSeleccionado?.descripcion}</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowModal(false)}>
+            Cerrar
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
       <ToastContainer />
     </Container>
   );

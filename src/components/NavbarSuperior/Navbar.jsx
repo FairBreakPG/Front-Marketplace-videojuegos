@@ -60,7 +60,7 @@ const Navbar = () => {
                 </span>
               </button>
               <button onClick={() => navegar("/perfil")} className="btn btn-light d-flex align-items-center me-3">
-                <span>&#&#9881;</span>
+                <span>&#9881;</span>
               </button>
               <button onClick={() => navegar("/productos")} className="btn btn-light d-flex align-items-center me-3"> 
                 <span>&#10133;</span>
