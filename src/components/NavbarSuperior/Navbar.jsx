@@ -4,20 +4,20 @@ import { ProductosContext } from "../../context/ProductoProvider";
 
 const Navbar = () => {
   const navegar = useNavigate(); 
-  const { filterByCategory } = useContext(ProductosContext);  
+  const { filtradoCategorias } = useContext(ProductosContext);  
 
   const loginClick = () => navegar("/login");
   const registroClick = () => navegar("/registrar-usuario");
 
   const handleCategoriaClick = (categoria) => {
-    filterByCategory(categoria); 
+    filtradoCategorias(categoria); 
     navegar("/");  
   };
 
   return (
     <div>
       <div className="d-flex justify-content-between align-items-center py-2 bg-dark text-white">
-        {/* Redes sociales */}
+      
         <div className="d-flex gap-3 ms-3">
           <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-white">
             <i className="fab fa-facebook-f"></i>
@@ -60,13 +60,13 @@ const Navbar = () => {
                 </span>
               </button>
               <button onClick={() => navegar("/perfil")} className="btn btn-light d-flex align-items-center me-3">
-                <span>&#128100;</span>
+                <span>&#&#9881;</span>
               </button>
-              <button onClick={() => navegar("/productos")} className="btn btn-light d-flex align-items-center me-3"> {/* Añadí el me-3 */}
-                <span>&#128722;</span>
+              <button onClick={() => navegar("/productos")} className="btn btn-light d-flex align-items-center me-3"> 
+                <span>&#10133;</span>
               </button>
               <button onClick={() => navegar("/historial")} className="btn btn-light d-flex align-items-center">
-                <span>&#9200;</span>
+                <span>&#128203;</span>
               </button>
             </div>
           </div>

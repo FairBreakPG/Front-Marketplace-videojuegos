@@ -7,22 +7,8 @@ import { agregarAlCarro } from '../services/api';
 
 const MultiItemCarousel = () => {
   const { productos } = useContext(ProductosContext); 
-/*
-  const handleAddToCart = async (producto) => {
-    const userId = localStorage.getItem('userId');
-    if (!userId) {
-      toast.error("No se encontró el ID de usuario");
-      return;
-    }
-    try {
-      await agregarAlCarro(producto.id, 1); 
-      toast.success(`${producto.nombre} agregado al carrito`);
-    } catch (error) {
-      toast.error('Error al agregar producto al carrito');
-    }
-  };
-  */
-  const handleAddToCart = async (producto) => {
+
+  const agregarAlCarrito = async (producto) => {
     const token = localStorage.getItem('token');
     if (!token) {
       toast.error("No se encontró el token de autenticación");
@@ -37,15 +23,15 @@ const MultiItemCarousel = () => {
     }
   };
 
-  const chunkedProductos = [];
+  const renderizarProductos = [];
   for (let i = 0; i < productos.length; i += 3) {
-    chunkedProductos.push(productos.slice(i, i + 3));
+    renderizarProductos.push(productos.slice(i, i + 3));
   }
 
   return (
     <Container>
       <Carousel interval={3000}>
-        {chunkedProductos.map((grupo, index) => (
+        {renderizarProductos.map((grupo, index) => (
           <Carousel.Item key={index}>
             <Row>
               {grupo.map((producto) => (
@@ -64,7 +50,7 @@ const MultiItemCarousel = () => {
                       </Card.Text>
                       <Button
                         variant="success"
-                        onClick={() => handleAddToCart(producto)}
+                        onClick={() => agregarAlCarrito(producto)}
                       >
                         Agregar al carro
                       </Button>

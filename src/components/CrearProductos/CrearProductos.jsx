@@ -8,16 +8,16 @@ const CreateProductPage = () => {
   const [imageUrl, setImageUrl] = useState('');
   const [imagePreview, setImagePreview] = useState(null);
 
-  const handleNameChange = (e) => setProductName(e.target.value);
-  const handlePriceChange = (e) => setPrice(e.target.value);
-  const handleDescriptionChange = (e) => setDescription(e.target.value);
-  const handleImageUrlChange = (e) => {
+  const nombre = (e) => setProductName(e.target.value);
+  const precio = (e) => setPrice(e.target.value);
+  const descripcion = (e) => setDescription(e.target.value);
+  const imgUrl = (e) => {
     const url = e.target.value;
     setImageUrl(url);
     setImagePreview(url); 
   };
 
-  const handleSubmit = async (e) => {
+  const envio = async (e) => {
     e.preventDefault();
     console.log('Formulario enviado:', {
       nombre: productName,
@@ -75,19 +75,19 @@ const CreateProductPage = () => {
             type="text"
             className="mt-4 form-control"
             value={imageUrl}
-            onChange={handleImageUrlChange}
+            onChange={imgUrl}
             placeholder="URL de la imagen"
           />
         </div>
         <div className="col-md-7 p-4 bg-light">
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={envio}>
             <div className="form-group mb-4">
               <label className="font-weight-bold">Nombre del producto</label>
               <input
                 type="text"
                 className="form-control"
                 value={productName}
-                onChange={handleNameChange}
+                onChange={nombre}
                 placeholder="Nombre del producto"
               />
             </div>
@@ -97,7 +97,7 @@ const CreateProductPage = () => {
                 type="number"
                 className="form-control"
                 value={price}
-                onChange={handlePriceChange}
+                onChange={precio}
                 placeholder="Precio"
               />
             </div>
@@ -106,7 +106,7 @@ const CreateProductPage = () => {
               <textarea
                 className="form-control"
                 value={description}
-                onChange={handleDescriptionChange}
+                onChange={descripcion}
                 rows="4"
                 placeholder="Descripción del producto"
               ></textarea>

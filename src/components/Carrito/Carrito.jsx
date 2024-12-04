@@ -27,7 +27,6 @@ const Carro = () => {
     }
 
     try {
-      //const url = ENDPOINT.obtenercarro(userId);  
       const url = ENDPOINT.obtenercarro();
       const response = await axios.get(url, {
         headers: {
@@ -104,7 +103,6 @@ const Carro = () => {
       const response = await axios.post(
         url,
         {
-          //usuario_id: userId,
           total: totalCarrito,
           metodo_pago: metodoPago,
           detalles_pedido,
@@ -175,8 +173,6 @@ const Carro = () => {
         >
           <option value="">Seleccione</option>
           <option value="Tarjeta de Crédito">Tarjeta de Crédito</option>
-          <option value="PayPal">PayPal</option>
-          <option value="Efectivo">Efectivo</option>
         </select>
       </div>
 

@@ -52,34 +52,6 @@ export const login = async ({ email, contrasena }) => {
   }
 };
 
-/*
-export const obtenerCarrito = async () => {
-  
-  try {
-    const token = localStorage.getItem('token');
-    const userId = localStorage.getItem('userId');  
-
-    if (!token || !userId) {
-      throw new Error('Token o userId no encontrado');
-    }
-    console.log('Obteniendo carrito para el usuario:', userId);
-    const url = `${ENDPOINT.obtenercarro}/${userId}`;
-    const response = await axios.get(url, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    console.log('Respuesta del carrito:', response.data);
-    setCarrito(response.data.items || []); 
-  } catch (error) {
-    console.error('Error al obtener el carrito:', error);
-    toast.error('Error al obtener el carrito');
-  } finally {
-    setLoading(false);
-  }
-};
-*/
 export const obtenerCarrito = async () => {
   try {
     const token = localStorage.getItem('token');
@@ -106,38 +78,7 @@ export const obtenerCarrito = async () => {
     setLoading(false);
   }
 };
-/*
-export const agregarAlCarro = async (productoId, cantidad) => {
-  try {
-    const token = localStorage.getItem('token'); 
-    const userId = localStorage.getItem('userId');
 
-    if (!token || !userId) {
-      throw new Error('Token o UserId no encontrado. El usuario no está autenticado.');
-    }
-
-    console.log('Enviando solicitud al backend', { productoId, cantidad, token, userId });
-
-    const response = await axios.post(ENDPOINT.carro, 
-      { 
-        productoId, 
-        cantidad, 
-        usuario_id: userId  
-      }, 
-      {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
-
-    console.log('Respuesta del backend:', response.data);
-    return response.data;
-  } catch (error) {
-    console.error('Error en la solicitud al backend:', error);
-    throw new Error(error.response?.data?.message || "Error al agregar producto al carrito");
-  }
-};
-*/
 export const agregarAlCarro = async (productoId, cantidad) => {
   try {
     const token = localStorage.getItem('token');
@@ -168,46 +109,6 @@ export const agregarAlCarro = async (productoId, cantidad) => {
 };
 
 
-/*
-export const guardarPedido = async (usuario_id, total, metodo_pago, carrito) => {
-  const token = localStorage.getItem('token');
-  if (!token) {
-    throw new Error('No se encontró el token de autenticación');
-  }
-
-  const detalles_pedido = carrito.map(producto => ({
-    producto_id: producto.id,
-    cantidad: producto.cantidad,
-    precio: producto.price,
-  }));
-
-  try {
-    const response = await axios.post(
-      `${ENDPOINT.pedidos}`, 
-      {
-        usuario_id,
-        total,
-        metodo_pago,
-        detalles_pedido,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-
-    return response.data;
-  } catch (error) {
-    console.error('Error al guardar el pedido:', error);
-    throw error;
-  }
-};
-*/
-
-
-//pruebas solo enviando el token donde  el back asignarar el user id y no enviarlo desde el front
-//esto evitara el id user el la url
 export const guardarPedido = async (metodo_pago, carrito) => {
   const token = localStorage.getItem('token');
   if (!token) {
@@ -245,25 +146,7 @@ export const guardarPedido = async (metodo_pago, carrito) => {
   }
 };
 
-/*
-export const obtenerPerfilUsuario = async (id) => {
-  const token = localStorage.getItem('token'); 
-  if (!token) {
-    throw new Error('No se encontró el token de autenticación');
-  }
-  try {
-    const response = await axios.get(ENDPOINT.obtenerPerfilUsuario(id), {  
-      headers: {
-        Authorization: `Bearer ${token}`, 
-      },
-    });
-    return response.data; 
-  } catch (error) {
-    console.error('Error al obtener el perfil del usuario:', error);
-    throw error;  
-  }
-};
-*/
+
 export const obtenerPerfilUsuario = async () => {
   const token = localStorage.getItem('token'); 
   if (!token) {
@@ -281,23 +164,7 @@ export const obtenerPerfilUsuario = async () => {
     throw error;  
   }
 }
-/*
-export const actualizarUsuario = async (id, datos) => {
-  try {
-    const response = await axios.put(`/perfilusuario/${id}`, datos, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,  
-      },
-    });
 
-    console.log('Usuario actualizado:', response.data);
-    return response.data;
-  } catch (error) {
-    console.error('Error al actualizar el usuario:', error);
-    throw error;
-  }
-};
-*/
 export const actualizarUsuario = async (datos) => {
   const token = localStorage.getItem('token');
   if (!token) {
@@ -346,17 +213,7 @@ export const eliminarProductoDelCarrito = async (productoId) => {
   }
 };
 
-/*
-export const getPedidosUsuario = async (usuarioId) => {
-  try {
-    const response = await axios.get(ENDPOINT.obtenerPedidosUsuario(usuarioId));
-    return response.data; 
-  } catch (error) {
-    console.error('Error al obtener los pedidos del usuario:', error);
-    throw error; 
-  }
-};
-*/
+
 export const getPedidosUsuario = async () => {
   const token = localStorage.getItem('token');
 

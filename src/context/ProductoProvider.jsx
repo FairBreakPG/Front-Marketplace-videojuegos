@@ -30,11 +30,11 @@ const ProductoProvider = ({ children }) => {
     }
   };
 
-  const filterByCategory = (category) => {
-    if (category === 'all') {
+  const filtradoCategorias = (categoria) => {
+    if (categoria === 'all') {
       setFilteredProductos(productos);
     } else {
-      const filtered = productos.filter((producto) => producto.categoria === category);
+      const filtered = productos.filter((producto) => producto.categoria === categoria);
       setFilteredProductos(filtered);
     }
   };
@@ -44,7 +44,7 @@ const ProductoProvider = ({ children }) => {
       productos: filteredProductos,  
       loading,
       error,
-      filterByCategory  
+      filtradoCategorias  
     }}>
       {children}
     </ProductosContext.Provider>

@@ -8,7 +8,7 @@ import styles from './RegistroUsuario.module.css';
 const RegistroUsuario = () => {
   const [mensaje, setMensaje] = useState('');
 
-  const handleRegistro = (usuario) => {
+  const envio = (usuario) => {
     console.log('Usuario registrado:', usuario);
     setMensaje('Registro exitoso');
   };
@@ -19,7 +19,7 @@ const RegistroUsuario = () => {
       <main className={styles.mainContainer}>
         <div className={styles.formContainer}>
           <h3>Registro de Usuario</h3>
-          <RegistroForm onSubmit={handleRegistro} />
+          <RegistroForm onSubmit={envio} />
           <Mensaje mensaje={mensaje} />
         </div>
       </main>

@@ -8,7 +8,7 @@ const LoginForm = ({ onSubmit }) => {
   const [contrasena, setContrasena] = useState('');
   const [error, setError] = useState(''); 
 
-  const handleSubmit = async (e) => {
+  const envio = async (e) => {
     e.preventDefault();
     setError(''); 
 
@@ -29,7 +29,7 @@ const LoginForm = ({ onSubmit }) => {
 
   return (
     <div className={styles.loginContainer}>
-      <form className={styles.loginForm} onSubmit={handleSubmit}>
+      <form className={styles.loginForm} onSubmit={envio}>
         <h2 className={styles.title}>Iniciar Sesión</h2>
 
         <div className={styles.inputGroup}>
@@ -56,7 +56,7 @@ const LoginForm = ({ onSubmit }) => {
 
         {error && <p className={styles.error}>{error}</p>}
 
-        <button type="submit" className={styles.submitButton}>Entrar</button>
+        <button type="submit" className={styles.submitButton}>Ingresar</button>
 
         <div className={styles.footer}>
           <p>No tienes cuenta? <a href="/registrar-usuario">Regístrate aquí</a></p>

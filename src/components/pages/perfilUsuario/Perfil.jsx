@@ -53,11 +53,11 @@ const PerfilUsuario = () => {
     });
   };
 
-  const handleEditClick = () => {
+  const editarClick = () => {
     setIsEditing(true);
   };
 
-  const handleSaveChanges = async () => {
+  const guardarCambios = async () => {
     try {
       const response = await axios.put(ENDPOINT.actualizarUsuario(), formData, {
         headers: {
@@ -140,11 +140,11 @@ const PerfilUsuario = () => {
           <div className="d-flex justify-content-between">
             {isEditing ? (
               <>
-                <button className="btn btn-success" onClick={handleSaveChanges}>Guardar Cambios</button>
+                <button className="btn btn-success" onClick={guardarCambios}>Guardar Cambios</button>
                 <button className="btn btn-secondary" onClick={() => setIsEditing(false)}>Cancelar</button>
               </>
             ) : (
-              <button className="btn btn-warning" onClick={handleEditClick}>Editar Perfil</button>
+              <button className="btn btn-warning" onClick={editarClick}>Editar Perfil</button>
             )}
           </div>
         </div>

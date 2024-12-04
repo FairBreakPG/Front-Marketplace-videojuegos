@@ -118,36 +118,36 @@ h6 {
 }
 
 .carousel-control-prev {
-  left: -60px; /* Ajusta según el espacio que necesites */
+  left: -60px; 
 }
 
 .carousel-control-next {
-  right: -80px; /* Ajusta según el espacio que necesites */
+  right: -80px;
 }
 
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
-  background-image: none;  /* Elimina la imagen predeterminada */
+  background-image: none; 
 }
 
 .carousel-control-prev-icon::before,
 .carousel-control-next-icon::before {
-  content: ''; /* Reemplaza el icono predeterminado */
+  content: ''; 
   display: block;
   width: 12px;
   height: 12px;
   border: solid black;
   border-width: 0 2px 2px 0;
-  transform: rotate(135deg); /* Icono personalizado */
+  transform: rotate(135deg); 
 }
 
 .carousel-control-next-icon::before {
-  transform: rotate(-45deg); /* Icono para avanzar */
+  transform: rotate(-45deg); 
 }
 
 
 
-/* BANNER PROMOCIONALES */
+
 
 .Container-promo{
   width: 100%;
@@ -178,7 +178,7 @@ h6 {
   border-radius: 25px;
 }
 
-/* Responsividad para pantallas pequeñas */
+
 @media (max-width: 768px) {
   .Container-promo {
     flex-direction: column;

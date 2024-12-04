@@ -55,12 +55,10 @@ const HistorialPedidos = () => {
             {pedidos.map((pedido) => (
               <tr key={pedido.pedido_id}>
                 <td>{pedido.pedido_id}</td>
-                <td>{new Date(pedido.fecha).toLocaleString()}</td>
+                <td>{new Date(pedido.fecha_pedido).toLocaleString()}</td>
                 <td>{pedido.total}</td>
                 <td>{pedido.estado === '1' ? 'Completado' : 'Pendiente'}</td>
                 <td>{pedido.metodo_pago}</td>
-                <td>{pedido.estado_historial}</td>
-                <td>{new Date(pedido.fecha_cambio).toLocaleString()}</td>
               </tr>
             ))}
           </tbody>
