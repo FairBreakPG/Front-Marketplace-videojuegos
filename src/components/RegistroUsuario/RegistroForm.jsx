@@ -47,8 +47,6 @@ const RegistroForm = ({ onSubmit }) => {
         rol: 'usuario',
       });
     } catch (error) {
-      console.error(error);
-      setError('Hubo un error al registrar el usuario.');
     } finally {
       setCargando(false);
     }
