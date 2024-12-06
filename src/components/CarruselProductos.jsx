@@ -59,6 +59,7 @@ const MultiItemCarousel = () => {
                       <Button
                         variant="success"
                         onClick={() => agregarAlCarrito(producto)}
+                        className="ml-2"
                       >
                         Agregar al carro
                       </Button>
