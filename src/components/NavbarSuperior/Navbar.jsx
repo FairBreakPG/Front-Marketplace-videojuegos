@@ -18,7 +18,6 @@ const Navbar = () => {
 
   const manejarCierreSesion = () => {
     logout(); 
-    navegar("/"); 
   };
   
   return (
