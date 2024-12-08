@@ -1,9 +1,11 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { ProductosContext } from "../../context/ProductoProvider";
+import { useAuth } from '../../context/AuthProvider';
 
 const Navbar = () => {
   const navegar = useNavigate(); 
+  const { usuario, logout } = useAuth();
   const { filtradoCategorias } = useContext(ProductosContext);  
 
   const loginClick = () => navegar("/login");
@@ -14,10 +16,14 @@ const Navbar = () => {
     navegar("/");  
   };
 
+  const manejarCierreSesion = () => {
+    logout(); 
+    navegar("/"); 
+  };
+  
   return (
     <div>
       <div className="d-flex justify-content-between align-items-center py-2 bg-dark text-white">
-      
         <div className="d-flex gap-3 ms-3">
           <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-white">
             <i className="fab fa-facebook-f"></i>
@@ -31,12 +37,20 @@ const Navbar = () => {
         </div>
         
         <div className="me-3">
-          <button onClick={registroClick} className="text-white me-3 btn btn-link">Registrarse</button>
-          <button onClick={loginClick} className="text-white btn btn-link">Iniciar sesión</button>
+          {!usuario ? ( 
+            <>
+              <button onClick={registroClick} className="text-white me-3 btn btn-link">Registrarse</button>
+              <button onClick={loginClick} className="text-white btn btn-link">Iniciar sesión</button>
+            </>
+          ) : ( 
+            <div className="d-flex align-items-center">
+              <span className="me-3">Hola, {usuario.nombre}!</span> 
+              <button onClick={manejarCierreSesion} className="text-white btn btn-link">Cerrar sesión</button>
+            </div>
+          )}
         </div>
       </div>
 
-  
       <div className="navbar text-white py-3 bg-secondary">
         <div className="container d-block">
           <div className="d-flex justify-content-between align-items-center">
@@ -56,8 +70,6 @@ const Navbar = () => {
               </button>
               <button onClick={() => navegar("/carrito")} className="btn btn-light d-flex align-items-center position-relative me-3">
                 <span>&#128722;</span>
-                <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                </span>
               </button>
               <button onClick={() => navegar("/perfil")} className="btn btn-light d-flex align-items-center me-3">
                 <span>&#9881;</span>

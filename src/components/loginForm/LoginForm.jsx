@@ -2,11 +2,13 @@ import { useState } from 'react';
 import styles from './LoginForm.module.css';
 import { ENDPOINT } from '../../config/apiconfig'; 
 import axios from 'axios';
+import { useAuth } from '../../context/AuthProvider';
 
 const LoginForm = ({ onSubmit }) => {
   const [email, setEmail] = useState('');
   const [contrasena, setContrasena] = useState('');
   const [error, setError] = useState(''); 
+  const { login } = useAuth();
 
   const envio = async (e) => {
     e.preventDefault();
